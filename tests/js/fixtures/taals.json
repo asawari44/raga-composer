@@ -1,0 +1,418 @@
+[
+  {
+    "beats": 16,
+    "markers": [
+      "X",
+      "2",
+      "0",
+      "3"
+    ],
+    "name": "Teentaal",
+    "theka": [
+      "Dha",
+      "Dhin",
+      "Dhin",
+      "Dha",
+      "Dha",
+      "Dhin",
+      "Dhin",
+      "Dha",
+      "Dha",
+      "Tin",
+      "Tin",
+      "Ta",
+      "Ta",
+      "Dhin",
+      "Dhin",
+      "Dha"
+    ],
+    "vibhags": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "beats": 12,
+    "markers": [
+      "X",
+      "0",
+      "2",
+      "0",
+      "3",
+      "4"
+    ],
+    "name": "Ektaal",
+    "theka": [
+      "Dhin",
+      "Dhin",
+      "DhaGe",
+      "TiRaKiTa",
+      "Tu",
+      "Na",
+      "Kat",
+      "Ta",
+      "DhaGe",
+      "TiRaKiTa",
+      "Dhi",
+      "Na"
+    ],
+    "vibhags": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  {
+    "beats": 10,
+    "markers": [
+      "X",
+      "2",
+      "0",
+      "3"
+    ],
+    "name": "Jhaptaal",
+    "theka": [
+      "Dhi",
+      "Na",
+      "Dhi",
+      "Dhi",
+      "Na",
+      "Ti",
+      "Na",
+      "Dhi",
+      "Dhi",
+      "Na"
+    ],
+    "vibhags": [
+      2,
+      3,
+      2,
+      3
+    ]
+  },
+  {
+    "beats": 7,
+    "markers": [
+      "0",
+      "1",
+      "2"
+    ],
+    "name": "Rupak",
+    "theka": [
+      "Tin",
+      "Tin",
+      "Na",
+      "Dhi",
+      "Na",
+      "Dhi",
+      "Na"
+    ],
+    "vibhags": [
+      3,
+      2,
+      2
+    ]
+  },
+  {
+    "beats": 8,
+    "markers": [
+      "X",
+      "0"
+    ],
+    "name": "Keherwa",
+    "theka": [
+      "Dha",
+      "Ge",
+      "Na",
+      "Ti",
+      "Na",
+      "Ke",
+      "Dhi",
+      "Na"
+    ],
+    "vibhags": [
+      4,
+      4
+    ]
+  },
+  {
+    "beats": 6,
+    "markers": [
+      "X",
+      "0"
+    ],
+    "name": "Dadra",
+    "theka": [
+      "Dha",
+      "Dhi",
+      "Na",
+      "Dha",
+      "Ti",
+      "Na"
+    ],
+    "vibhags": [
+      3,
+      3
+    ]
+  },
+  {
+    "beats": 12,
+    "markers": [
+      "X",
+      "0",
+      "2",
+      "0",
+      "3",
+      "4"
+    ],
+    "name": "Chautaal",
+    "theka": [
+      "Dha",
+      "Dha",
+      "Din",
+      "Ta",
+      "KiTa",
+      "Dha",
+      "Din",
+      "Ta",
+      "TiTa",
+      "KaTa",
+      "GaDi",
+      "GeNe"
+    ],
+    "vibhags": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  {
+    "beats": 14,
+    "markers": [
+      "X",
+      "2",
+      "0",
+      "3"
+    ],
+    "name": "Dhamar",
+    "theka": [
+      "Ka",
+      "Dhi",
+      "Ta",
+      "Dhi",
+      "Ta",
+      "Dha",
+      "-",
+      "Ga",
+      "Ti",
+      "Ta",
+      "Ti",
+      "Ta",
+      "Ta",
+      "-"
+    ],
+    "vibhags": [
+      5,
+      2,
+      3,
+      4
+    ]
+  },
+  {
+    "beats": 10,
+    "markers": [
+      "X",
+      "0",
+      "2",
+      "3",
+      "0"
+    ],
+    "name": "Sooltaal",
+    "theka": [
+      "Dha",
+      "Dha",
+      "Din",
+      "Ta",
+      "KiTa",
+      "Dha",
+      "TiTa",
+      "KaTa",
+      "GaDi",
+      "GeNe"
+    ],
+    "vibhags": [
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  {
+    "beats": 7,
+    "markers": [
+      "X",
+      "2",
+      "3"
+    ],
+    "name": "Teevra",
+    "theka": [
+      "Dha",
+      "Din",
+      "Ta",
+      "TiTa",
+      "KaTa",
+      "GaDi",
+      "GeNe"
+    ],
+    "vibhags": [
+      3,
+      2,
+      2
+    ]
+  },
+  {
+    "beats": 14,
+    "markers": [
+      "X",
+      "2",
+      "0",
+      "3"
+    ],
+    "name": "Jhoomra",
+    "theka": [
+      "Dhin",
+      "DhaGe",
+      "TiRaKiTa",
+      "Dhin",
+      "Dhin",
+      "DhaGe",
+      "TiRaKiTa",
+      "Tin",
+      "TaKe",
+      "TiRaKiTa",
+      "Dhin",
+      "Dhin",
+      "DhaGe",
+      "TiRaKiTa"
+    ],
+    "vibhags": [
+      3,
+      4,
+      3,
+      4
+    ]
+  },
+  {
+    "beats": 16,
+    "markers": [
+      "X",
+      "2",
+      "0",
+      "3"
+    ],
+    "name": "Tilwada",
+    "theka": [
+      "Dha",
+      "TiRaKiTa",
+      "Dhin",
+      "Dhin",
+      "Dha",
+      "Dha",
+      "Tin",
+      "Tin",
+      "Ta",
+      "TiRaKiTa",
+      "Dhin",
+      "Dhin",
+      "Dha",
+      "Dha",
+      "Dhin",
+      "Dhin"
+    ],
+    "vibhags": [
+      4,
+      4,
+      4,
+      4
+    ]
+  },
+  {
+    "beats": 14,
+    "markers": [
+      "X",
+      "2",
+      "0",
+      "3",
+      "0",
+      "4",
+      "0"
+    ],
+    "name": "Adachautaal",
+    "theka": [
+      "Dhin",
+      "TiRaKiTa",
+      "Dhi",
+      "Na",
+      "Tu",
+      "Na",
+      "Ka",
+      "Ta",
+      "TiRaKiTa",
+      "Dhi",
+      "Na",
+      "Dhi",
+      "Dhi",
+      "Na"
+    ],
+    "vibhags": [
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+  },
+  {
+    "beats": 14,
+    "markers": [
+      "X",
+      "2",
+      "0",
+      "3"
+    ],
+    "name": "Deepchandi",
+    "theka": [
+      "Dha",
+      "Dhin",
+      "-",
+      "Dha",
+      "Dha",
+      "Tin",
+      "-",
+      "Ta",
+      "Tin",
+      "-",
+      "Dha",
+      "Dha",
+      "Dhin",
+      "-"
+    ],
+    "vibhags": [
+      3,
+      4,
+      3,
+      4
+    ]
+  }
+]

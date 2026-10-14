@@ -1,0 +1,83 @@
+[
+  {
+    "request": {
+      "raga": "Yaman",
+      "tokens": "S R G m"
+    },
+    "response": {
+      "tokens": [
+        "S",
+        "R",
+        "G",
+        "m"
+      ],
+      "violations": [
+        {
+          "index": 1,
+          "message": "S → R isn't an allowed ascending move in Yaman (aaroh: N. R G M D N S')."
+        },
+        {
+          "index": 3,
+          "message": "m is varjit (not used) in Yaman."
+        }
+      ]
+    }
+  },
+  {
+    "request": {
+      "raga": "Yaman",
+      "tokens": "N. R G _ | M D N S'"
+    },
+    "response": {
+      "tokens": [
+        "N.",
+        "R",
+        "G",
+        "_",
+        "M",
+        "D",
+        "N",
+        "S'"
+      ],
+      "violations": []
+    }
+  },
+  {
+    "request": {
+      "raga": "Bhupali",
+      "tokens": "S R G M"
+    },
+    "response": {
+      "tokens": [
+        "S",
+        "R",
+        "G",
+        "M"
+      ],
+      "violations": [
+        {
+          "index": 3,
+          "message": "M is varjit (not used) in Bhupali."
+        }
+      ]
+    }
+  },
+  {
+    "request": {
+      "raga": "Malkauns",
+      "tokens": "_ S"
+    },
+    "response": {
+      "tokens": [
+        "_",
+        "S"
+      ],
+      "violations": [
+        {
+          "index": 0,
+          "message": "A hold (_) needs a note before it."
+        }
+      ]
+    }
+  }
+]

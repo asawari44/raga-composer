@@ -1,0 +1,25 @@
+{
+  "name": "Swaramala",
+  "short_name": "Swaramala",
+  "description": "Compose and practice Hindustani raga phrases in your browser.",
+  "start_url": "../",
+  "scope": "../",
+  "display": "standalone",
+  "background_color": "#faf7f2",
+  "theme_color": "#2b2118",
+  "categories": ["music", "education"],
+  "icons": [
+    {
+      "src": "../img/favicon.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "../img/logo-mark.svg",
+      "sizes": "64x64",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

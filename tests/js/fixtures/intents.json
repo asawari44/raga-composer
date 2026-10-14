@@ -1,0 +1,145 @@
+[
+  {
+    "request": {
+      "raga": "Yaman",
+      "text": "ascending ending on S and has 16 beats"
+    },
+    "response": {
+      "beats": 16,
+      "contour": "ascending",
+      "count": 4,
+      "emphasize": [],
+      "end": {
+        "octave": null,
+        "semitone": 0
+      },
+      "hold_ratio": 0.0,
+      "notes_per_beat": 1,
+      "saptak": "full",
+      "start": null,
+      "summary": [
+        "contour: ascending",
+        "beats: 16",
+        "ends on S"
+      ],
+      "taal": null,
+      "use_pakad": false
+    }
+  },
+  {
+    "request": {
+      "raga": "Kafi",
+      "text": "taan in teentaal, up and down, start on komal ni, end on taar sa, emphasize Pa"
+    },
+    "response": {
+      "beats": 16,
+      "contour": "arch",
+      "count": 4,
+      "emphasize": [
+        7
+      ],
+      "end": {
+        "octave": 1,
+        "semitone": 0
+      },
+      "hold_ratio": 0.0,
+      "notes_per_beat": 2,
+      "saptak": "full",
+      "start": {
+        "octave": null,
+        "semitone": 10
+      },
+      "summary": [
+        "contour: arch",
+        "beats: 16 (Teentaal)",
+        "2 notes per beat",
+        "ends on S'",
+        "starts on n",
+        "emphasis: P"
+      ],
+      "taal": "Teentaal",
+      "use_pakad": false
+    }
+  },
+  {
+    "request": {
+      "raga": "Bhupali",
+      "text": "12 beats with held notes, use the pakad"
+    },
+    "response": {
+      "beats": 12,
+      "contour": "any",
+      "count": 4,
+      "emphasize": [],
+      "end": null,
+      "hold_ratio": 0.3,
+      "notes_per_beat": 1,
+      "saptak": "full",
+      "start": null,
+      "summary": [
+        "contour: any",
+        "beats: 12",
+        "with held notes (_)",
+        "leans on the pakad"
+      ],
+      "taal": null,
+      "use_pakad": true
+    }
+  },
+  {
+    "request": {
+      "raga": "Malkauns",
+      "text": "slow mandra saptak, end on Sa, 3 patterns"
+    },
+    "response": {
+      "beats": 8,
+      "contour": "any",
+      "count": 3,
+      "emphasize": [],
+      "end": {
+        "octave": null,
+        "semitone": 0
+      },
+      "hold_ratio": 0.3,
+      "notes_per_beat": 1,
+      "saptak": "mandra",
+      "start": null,
+      "summary": [
+        "contour: any",
+        "beats: 8",
+        "ends on S",
+        "with held notes (_)",
+        "saptak: mandra"
+      ],
+      "taal": null,
+      "use_pakad": false
+    }
+  },
+  {
+    "request": {
+      "raga": "Bageshri",
+      "text": "down then up in rupak for 2 cycles with vadi"
+    },
+    "response": {
+      "beats": 14,
+      "contour": "valley",
+      "count": 4,
+      "emphasize": [
+        0,
+        5
+      ],
+      "end": null,
+      "hold_ratio": 0.0,
+      "notes_per_beat": 1,
+      "saptak": "full",
+      "start": null,
+      "summary": [
+        "contour: valley",
+        "beats: 14 (Rupak)",
+        "emphasis: S m"
+      ],
+      "taal": "Rupak",
+      "use_pakad": false
+    }
+  }
+]

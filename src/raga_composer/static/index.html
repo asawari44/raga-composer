@@ -3,15 +3,17 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Swaramala · compose Hindustani classical phrases</title>
-  <meta name="description" content="Swaramala helps you compose raga-true Hindustani classical phrases, taans, and paltas.">
-  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="/static/styles.css">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src 'self' blob: data:; connect-src 'self'; object-src 'none'; base-uri 'none'">
+  <!-- head-tags: replaced by scripts/build_site.py with marketing/head-tags.html -->
+  <title>Swaramala: compose and practice Hindustani classical music</title>
+  <link rel="icon" href="./img/favicon.svg" type="image/svg+xml">
+  <!-- /head-tags -->
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
 <header class="topbar">
-  <a class="brand" href="/" aria-label="Swaramala home">
-    <img src="/static/img/logo-mark.svg" alt="" width="40" height="40">
+  <a class="brand" href="./" aria-label="Swaramala home">
+    <img src="./img/logo-mark.svg" alt="" width="40" height="40">
     <span class="wordmark">Swaramala <span class="devanagari" lang="hi">स्वरमाला</span></span>
     <span class="tagline">A garland of swaras</span>
   </a>
@@ -22,8 +24,12 @@
     <button type="submit" class="primary">Open</button>
     <button type="button" id="raga-browse">Browse all</button>
   </form>
-  <div id="account" class="account"></div>
 </header>
+
+<div id="app-status" class="app-status" role="status" aria-live="polite">
+  <span class="spinner" aria-hidden="true"></span>
+  <span>Loading Swaramala data.</span>
+</div>
 
 <section class="soundbar" aria-label="Sound controls">
   <div class="group" role="group" aria-label="Scale and tempo">
@@ -185,12 +191,21 @@
 
   <section class="view library-view" id="view-library" role="tabpanel" aria-labelledby="tab-library" hidden>
     <div class="panel saved-panel">
-      <h2>Saved lines</h2>
-      <div id="saved-lines" class="muted">Sign in to save lines.</div>
+      <div class="panel-head">
+        <h2>Saved lines</h2>
+        <p class="hint">Your library is stored in this browser.</p>
+      </div>
+      <div class="toolbar library-actions" role="group" aria-label="Library import and export">
+        <button type="button" id="export-library">Export library</button>
+        <button type="button" id="import-library">Import library</button>
+        <input id="import-library-file" type="file" accept="application/json,.json" hidden>
+      </div>
+      <div id="saved-lines" class="muted">Choose a raga to see saved lines.</div>
     </div>
     <div class="panel recordings-panel">
       <h2>Recordings</h2>
-      <div id="recordings" class="muted">Sign in to save recordings to your account.</div>
+      <p class="hint">Recordings are stored in this browser and included in library exports.</p>
+      <div id="recordings" class="muted">No recordings yet. Click Record in the sound bar to start.</div>
     </div>
   </section>
 </main>
@@ -226,48 +241,6 @@
   <div id="raga-groups" class="raga-groups"></div>
 </dialog>
 
-<dialog id="auth-dialog">
-  <form id="auth-form" method="dialog" novalidate>
-    <div class="tabs" role="tablist">
-      <button type="button" role="tab" data-mode="login" aria-selected="true">Sign in</button>
-      <button type="button" role="tab" data-mode="register" aria-selected="false">Create account</button>
-    </div>
-    <label class="stack">Username
-      <input name="username" required minlength="3" maxlength="40" pattern="[A-Za-z0-9_.\-]+" autocomplete="username" autocapitalize="none" spellcheck="false">
-    </label>
-    <label class="stack">Password
-      <span class="pw-field">
-        <input name="password" type="password" required maxlength="128" autocomplete="current-password">
-        <button type="button" class="reveal" aria-label="Show password">Show</button>
-      </span>
-    </label>
-    <label class="stack register-only">Confirm password
-      <input name="confirm" type="password" maxlength="128" autocomplete="new-password">
-    </label>
-    <p class="hint register-only">Use 3–40 letters, digits, <code>.</code>, <code>_</code>, or <code>-</code> for the username, and at least 8 characters for the password.</p>
-    <p id="auth-error" class="error" role="alert"></p>
-    <div class="row">
-      <button value="submit" class="primary" id="auth-submit">Sign in</button>
-      <button value="cancel" formnovalidate>Cancel</button>
-    </div>
-  </form>
-</dialog>
-
-<dialog id="password-dialog">
-  <form id="password-form" method="dialog" novalidate>
-    <h2>Change password</h2>
-    <label class="stack">Current password <input name="current" type="password" required autocomplete="current-password"></label>
-    <label class="stack">New password <input name="next" type="password" required minlength="8" maxlength="128" autocomplete="new-password"></label>
-    <label class="stack">Confirm new password <input name="confirm" type="password" required autocomplete="new-password"></label>
-    <p class="hint">Changing your password signs you out on every other device.</p>
-    <p id="password-error" class="error" role="alert"></p>
-    <div class="row">
-      <button value="submit" class="primary">Change password</button>
-      <button value="cancel" formnovalidate>Cancel</button>
-    </div>
-  </form>
-</dialog>
-
 <dialog id="save-recording-dialog">
   <form id="save-recording-form" method="dialog">
     <h2>Save recording</h2>
@@ -275,7 +248,7 @@
     <label>Title <input name="title" placeholder="Untitled recording"></label>
     <p id="save-recording-note" class="muted small"></p>
     <div class="row">
-      <button value="save" class="primary">Save to account</button>
+      <button value="save" class="primary">Save in this browser</button>
       <button value="download">Download</button>
       <button value="discard" formnovalidate>Discard</button>
     </div>
@@ -283,6 +256,6 @@
 </dialog>
 
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
-<script type="module" src="/static/js/app.js"></script>
+<script type="module" src="./js/app.js"></script>
 </body>
 </html>

@@ -6,7 +6,7 @@ Swaramala (स्वरमाला, "a garland of swaras") helps you compose Hi
 describe the phrase you want in plain words, and the app generates patterns that
 obey the raga's aaroh, avroh, and varjit swaras. You can then arrange a pattern as
 a taan, add held notes, play it on a piano with tanpura and tabla, save it, and
-record your practice to your account.
+record your practice in your browser.
 
 ## Using the app
 
@@ -50,6 +50,10 @@ type, so the map follows the printed letters on QWERTZ and AZERTY keyboards.
 - **Notation**: `S r R g G m M P d D n N`, with `S'` for taar saptak, `N.`
   for mandra saptak, `_` to hold a note, and `-` for a rest. Lowercase means
   komal and `M` is tivra Ma. `p` and `ni` are accepted as aliases for `P` and `n`.
+- **Static site**: GitHub Pages serves HTML, CSS, JavaScript modules, images,
+  and JSON data. The browser runs the music logic and stores your saved lines
+  and recordings in IndexedDB. Use **Export library** to download a backup, and
+  use **Import library** to restore it in another browser.
 - **Raga reference**: thaat, jati, vadi and samvadi, time, varjit swaras, aaroh,
   avroh, pakad, and at least five common patterns for each of 93 built-in ragas
   across all ten thaats. **Browse all** lists them grouped by thaat. The
@@ -67,22 +71,22 @@ type, so the map follows the printed letters on QWERTZ and AZERTY keyboards.
   (default `G#`), a tanpura with its own scale and first-string tuning, and a
   tabla playing the basic theka of 14 taals: Teentaal, Ektaal, Jhaptaal, Rupak,
   Keherwa, Dadra, Chautaal, Dhamar, Sooltaal, Teevra, Jhoomra, Tilwada,
-  Adachautaal, and Deepchandi. Phrase playback starts on the next sam when the tabla is playing.
-  All sounds are synthesized in the browser, so there are no sample files.
+  Adachautaal, and Deepchandi. Phrase playback starts on the next sam when the
+  tabla is playing. All sounds are synthesized in the browser, so there are no
+  sample files.
 - **Instruments**: the keyboard plays 10 piano voices (concert, bright, and
   mellow grand; upright; honky-tonk; felt; tine, FM, and reed electric pianos;
   and toy piano) and 3 harmonium voices (double reed, single reed, and coupler
   with a bass reed). Keys sound for as long as you hold them. Voice presets
-  live in `static/js/instruments.js`.
-- **Compositions**: each raga shows its published compositions from
-  published notation, laid out one taal cycle per row with sam, tali, and khali
-  marked and the words under the notes. **Play** plays a composition or a single
+  live in `src/raga_composer/static/js/instruments.js`.
+- **Compositions**: each raga shows its published compositions from published
+  notation, laid out one taal cycle per row with sam, tali, and khali marked
+  and the words under the notes. **Play** plays a composition or a single
   section on the selected piano or harmonium, highlights the current beat, and
   switches the tabla to the composition's taal when the app has it. **Open in
   Compose** loads it into the line editor. Compositions include khayals,
-  dhrupads, taranas, sargam and lakshan geets, bhajans, and gats, in
-  Teentaal and other taals. See [Compositions](#compositions) for sources
-  and limits.
+  dhrupads, taranas, sargam and lakshan geets, bhajans, and gats, in Teentaal
+  and other taals. See [Compositions](#compositions) for sources and limits.
 - **Perform with alaap and taan**: plays a composition on the tabla together
   with the raga's alaap and taan, in the composition's taal. The order is the
   sthayi; each sthayi alaap followed by the sthayi's first line; the antara and
@@ -102,31 +106,9 @@ type, so the map follows the printed letters on QWERTZ and AZERTY keyboards.
   with held notes; taans move at four notes per beat and end on a held Sa.
   Every phrase is a walk on the raga's move graph, so it obeys the raga.
   The same raga and taal give the same phrases; **Regenerate** draws a new set.
-- **Accounts**: sign in to save lines and recordings. **Record** captures
-  everything the app plays plus your microphone. From the account menu you can
-  change your password or sign out on every device.
-
-## Sign-in security
-
-- Passwords are hashed with scrypt in a versioned format. Older hashes are
-  upgraded the next time the user signs in.
-- New passwords need at least 8 characters and can't contain the username or be
-  a common password.
-- Sessions use a random token in an `HttpOnly`, `SameSite=Lax` cookie. The
-  database stores only a SHA-256 hash of the token. Sessions expire after 30
-  days without use, and after 90 days in any case.
-- After 10 failed sign-ins for one account, or 30 from one address, within 15
-  minutes, the server returns `429` with a `Retry-After` header. Registrations
-  are limited to 10 per address per hour. The counters live in memory, so they
-  suit a single server process.
-- Changing your password signs out every other session.
-- The server rejects cross-site `POST`, `PUT`, `PATCH`, and `DELETE` requests to
-  `/api/`, and sends a Content Security Policy and other security headers.
-
-| Environment variable | Effect |
-|---|---|
-| `COOKIE_SECURE=1` | Marks the session cookie `Secure`. Set this behind HTTPS. |
-| `TRUST_PROXY=1` | Uses `X-Forwarded-For` for the client address. Set this only behind a trusted proxy. |
+- **Browser library**: **My library** stores saved lines and recordings in the
+  current browser. No account or server receives this data. Browser storage can
+  be cleared by browser settings, so export your library when you want a backup.
 
 ## Run locally
 
@@ -134,12 +116,14 @@ Requirements: Python 3.11 or later and [uv](https://docs.astral.sh/uv/).
 
 ```sh
 make install
-make run          # http://127.0.0.1:8000
-PORT=8077 make run
+make site
+make serve-site   # http://127.0.0.1:8000/raga-composer/
 ```
 
-Data is stored in `var/` (SQLite database and recording files). To use another
-location, set `RAGA_DATA_DIR`.
+`make site` copies `src/raga_composer/static/` to `site/` and writes
+`site/data/ragas.json`, `site/data/taals.json`, and
+`site/data/compositions.json` from the Python package data. `site/` is ignored
+by Git.
 
 ```sh
 make test         # pytest
@@ -147,25 +131,56 @@ make check        # ruff + mypy
 make format
 ```
 
+The FastAPI server remains available for Python reference work:
+
+```sh
+make run          # http://127.0.0.1:8000
+PORT=8077 make run
+```
+
 ## Architecture
 
+```text
+GitHub Pages
+   └── site/
+       ├── index.html, 404.html, styles.css, images
+       ├── js/          static ES modules
+       └── data/        ragas, taals, and compositions as JSON
+
+Browser
+   ├── Web Audio and MediaRecorder for playback and recording
+   ├── js/core/ for raga rules, generation, validation, arrange, and improvisation
+   ├── js/local-api.js for the old API-shaped frontend adapter
+   └── IndexedDB for saved lines and recordings
+
+Python package
+   ├── scripts/build_site.py exports runtime data
+   └── Reference domain code
+         notation.py   swara parsing and formatting
+         raga.py       raga definitions → graph of allowed note moves
+         intent.py     free text → structured Intention
+         generator.py  constrained generation, validation, palta arrangement
+         taal.py       taal cycles and tabla thekas
+         compositions.py  traditional bandishes and their notation
+         improvise.py  alaap and taan phrases for the sthayi and antara
 ```
-Browser (static HTML/CSS/ES modules, Web Audio, MediaRecorder)
-   │  JSON over HTTP, session cookie
-   ▼
-FastAPI app (raga_composer.api)
-   ├── Domain (pure Python, no I/O)
-   │     notation.py   swara parsing and formatting
-   │     raga.py       raga definitions → graph of allowed note moves
-   │     intent.py     free text → structured Intention
-   │     generator.py  constrained generation, validation, palta arrangement
-   │     taal.py       taal cycles and tabla thekas
-   │     compositions.py  traditional bandishes and their notation
-   │     improvise.py  alaap and taan phrases for the sthayi and antara
-   └── Storage (storage.py)
-         Repository   SQLite: users, sessions, lines, custom ragas, recordings
-         BlobStore    local filesystem for audio
-```
+
+### Deployment
+
+The `Pages` workflow builds the static site on pushes to `main`, uploads
+`site/` with `actions/upload-pages-artifact`, and deploys it with
+`actions/deploy-pages`. The published URL is
+`https://asawari44.github.io/raga-composer/`.
+
+If the GitHub repository is renamed, the Pages URL changes with the repository
+name. Update the `SITE_URL` constant in `scripts/build_site.py`, then rebuild
+the site. The application uses relative URLs for runtime assets and data, so a
+repository rename doesn't require changes in `index.html` or the JavaScript
+modules.
+
+The `CI` workflow runs on pull requests and pushes. It installs dependencies
+with `uv sync`, then runs `ruff`, `mypy`, `pytest`, and `node --test tests/js`
+when `tests/js` exists.
 
 ### How the raga is enforced
 
@@ -183,32 +198,6 @@ exactly the requested number of notes. The walk prefers moves in the requested
 direction, emphasized swaras, the vadi and samvadi, and pakad fragments. The
 generator samples many candidates and ranks them by contour match and raga
 flavor. Because every move is an edge of the graph, every result obeys the raga.
-
-### Why this architecture
-
-- **A single Python service** keeps the music logic in one testable place and
-  serves the UI, so local development needs one command.
-- **Domain code without I/O** can be reused by a CLI, a notebook, or a separate
-  worker without changes.
-- **A frontend without a build step** keeps the project small. Audio runs in the
-  browser, so the server never processes audio in real time.
-- **Storage interfaces** let you replace SQLite and local files with managed
-  services without touching the API.
-
-### Path to hosting
-
-1. Build the included `Dockerfile` and deploy it to a container platform such as
-   Cloud Run.
-2. Replace `Repository` with a PostgreSQL implementation (for example, Cloud SQL)
-   and add migrations with Alembic.
-3. Replace `LocalBlobStore` with an object storage implementation (for example,
-   Cloud Storage) and serve recordings with signed URLs.
-4. Set `COOKIE_SECURE=1` behind HTTPS, and `TRUST_PROXY=1` behind a trusted
-   proxy. If you run more than one instance, move the sign-in throttle counters
-   to a shared store such as Redis. Optionally, add sign-in through an identity
-   provider (OAuth or OIDC).
-5. If the UI grows, move it to a separate SPA served from a CDN. The JSON API
-   doesn't need to change.
 
 ## Compositions
 
@@ -245,4 +234,3 @@ as Bhatkhande's *Kramik Pustak Malika*, before you rely on it.
 Add an entry to `src/raga_composer/data/ragas.json` with `aaroh`, `avroh`,
 `pakad`, and at least five `patterns`, written in the notation described earlier.
 The tests check that every phrase is consistent with the raga's rules.
-Signed-in users can also add custom ragas with `POST /api/ragas`.

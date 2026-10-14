@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Swaramala social preview</title>
+  <desc id="desc">Swaramala name in Latin and Devanagari, the tagline Compose and practice raga phrases in your browser, and swara notation on a warm brown and gold background.</desc>
+  <defs>
+    <radialGradient id="gold" cx="35%" cy="35%" r="75%">
+      <stop offset="0" stop-color="#ffe2a3"/>
+      <stop offset="1" stop-color="#d9861f"/>
+    </radialGradient>
+    <radialGradient id="sa" cx="35%" cy="35%" r="80%">
+      <stop offset="0" stop-color="#ff9a5c"/>
+      <stop offset="1" stop-color="#b5361b"/>
+    </radialGradient>
+    <linearGradient id="bg" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#2b2118"/>
+      <stop offset="0.58" stop-color="#3a2d21"/>
+      <stop offset="1" stop-color="#b5521b"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="22" flood-color="#120b06" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="1030" cy="90" r="260" fill="#e9a23b" opacity="0.13"/>
+  <circle cx="80" cy="560" r="240" fill="#faf7f2" opacity="0.08"/>
+
+  <g transform="translate(96 110)" filter="url(#shadow)">
+    <circle cx="150" cy="138" r="96" fill="none" stroke="#e9a23b" stroke-opacity=".45" stroke-width="6"/>
+    <circle cx="102" cy="221" r="13" fill="#f6e7cf" opacity=".85"/>
+    <circle cx="67" cy="186" r="21" fill="url(#gold)"/>
+    <circle cx="54" cy="138" r="13" fill="#f6e7cf" opacity=".85"/>
+    <circle cx="67" cy="90" r="21" fill="url(#gold)"/>
+    <circle cx="102" cy="55" r="21" fill="url(#gold)"/>
+    <circle cx="150" cy="42" r="13" fill="#f6e7cf" opacity=".85"/>
+    <circle cx="198" cy="55" r="21" fill="url(#gold)"/>
+    <circle cx="233" cy="90" r="13" fill="#f6e7cf" opacity=".85"/>
+    <circle cx="246" cy="138" r="21" fill="url(#gold)"/>
+    <circle cx="233" cy="186" r="13" fill="#f6e7cf" opacity=".85"/>
+    <circle cx="198" cy="221" r="21" fill="url(#gold)"/>
+    <path d="M94 153 C 119 82, 145 82, 155 133 S 185 184, 206 108" fill="none" stroke="#fff7ea" stroke-width="13" stroke-linecap="round"/>
+    <circle cx="206" cy="108" r="10" fill="#fff7ea"/>
+    <path d="M150 260 l-17 50 h34 z" fill="#c8431b"/>
+    <path d="M142 283 v25 M150 283 v27 M158 283 v25" stroke="#2b2118" stroke-opacity=".35" stroke-width="3"/>
+    <circle cx="150" cy="235" r="27" fill="url(#sa)" stroke="#2b2118" stroke-width="6"/>
+  </g>
+
+  <g transform="translate(420 148)">
+    <text x="0" y="0" fill="#fff7ea" font-family="Georgia, 'Times New Roman', serif" font-size="92" font-weight="700" letter-spacing="1">Swaramala</text>
+    <text x="4" y="74" fill="#e9a23b" font-family="'Kohinoor Devanagari', 'Noto Sans Devanagari', 'Devanagari Sangam MN', sans-serif" font-size="54" font-weight="650">स्वरमाला</text>
+    <text x="4" y="144" fill="#f6e7cf" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="38">Compose and practice raga phrases in your browser</text>
+  </g>
+
+  <g transform="translate(424 388)">
+    <rect x="0" y="0" width="650" height="96" rx="22" fill="#fff7ea" opacity="0.96"/>
+    <text x="38" y="61" fill="#2b2118" font-family="'SF Mono', Menlo, ui-monospace, monospace" font-size="38">S R G m P D N S'</text>
+    <path d="M38 76 C 118 42, 196 85, 270 52 S 415 38, 514 70 S 612 63, 636 37" fill="none" stroke="#b5521b" stroke-width="5" stroke-linecap="round" opacity="0.82"/>
+  </g>
+
+  <text x="102" y="552" fill="#cbb8a0" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="28">Free and open source · No account · Tanpura · Tabla · Notation</text>
+</svg>

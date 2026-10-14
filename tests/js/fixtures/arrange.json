@@ -1,0 +1,90 @@
+[
+  {
+    "request": {
+      "mode": "taan",
+      "motif_length": 3,
+      "notes_per_beat": 4,
+      "raga": "Yaman",
+      "tokens": "N. R _ G M"
+    },
+    "response": {
+      "notes_per_beat": 4,
+      "tokens": [
+        "N.",
+        "R",
+        "G",
+        "M"
+      ],
+      "violations": []
+    }
+  },
+  {
+    "request": {
+      "mode": "palta",
+      "motif_length": 3,
+      "notes_per_beat": 4,
+      "raga": "Yaman",
+      "tokens": "N. R _ G M"
+    },
+    "response": {
+      "notes_per_beat": 4,
+      "tokens": [
+        "N.",
+        "R",
+        "G",
+        "R",
+        "M",
+        "D",
+        "M",
+        "N",
+        "S'",
+        "_",
+        "_",
+        "_"
+      ],
+      "violations": []
+    }
+  },
+  {
+    "request": {
+      "mode": "compact",
+      "motif_length": 3,
+      "notes_per_beat": 4,
+      "raga": "Yaman",
+      "tokens": "N. R _ G M"
+    },
+    "response": {
+      "notes_per_beat": 4,
+      "tokens": [
+        "N.",
+        "R",
+        "G",
+        "M"
+      ],
+      "violations": []
+    }
+  },
+  {
+    "request": {
+      "mode": "sustain",
+      "motif_length": 3,
+      "notes_per_beat": 4,
+      "raga": "Yaman",
+      "tokens": "N. R _ G M"
+    },
+    "response": {
+      "notes_per_beat": 4,
+      "tokens": [
+        "N.",
+        "_",
+        "R",
+        "_",
+        "G",
+        "_",
+        "M",
+        "_"
+      ],
+      "violations": []
+    }
+  }
+]

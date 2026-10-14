@@ -1,5 +1,6 @@
 import { AudioEngine, SessionRecorder, TONICS } from "./audio.js";
 import { DEFAULT_INSTRUMENT, INSTRUMENTS } from "./instruments.js";
+import { api, exportLibrary, importLibraryFile } from "./local-api.js";
 
 const SWARAS = ["S", "r", "R", "g", "G", "m", "M", "P", "d", "D", "n", "N"];
 const SWARA_LABELS = ["Sa", "komal Re", "Re", "komal Ga", "Ga", "Ma", "tivra Ma", "Pa", "komal Dha", "Dha", "komal Ni", "Ni"];
@@ -54,7 +55,6 @@ const recorder = new SessionRecorder(engine);
 
 const state = {
   keyOctave: 0,
-  user: null,
   ragas: [],
   raga: null,
   taals: [],
@@ -97,31 +97,6 @@ function tokenize(text) {
 const tokensFromStrings = (list) => list.map(parseToken).filter(Boolean);
 const lineText = (tokens) => tokens.map((t) => t.text).join(" ");
 
-// API ------------------------------------------------------------------------
-async function api(path, options = {}) {
-  const opts = { credentials: "same-origin", ...options };
-  if (opts.json !== undefined) {
-    opts.body = JSON.stringify(opts.json);
-    opts.headers = { "Content-Type": "application/json", ...(opts.headers || {}) };
-    opts.method = opts.method || "POST";
-  }
-  const res = await fetch(path, opts);
-  if (res.status === 204) return null;
-  const body = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    const detail = Array.isArray(body.detail) ? body.detail.map((d) => d.msg).join("; ") : body.detail;
-    // A 401 outside the auth routes means the session expired or was revoked elsewhere.
-    if (res.status === 401 && state.user && !path.startsWith("/api/auth/")) {
-      setUser(null);
-      toast("Your session ended. Sign in again to continue.");
-    }
-    const error = new Error(detail || res.statusText);
-    error.status = res.status;
-    throw error;
-  }
-  return body;
-}
-
 function toast(msg) {
   const el = $("#toast");
   el.textContent = msg;
@@ -134,6 +109,8 @@ function el(tag, attrs = {}, ...children) {
   const node = document.createElement(tag);
   for (const [k, v] of Object.entries(attrs)) {
     if (k === "class") node.className = v;
+    // CSSOM writes are allowed under the style-src 'self' policy; style attributes are not.
+    else if (k === "style") node.style.cssText = v;
     else if (k.startsWith("on")) node.addEventListener(k.slice(2), v);
     else if (v !== undefined && v !== null) node.setAttribute(k, v);
   }
@@ -1027,7 +1004,6 @@ function playTokens(tokens, npb, idPrefix = null, { cellFor = (i) => i, idFor = 
 
 // Saved lines ------------------------------------------------------------------------
 async function saveLine(tokens = state.line, npb = state.npb, title = "") {
-  if (!state.user) { openAuth(); return toast("Sign in to save lines."); }
   if (!tokens.length) return toast("The line is empty.");
   try {
     const saved = await api("/api/lines", {
@@ -1045,8 +1021,7 @@ async function saveLine(tokens = state.line, npb = state.npb, title = "") {
 
 async function loadSavedLines() {
   const box = $("#saved-lines");
-  if (!state.user) { box.className = "muted"; box.textContent = "Sign in to save lines."; return; }
-  if (!state.raga) return;
+  if (!state.raga) { box.className = "muted"; box.textContent = "Choose a raga to see saved lines."; return; }
   const lines = await api(`/api/lines?raga=${encodeURIComponent(state.raga.name)}`);
   box.className = "";
   box.innerHTML = "";
@@ -1079,7 +1054,6 @@ async function loadSavedLines() {
 // Recordings --------------------------------------------------------------------------
 async function loadRecordings() {
   const box = $("#recordings");
-  if (!state.user) { box.className = "muted"; box.textContent = "Sign in to save recordings to your account."; return; }
   const recs = await api("/api/recordings");
   box.className = "";
   box.innerHTML = "";
@@ -1125,9 +1099,7 @@ function openSaveRecording(result) {
   $("#recording-preview").src = URL.createObjectURL(result.blob);
   const form = $("#save-recording-form");
   form.title.value = `${state.raga?.name || "Practice"} – ${new Date().toLocaleString()}`;
-  $("#save-recording-note").textContent = state.user
-    ? `Saves to ${state.user.username}'s account.`
-    : "You're not signed in. Choose Save to account to sign in first, or download the file.";
+  $("#save-recording-note").textContent = "Saves in this browser. Export your library to back up recordings.";
   dlg.showModal();
 }
 
@@ -1136,15 +1108,11 @@ async function handleSaveRecording(action) {
   const form = $("#save-recording-form");
   if (!result) return;
   if (action === "download") {
-    const a = el("a", { href: URL.createObjectURL(result.blob), download: `${form.title.value || "recording"}.${result.type.split("/")[1]}` });
+    const a = el("a", { href: URL.createObjectURL(result.blob), download: `${form.title.value || "recording"}.${result.type.split("/")[1].split(";")[0]}` });
     a.click();
     return;
   }
   if (action !== "save") { state.pendingRecording = null; return; }
-  if (!state.user) {
-    await openAuth();
-    if (!state.user) return openSaveRecording(result);
-  }
   const data = new FormData();
   data.append("file", result.blob, "recording");
   data.append("title", form.title.value || "Untitled recording");
@@ -1162,139 +1130,6 @@ async function handleSaveRecording(action) {
     toast(err.message);
     openSaveRecording(result);
   }
-}
-
-// Account ------------------------------------------------------------------------------
-function renderAccount() {
-  const box = $("#account");
-  box.innerHTML = "";
-  if (!state.user) {
-    box.append(el("button", { onclick: () => openAuth("login") }, "Sign in"));
-    return;
-  }
-  const menu = el("details", {},
-    el("summary", {}, state.user.username + " ▾"),
-    el("div", { class: "menu" },
-      el("button", { onclick: () => { menu.open = false; openPasswordDialog(); } }, "Change password"),
-      el("button", { onclick: () => signOut("/api/auth/logout", "Signed out.") }, "Sign out"),
-      el("button", { onclick: () => signOut("/api/auth/logout-all", "Signed out on every device.") }, "Sign out everywhere")));
-  box.append(menu);
-}
-
-async function signOut(path, message) {
-  try {
-    await api(path, { method: "POST" });
-  } finally {
-    setUser(null);
-    toast(message);
-  }
-}
-
-function setUser(user) {
-  state.user = user;
-  renderAccount();
-  loadRagas();
-  loadSavedLines();
-  loadRecordings();
-}
-
-function setAuthMode(mode) {
-  const form = $("#auth-form");
-  form.dataset.mode = mode;
-  form.classList.toggle("register", mode === "register");
-  form.querySelectorAll("[role=tab]").forEach((t) => t.setAttribute("aria-selected", String(t.dataset.mode === mode)));
-  form.password.autocomplete = mode === "register" ? "new-password" : "current-password";
-  $("#auth-submit").textContent = mode === "register" ? "Create account" : "Sign in";
-  $("#auth-error").textContent = "";
-}
-
-function openAuth(mode = "login") {
-  return new Promise((resolve) => {
-    const dlg = $("#auth-dialog");
-    setAuthMode(mode);
-    dlg.showModal();
-    $("#auth-form").username.focus();
-    dlg.addEventListener("close", () => resolve(state.user), { once: true });
-  });
-}
-
-function localAuthProblem(form, mode) {
-  const username = form.username.value.trim();
-  if (!username) return "Enter your username.";
-  if (!form.password.value) return "Enter your password.";
-  if (mode !== "register") return null;
-  if (!/^[A-Za-z0-9_.-]{3,40}$/.test(username)) return "Use 3–40 letters, digits, ., _, or - for the username.";
-  if (form.password.value.length < 8) return "Use at least 8 characters for your password.";
-  if (form.password.value !== form.confirm.value) return "The passwords don't match.";
-  return null;
-}
-
-async function handleAuth(event) {
-  if (event.submitter?.value === "cancel") return;
-  event.preventDefault();
-  const form = event.target;
-  const mode = form.dataset.mode || "login";
-  const problem = localAuthProblem(form, mode);
-  if (problem) {
-    $("#auth-error").textContent = problem;
-    return;
-  }
-  const submit = $("#auth-submit");
-  submit.disabled = true;
-  try {
-    const user = await api(`/api/auth/${mode}`, {
-      json: { username: form.username.value.trim(), password: form.password.value },
-    });
-    form.reset();
-    setUser(user);
-    $("#auth-dialog").close();
-    toast(mode === "register" ? `Welcome to Swaramala, ${user.username}.` : `Signed in as ${user.username}.`);
-  } catch (err) {
-    $("#auth-error").textContent = err.message;
-    form.password.select();
-  } finally {
-    submit.disabled = false;
-  }
-}
-
-function openPasswordDialog() {
-  $("#password-error").textContent = "";
-  $("#password-dialog").showModal();
-}
-
-async function handlePasswordChange(event) {
-  if (event.submitter?.value === "cancel") return;
-  event.preventDefault();
-  const form = event.target;
-  const error = $("#password-error");
-  if (form.next.value.length < 8) return void (error.textContent = "Use at least 8 characters for your new password.");
-  if (form.next.value !== form.confirm.value) return void (error.textContent = "The new passwords don't match.");
-  try {
-    await api("/api/auth/password", { json: { current_password: form.current.value, new_password: form.next.value } });
-    form.reset();
-    $("#password-dialog").close();
-    toast("Password changed. Other devices are signed out.");
-  } catch (err) {
-    error.textContent = err.message;
-  }
-}
-
-function bindAuth() {
-  const form = $("#auth-form");
-  form.addEventListener("submit", handleAuth);
-  form.querySelectorAll("[role=tab]").forEach((t) => t.addEventListener("click", () => setAuthMode(t.dataset.mode)));
-  const reveal = form.querySelector(".reveal");
-  reveal.addEventListener("click", () => {
-    const show = form.password.type === "password";
-    form.password.type = form.confirm.type = show ? "text" : "password";
-    reveal.textContent = show ? "Hide" : "Show";
-    reveal.setAttribute("aria-label", show ? "Hide password" : "Show password");
-  });
-  $("#password-form").addEventListener("submit", handlePasswordChange);
-  document.addEventListener("click", (e) => {
-    const menu = $("#account details");
-    if (menu && !menu.contains(e.target)) menu.open = false;
-  });
 }
 
 // Sound bar ---------------------------------------------------------------------------
@@ -1465,8 +1300,47 @@ function bindRagaPicker() {
   $("#raga-dialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
 }
 
+function setLoadingStatus(message, isError = false) {
+  const status = $("#app-status");
+  status.classList.toggle("error-state", isError);
+  status.innerHTML = "";
+  if (!isError) status.append(el("span", { class: "spinner", "aria-hidden": "true" }));
+  status.append(el("span", {}, message));
+  status.hidden = false;
+}
+
+function hideLoadingStatus() {
+  $("#app-status").hidden = true;
+}
+
+function bindLibraryActions() {
+  $("#export-library").addEventListener("click", async () => {
+    try {
+      await exportLibrary();
+      toast("Library exported.");
+    } catch (err) {
+      toast(err.message);
+    }
+  });
+  $("#import-library").addEventListener("click", () => $("#import-library-file").click());
+  $("#import-library-file").addEventListener("change", async (event) => {
+    const file = event.target.files?.[0];
+    event.target.value = "";
+    if (!file) return;
+    try {
+      const result = await importLibraryFile(file);
+      toast(`Imported ${result.lines} line${result.lines === 1 ? "" : "s"} and ${result.recordings} recording${result.recordings === 1 ? "" : "s"}.`);
+      loadSavedLines();
+      loadRecordings();
+    } catch (err) {
+      toast(err.message);
+    }
+  });
+}
+
 // Wire up -------------------------------------------------------------------------------
 async function init() {
+  setLoadingStatus("Loading Swaramala data.");
   const config = await api("/api/config");
   state.taals = config.taals;
   config.taals.forEach((t) => $("#taal").append(el("option", { value: t.name }, `${t.name} (${t.beats})`)));
@@ -1493,7 +1367,7 @@ async function init() {
   $("#editor-play").addEventListener("click", () => playTokens(state.line, state.npb, "ed"));
   $("#editor-regenerate").addEventListener("click", () => generate({ intoEditor: true }));
   $("#save-line").addEventListener("click", () => saveLine(state.line, state.npb, $("#line-title").value));
-  bindAuth();
+  bindLibraryActions();
   bindComputerKeyboard();
   $("#save-recording-dialog").addEventListener("close", (e) => handleSaveRecording(e.target.returnValue));
   document.addEventListener("keydown", (e) => {
@@ -1507,9 +1381,13 @@ async function init() {
   renderPiano();
   renderKeyMap();
   renderEditor();
-  setUser(await api("/api/auth/me"));
   await loadRagas();
-  setRaga(localStorage.getItem("raga") || "Yaman");
+  await setRaga(localStorage.getItem("raga") || "Yaman");
+  await loadRecordings();
+  hideLoadingStatus();
 }
 
-init();
+init().catch((err) => {
+  console.error(err);
+  setLoadingStatus(`Swaramala couldn't load its data. Refresh the page, or try again after the site finishes deploying. ${err.message}`, true);
+});
