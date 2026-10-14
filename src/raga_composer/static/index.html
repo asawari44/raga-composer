@@ -11,18 +11,23 @@
   <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="topbar">
   <a class="brand" href="./" aria-label="Swaramala home">
-    <img src="./img/logo-mark.svg" alt="" width="40" height="40">
+    <img src="./img/logo-mark.svg" alt="" width="36" height="36">
     <span class="wordmark">Swaramala <span class="devanagari" lang="hi">स्वरमाला</span></span>
-    <span class="tagline">A garland of swaras</span>
   </a>
+  <nav class="primary-nav" aria-label="Main">
+    <a href="#overview" data-section="learn">Learn</a>
+    <a href="#compose" data-section="compose">Compose</a>
+    <a href="#library" data-section="library">Library</a>
+  </nav>
   <form id="raga-form" class="raga-picker" role="search">
-    <label for="raga-input" class="sr-only">Raga</label>
+    <label for="raga-input" class="sr-only">Search ragas</label>
     <input id="raga-input" list="raga-list" placeholder="Search ragas, for example Yaman" autocomplete="off">
     <datalist id="raga-list"></datalist>
     <button type="submit" class="primary">Open</button>
-    <button type="button" id="raga-browse">Browse all</button>
+    <button type="button" id="raga-browse">Browse</button>
   </form>
 </header>
 
@@ -32,20 +37,23 @@
 </div>
 
 <section class="soundbar" aria-label="Sound controls">
-  <div class="group" role="group" aria-label="Scale and tempo">
+  <div class="group" role="group" aria-label="Scale, tempo, and taal">
     <label title="The note that Sa sounds on">Sa <select id="tonic"></select></label>
-    <label>Octave
-      <select id="tonic-octave"><option>2</option><option selected>3</option><option>4</option></select>
-    </label>
-    <label>Tempo <input id="tempo" type="number" min="30" max="400" value="80"> BPM</label>
+    <label>Tempo <input id="tempo" type="number" min="30" max="400" value="80"> <span class="unit">BPM</span></label>
+    <label>Taal <select id="taal"></select></label>
   </div>
-  <div class="group" role="group" aria-label="Accompaniment">
+  <div class="group" role="group" aria-label="Accompaniment and recording">
     <button id="tanpura-toggle" class="toggle" aria-pressed="false" title="Start or stop the tanpura drone">Tanpura</button>
     <button id="tabla-toggle" class="toggle" aria-pressed="false" title="Start or stop the tabla">Tabla</button>
-    <label>Taal <select id="taal"></select></label>
-    <details class="popover">
-      <summary>Sound settings</summary>
+    <button id="record" class="record" aria-pressed="false" title="Record the app's sound and your microphone"><span class="dot"></span><span id="record-label">Record</span></button>
+    <span id="record-time" class="mono record-time" hidden>0:00</span>
+    <details class="popover sound-drawer">
+      <summary>Sound</summary>
       <div class="popover-body">
+        <h3>Sa</h3>
+        <label>Octave of Sa
+          <select id="tonic-octave"><option>2</option><option selected>3</option><option>4</option></select>
+        </label>
         <h3>Tanpura</h3>
         <div class="row wrap">
           <label class="check"><input id="tanpura-link" type="checkbox" checked> Follow Sa</label>
@@ -58,24 +66,45 @@
             </select>
           </label>
         </div>
-        <label>Volume <input id="tanpura-vol" type="range" min="0" max="1" step="0.05" value="0.45"></label>
+        <label>Tanpura volume <input id="tanpura-vol" type="range" min="0" max="1" step="0.05" value="0.45"></label>
         <h3>Tabla</h3>
-        <label>Volume <input id="tabla-vol" type="range" min="0" max="1" step="0.05" value="0.8"></label>
+        <label>Tabla volume <input id="tabla-vol" type="range" min="0" max="1" step="0.05" value="0.8"></label>
+        <h3>Recording</h3>
+        <label class="check"><input id="record-mic" type="checkbox" checked> Record my microphone too</label>
       </div>
     </details>
   </div>
-  <div class="group" role="group" aria-label="Recording">
-    <button id="record" class="record" aria-pressed="false"><span class="dot"></span><span id="record-label">Record</span></button>
-    <span id="record-time" class="mono">0:00</span>
-    <label class="check"><input id="record-mic" type="checkbox" checked> Microphone</label>
-  </div>
   <div id="theka" class="theka" aria-label="Tabla theka"></div>
+</section>
+
+<section id="welcome" class="welcome" aria-labelledby="welcome-title" hidden>
+  <h1 id="welcome-title">Learn ragas. Compose in them.</h1>
+  <p class="welcome-lead">Pick a raga to study its movement, hear its swaras, or build your own phrase. Everything plays in your browser.</p>
+  <div class="path-cards">
+    <article class="path-card">
+      <h2>Learn a raga</h2>
+      <p>See aaroh, avroh, pakad, and vadi, follow compositions with their words, and practice alaap and taan on the tabla.</p>
+      <button type="button" class="primary" data-start="learn" data-raga="Yaman">Start with Yaman</button>
+    </article>
+    <article class="path-card">
+      <h2>Compose in a raga</h2>
+      <p>Describe a phrase, generate options that follow the raga, arrange them, play them, and save them.</p>
+      <button type="button" class="primary" data-start="compose" data-raga="Bhupali">Compose in Bhupali</button>
+    </article>
+  </div>
+  <p class="starter-row">Or start with
+    <button type="button" class="chip" data-start="learn" data-raga="Bhairav">Bhairav</button>
+    <button type="button" class="chip" data-start="learn" data-raga="Bageshree">Bageshree</button>
+    <button type="button" class="chip" data-start="learn" data-raga="Malkauns">Malkauns</button>
+    <button type="button" class="chip" data-browse>Browse all ragas</button>
+  </p>
 </section>
 
 <section class="raga-hero" aria-labelledby="raga-name">
   <div class="raga-heading">
     <h1 id="raga-name">Choose a raga</h1>
     <div id="raga-facts" class="facts"></div>
+    <button type="button" class="link-button" id="open-glossary">Glossary</button>
   </div>
   <div class="swara-strip">
     <div class="notation-keys" id="notation-keys" aria-label="Swaras; highlighted swaras are in the raga"></div>
@@ -91,15 +120,16 @@
   </div>
 </section>
 
-<nav class="tabs main-tabs" role="tablist" aria-label="Sections">
-  <button role="tab" id="tab-overview" aria-controls="view-overview" data-tab="overview" aria-selected="true">Overview</button>
-  <button role="tab" id="tab-compositions" aria-controls="view-compositions" data-tab="compositions" aria-selected="false">Compositions <span class="count" id="compositions-count"></span></button>
-  <button role="tab" id="tab-improv" aria-controls="view-improv" data-tab="improv" aria-selected="false">Alaap and taan</button>
-  <button role="tab" id="tab-compose" aria-controls="view-compose" data-tab="compose" aria-selected="false">Compose</button>
-  <button role="tab" id="tab-library" aria-controls="view-library" data-tab="library" aria-selected="false">My library</button>
-</nav>
+<div class="learn-nav" id="learn-nav">
+  <nav class="tabs main-tabs" role="tablist" aria-label="Learn">
+    <button role="tab" id="tab-overview" aria-controls="view-overview" data-tab="overview" aria-selected="true">Overview</button>
+    <button role="tab" id="tab-compositions" aria-controls="view-compositions" data-tab="compositions" aria-selected="false">Compositions <span class="count" id="compositions-count"></span></button>
+    <button role="tab" id="tab-improv" aria-controls="view-improv" data-tab="improv" aria-selected="false">Practice alaap and taan</button>
+  </nav>
+  <div id="learn-path" class="learn-path" aria-label="Learning path"></div>
+</div>
 
-<main>
+<main id="main">
   <section class="view" id="view-overview" role="tabpanel" aria-labelledby="tab-overview">
     <div id="raga-info" class="raga-info muted">Choose a raga to see its aaroh, avroh, pakad, and common patterns.</div>
   </section>
@@ -108,93 +138,133 @@
     <div class="panel compositions-panel">
       <div class="panel-head">
         <h2 id="compositions-title">Compositions</h2>
-        <p class="hint">Published compositions with notation. Each row is one cycle of the taal, with the words under the notes.</p>
+        <p class="hint">Published compositions with notation. Read the words first, then follow the notation line by line. Each box is one beat of the taal, with the words under the notes.</p>
       </div>
-      <div class="toolbar perform-options" role="group" aria-label="Performance options">
-        <span class="toolbar-title">Perform options</span>
-        <label>After each alaap, sing
-          <select id="perform-return">
-            <option value="half">half a line from the mukhda</option>
-            <option value="full">a full line from the mukhda</option>
-          </select>
-        </label>
-        <label class="check"><input type="checkbox" id="perform-alaap" checked> Include alaap</label>
-        <label class="check"><input type="checkbox" id="perform-taan" checked> Include taan</label>
-        <span class="muted small">Each taan is 8 or 16 beats and ends on the mukhda.</span>
-      </div>
+      <details class="toolbar perform-options">
+        <summary>Performance options</summary>
+        <div class="row wrap">
+          <label>After each alaap, return with
+            <select id="perform-return">
+              <option value="half">half a line from the mukhda</option>
+              <option value="full">a full line from the mukhda</option>
+            </select>
+          </label>
+          <label class="check"><input type="checkbox" id="perform-alaap" checked> Include alaap</label>
+          <label class="check"><input type="checkbox" id="perform-taan" checked> Include taan</label>
+        </div>
+        <p class="hint">Taans are 8 or 16 beats. Before each taan, you sing from the mukhda through sam, and the taan lands back on the mukhda.</p>
+      </details>
       <div id="compositions"><p class="muted">Choose a raga to see its compositions.</p></div>
     </div>
   </section>
 
   <section class="view" id="view-improv" role="tabpanel" aria-labelledby="tab-improv" hidden>
     <div class="panel improv-panel">
-      <div class="panel-head row">
-        <h2 id="improv-title">Alaap and taan</h2>
+      <div class="panel-head row wrap">
+        <h2 id="improv-title">Practice alaap and taan</h2>
         <span id="improv-taal" class="muted small"></span>
         <button id="improv-regenerate" type="button">New set</button>
       </div>
-      <p class="hint">Generated from the raga's rules for the taal chosen in the sound bar. Sthayi phrases stay low and resolve to Sa; antara phrases rise to taar Sa. Each box is one beat.</p>
+      <p class="hint">Listen to a phrase, sing it back, then move to the next one. Sthayi phrases stay low and resolve to Sa; antara phrases rise to taar Sa. Each box is one beat of the taal chosen in the sound bar.</p>
       <div id="improv" class="improv"><p class="muted">Choose a raga to see alaap and taan phrases.</p></div>
     </div>
   </section>
 
-  <section class="view compose-view" id="view-compose" role="tabpanel" aria-labelledby="tab-compose" hidden>
+  <section class="view compose-view" id="view-compose" aria-labelledby="compose-title" hidden>
+    <h2 id="compose-title" class="sr-only">Compose</h2>
     <div class="panel compose-panel">
-      <h2><span class="step">1</span> Describe a phrase</h2>
-      <textarea id="intent" rows="2" placeholder="For example: ascending ending on S and has 16 beats"></textarea>
-      <div class="chips" id="intent-examples" aria-label="Examples"></div>
-      <div class="row wrap">
+      <h2><span class="step">1</span> Describe your phrase</h2>
+      <p class="hint">Choose a few musical details. Swaramala writes the prompt for you, and every option follows the raga's aaroh and avroh.</p>
+      <div class="builder" role="group" aria-label="Phrase details">
+        <label>Direction
+          <select id="b-contour">
+            <option value="">Any shape</option>
+            <option value="ascending">Ascending</option>
+            <option value="descending">Descending</option>
+            <option value="up and down">Up and down</option>
+            <option value="down and up">Down and up</option>
+          </select>
+        </label>
+        <label>Start note <select id="b-start"></select></label>
+        <label>End note <select id="b-end"></select></label>
         <label>Beats <input id="beats" type="number" min="1" max="64" value="16"></label>
         <label>Notes per beat <select id="npb"><option>1</option><option>2</option><option>3</option><option>4</option><option>6</option><option>8</option></select></label>
-        <label>How many <input id="count" type="number" min="1" max="12" value="4"></label>
-        <button id="generate" class="primary">Generate</button>
+        <label class="check"><input id="b-pakad" type="checkbox"> Use the pakad</label>
+        <label class="check"><input id="b-vadi" type="checkbox"> <span id="b-vadi-label">Emphasize the vadi</span></label>
+        <label class="check"><input id="b-holds" type="checkbox"> Held notes</label>
       </div>
-      <div id="intent-summary" class="summary"></div>
+      <label class="stack" for="intent">Prompt
+        <span class="hint">You can edit this text, for example to add "in jhaptaal". Changing a field above rewrites it.</span>
+      </label>
+      <textarea id="intent" rows="2"></textarea>
+      <div class="chips" id="intent-examples" aria-label="Example prompts"><span class="muted small">Examples:</span></div>
+      <div class="row wrap">
+        <label>Options <input id="count" type="number" min="1" max="12" value="4"></label>
+        <button id="generate" class="primary">Generate options</button>
+      </div>
+      <div id="intent-summary" class="summary" aria-live="polite"></div>
       <div id="patterns"></div>
     </div>
 
     <div class="panel editor-panel">
-      <h2><span class="step">2</span> Arrange the line</h2>
-      <p class="hint">Click a note to select it. Keys you play insert after the selected note, or at the end. Hold <kbd>Shift</kbd> to replace the selected note instead.</p>
-      <div id="editor-grid" class="grid-wrap editor-grid"></div>
-      <div class="row">
-        <input id="editor-text" class="mono grow" spellcheck="false" placeholder="Or type notation, for example N. R G _ M D N S'">
+      <div class="row wrap editor-head">
+        <h2><span class="step">2</span> Arrange your line</h2>
+        <span class="grow"></span>
         <label>Notes per beat <select id="editor-npb"><option>1</option><option>2</option><option>3</option><option>4</option><option>6</option><option>8</option></select></label>
       </div>
-      <div id="violations" class="violations"></div>
+      <div class="play-in" aria-label="Play notes in">
+        <label class="check"><input id="compose-piano-input" type="checkbox" checked> Add the notes I play to the line</label>
+        <p class="hint" id="play-in-hint">Click a swara above, use the keyboard at the bottom, or press
+          <kbd>S</kbd> <kbd>D</kbd> <kbd>V</kbd> <kbd>G</kbd> <kbd>H</kbd> <kbd>M</kbd> <kbd>,</kbd> <kbd>L</kbd> for S R G m P D N S′ and
+          <kbd>X</kbd> <kbd>C</kbd> <kbd>B</kbd> <kbd>N</kbd> <kbd>K</kbd> for r g M d n. <kbd>Z</kbd> and <kbd>.</kbd> change the octave.</p>
+      </div>
+      <div class="row wrap editor-toolbar" role="group" aria-label="Line">
+        <button id="editor-play" class="primary">▶ Play line</button>
+        <button id="editor-undo" disabled>Undo</button>
+        <button id="editor-redo" disabled>Redo</button>
+        <button id="editor-clear">Clear line</button>
+      </div>
+      <div id="editor-grid" class="grid-wrap editor-grid"></div>
+      <label class="stack" for="editor-text">Type notation
+        <span class="hint">For example <code>N. R G _ M D N S'</code>. <code>_</code> holds a note, <code>-</code> is a rest. Press <kbd>Esc</kbd> to leave the box and play from the keyboard.</span>
+      </label>
+      <input id="editor-text" class="mono" spellcheck="false">
+      <div id="violations" class="violations" aria-live="polite"></div>
       <div class="tool-groups">
         <div class="tool-group" role="group" aria-label="Edit the selected note">
           <span class="toolbar-title">Selected note</span>
-          <button data-op="hold" title="Add a hold (_) after the selected note">Hold _</button>
-          <button data-op="rest" title="Add a rest (-) after the selected note">Rest -</button>
-          <button data-op="delete">Delete</button>
-          <button data-op="left" aria-label="Move left">◀</button>
-          <button data-op="right" aria-label="Move right">▶</button>
+          <button data-op="hold" title="Add a hold (_) after the selected note, or at the end">Hold _</button>
+          <button data-op="rest" title="Add a rest (-) after the selected note, or at the end">Rest -</button>
+          <button data-op="delete" data-needs-selection>Delete</button>
+          <button data-op="left" data-needs-selection aria-label="Move left">◀ Move</button>
+          <button data-op="right" data-needs-selection aria-label="Move right">Move ▶</button>
+          <span class="hint" id="selection-hint">Click a note to select it. New notes go after it; hold <kbd>Shift</kbd> to replace it.</span>
         </div>
         <div class="tool-group" role="group" aria-label="Arrange the whole line">
           <span class="toolbar-title">Whole line</span>
           <label>Taan speed <select id="taan-npb"><option>2</option><option>3</option><option selected>4</option><option>6</option><option>8</option></select></label>
-          <button data-arrange="taan">As taan</button>
-          <button data-arrange="palta">As palta</button>
-          <button data-arrange="sustain">Elongate</button>
-          <button data-arrange="compact">Remove holds</button>
+          <button data-arrange="taan" title="Play the line faster, with more notes per beat">As taan</button>
+          <button data-arrange="palta" title="Repeat the line as a practice pattern up the raga">As palta</button>
+          <button data-arrange="sustain" title="Add holds to stretch the phrase">Elongate</button>
+          <button data-arrange="compact" title="Remove the holds">Remove holds</button>
         </div>
       </div>
       <div class="row wrap actions">
-        <button id="editor-play" class="primary">▶ Play</button>
-        <button id="editor-regenerate">Regenerate</button>
+        <button id="editor-regenerate" title="Generate a new line from the prompt and open it here">New line from prompt</button>
         <span class="grow"></span>
+        <label class="sr-only" for="line-title">Title</label>
         <input id="line-title" placeholder="Title (optional)">
-        <button id="save-line">Save line</button>
+        <button id="save-line" class="primary">Save line</button>
       </div>
     </div>
   </section>
 
-  <section class="view library-view" id="view-library" role="tabpanel" aria-labelledby="tab-library" hidden>
+  <section class="view library-view" id="view-library" aria-labelledby="library-title" hidden>
+    <h2 id="library-title" class="sr-only">Library</h2>
     <div class="panel saved-panel">
       <div class="panel-head">
-        <h2>Saved lines</h2>
-        <p class="hint">Your library is stored in this browser.</p>
+        <h2 id="saved-title">Saved lines</h2>
+        <p class="hint">Your library is stored in this browser. Export it to keep a backup or move it to another browser.</p>
       </div>
       <div class="toolbar library-actions" role="group" aria-label="Library import and export">
         <button type="button" id="export-library">Export library</button>
@@ -213,21 +283,21 @@
 
 <section class="dock" aria-label="Keyboard">
   <div class="dock-head">
-    <button id="dock-toggle" class="dock-toggle" aria-expanded="true" aria-controls="dock-body">Keyboard</button>
+    <button id="dock-toggle" class="dock-toggle" aria-expanded="false" aria-controls="dock-body">Keyboard</button>
     <label>Instrument <select id="instrument"></select></label>
-    <label class="vol">Volume <input id="instrument-vol" type="range" min="0" max="1" step="0.05" value="0.8"></label>
-    <label class="check" title="Add the notes you play to the line in Compose"><input id="piano-input" type="checkbox" checked> Add played notes to the line</label>
-    <label class="check" title="S D V G H M comma L play S R G m P D N S'; X C B N K play r g M d n; Z and period change the octave"><input id="keyboard-play" type="checkbox" checked> Play from computer keyboard</label>
+    <span class="hint keyboard-hint" id="keyboard-hint"><kbd>S</kbd> plays Sa. <kbd>Z</kbd> and <kbd>.</kbd> change the octave (now <strong id="key-octave">madhya</strong>).</span>
     <details class="popover key-map-popover">
-      <summary>Key map</summary>
+      <summary>Keyboard settings</summary>
       <div class="popover-body">
+        <label class="vol">Volume <input id="instrument-vol" type="range" min="0" max="1" step="0.05" value="0.8"></label>
+        <label class="check"><input id="piano-input" type="checkbox" checked> Add the notes I play to the line in Compose</label>
+        <label class="check"><input id="keyboard-play" type="checkbox" checked> Play from the computer keyboard</label>
         <p class="hint">Each computer key plays the swara under it: <kbd>S</kbd> <kbd>D</kbd> <kbd>V</kbd> <kbd>G</kbd> <kbd>H</kbd> <kbd>M</kbd> <kbd>,</kbd> <kbd>L</kbd> play the shuddha swaras from Sa to taar Sa, and <kbd>X</kbd> <kbd>C</kbd> <kbd>B</kbd> <kbd>N</kbd> <kbd>K</kbd> play komal Re, komal Ga, tivra Ma, komal Dha, and komal Ni. Hold <kbd>Shift</kbd> to replace the selected note.</p>
         <div id="key-map" class="key-map"></div>
       </div>
     </details>
-    <span class="hint keyboard-hint" id="keyboard-hint"><kbd>S</kbd> plays Sa, <kbd>Z</kbd> and <kbd>.</kbd> change the octave (now <strong id="key-octave">madhya</strong>).</span>
   </div>
-  <div id="dock-body" class="dock-body">
+  <div id="dock-body" class="dock-body" hidden>
     <div id="piano" class="piano"></div>
   </div>
 </section>
@@ -238,6 +308,7 @@
     <button type="button" id="raga-dialog-close" aria-label="Close">✕</button>
   </div>
   <input id="raga-filter" type="search" placeholder="Filter by name, thaat, or time" autocomplete="off">
+  <div class="chips raga-filter-chips" id="raga-filter-chips" role="group" aria-label="Filters"></div>
   <p class="hint raga-dialog-hint">The number after a raga is how many compositions with notation it has.</p>
   <div id="raga-groups" class="raga-groups"></div>
 </dialog>
@@ -256,6 +327,15 @@
   </form>
 </dialog>
 
+<dialog id="glossary-dialog" aria-labelledby="glossary-title">
+  <div class="dialog-head">
+    <h2 id="glossary-title">Glossary</h2>
+    <button type="button" id="glossary-close" aria-label="Close">✕</button>
+  </div>
+  <dl id="glossary-list" class="glossary"></dl>
+</dialog>
+
+<div id="term-pop" class="term-pop" role="dialog" aria-modal="false" hidden></div>
 <div id="toast" class="toast" role="status" aria-live="polite"></div>
 <script type="module" src="./js/app.js"></script>
 </body>

@@ -10,27 +10,43 @@ record your practice in your browser.
 
 ## Using the app
 
-The page has four parts:
+On your first visit, a welcome screen offers two starting points: **Learn a
+raga** and **Compose in a raga**. After that, Swaramala opens the last raga you
+used.
 
-- **Top bar**: search for a raga, or click **Browse all** to filter the 93
-  ragas by name, thaat, or time. The number next to a raga is how many
-  compositions with notation it has.
-- **Sound bar**: stays at the top while you scroll. It holds the scale (Sa),
-  tempo, **Tanpura** and **Tabla** with the taal, **Sound settings** (tanpura
-  tuning and volumes), and **Record**. The tabla theka appears while the tabla
-  plays.
-- **Raga summary and tabs**: the raga's facts and swaras, a **How to read the
-  notation** guide, and five tabs: **Overview** (aaroh, avroh, pakad, and
-  patterns), **Compositions**, **Alaap and taan**, **Compose** (generate and
-  arrange a line), and **My library** (saved lines and recordings). The tab is
-  kept in the URL, so you can bookmark `/#compositions`, for example.
-- **Keyboard dock**: the swara keyboard and instrument picker at the bottom of
-  the window. Click **Keyboard** to hide or show it.
+The page has these parts:
+
+- **Header**: the three sections, **Learn**, **Compose**, and **Library**, and
+  the raga search. Click **Browse** to filter the 93 ragas by name, thaat, time
+  of day, or whether they have compositions.
+- **Sound bar**: the scale (Sa), tempo, taal, **Tanpura**, **Tabla**, and
+  **Record**. Click **Sound** for the tanpura tuning and the volumes. On wide
+  screens the bar stays at the top while you scroll.
+- **Raga summary**: the raga's facts and swaras. Click an underlined term, such
+  as **Vadi**, for a short definition, or click **Glossary** for every term.
+- **Learn**: three tabs and a learning path.
+  - **Overview**: aaroh, avroh, pakad, and common patterns. Each phrase has
+    **Play**, **Slower**, **Loop**, and **Open in Compose**.
+  - **Compositions**: words and notation on the taal grid. You can play or loop
+    a whole composition, one section, or one line, and preview the performance
+    plan before you click **Perform with alaap and taan**.
+  - **Practice alaap and taan**: practice cards that you can play, slow down,
+    loop, save, or step through with **Next phrase**.
+  - The learning path marks a step as practiced when you play it. Progress is
+    saved per raga in this browser.
+- **Compose**: choose a contour, start and end swaras, beats, and options, or
+  type a prompt. Click **Generate options**, then **Use in editor** on the
+  option you like. The editor has undo and redo (Cmd+Z and Cmd+Shift+Z, or
+  Ctrl+Z and Ctrl+Y), explains any note that breaks the raga, and offers a fix.
+- **Library**: saved lines and recordings, with export and import.
+- **Keyboard dock**: the instrument picker is always visible. Click
+  **Keyboard** to show or hide the swara keyboard. The URL keeps the current
+  view, so you can bookmark `/#compositions`, for example.
 
 ## Playing from the computer keyboard
 
-When **Play from computer keyboard** is on, the keys play swaras in the
-current scale. Click **Key map** in the keyboard dock to see every key.
+When **Play from the computer keyboard** is on, the keys play swaras in the
+current scale. Open **Keyboard settings** in the keyboard dock to see every key.
 
 | Keys | Swaras |
 |---|---|

@@ -49,6 +49,44 @@ const EXAMPLES = [
   "valley starting on G ending on G, 12 beats",
 ];
 
+const GLOSSARY = {
+  raga: "A melodic framework: a set of swaras, the way they move, and the phrases that give it its mood.",
+  swara: "A note of Indian music: Sa, Re, Ga, Ma, Pa, Dha, and Ni.",
+  thaat: "The parent scale a raga belongs to. Hindustani music groups ragas into ten thaats.",
+  time: "The time of day or season when the raga is traditionally sung.",
+  aaroh: "The ascending path of a raga.",
+  avroh: "The descending path of a raga.",
+  pakad: "A short phrase that makes the raga recognizable.",
+  vadi: "The most important swara in the raga.",
+  samvadi: "The second most important swara in the raga.",
+  varjit: "Swaras the raga leaves out.",
+  jati: "How many swaras the raga uses going up and coming down, for example five and seven.",
+  bandish: "A fixed composition, with words, set to a taal.",
+  tarana: "A composition sung with syllables such as ta, na, dir, and tom instead of words.",
+  sthayi: "The first part of a composition. It stays mostly in the lower and middle octaves.",
+  antara: "The second part of a composition. It rises toward taar Sa.",
+  mukhda: "The opening phrase of the sthayi or antara. It leads to sam, and every alaap and taan returns to it.",
+  taal: "The rhythmic cycle, with a fixed number of beats called matras.",
+  sam: "Beat 1 of the taal cycle, marked X, where phrases resolve.",
+  khali: "The unstressed, wave-of-the-hand division of the taal, marked 0.",
+  tali: "A clapped division of the taal, marked with its number.",
+  alaap: "A slow, unmetered exploration of the raga's swaras. Here, each alaap is fitted to the taal so it returns to the mukhda.",
+  taan: "A fast run of swaras that follows the raga. Here, each taan is 8 or 16 beats and ends on the mukhda.",
+  palta: "A practice pattern that repeats a figure on each step of the scale.",
+  avartan: "One full cycle of the taal.",
+};
+
+const LEARN_TABS = ["overview", "compositions", "improv"];
+const SECTION_OF = { overview: "learn", compositions: "learn", improv: "learn", compose: "compose", library: "library" };
+const LEARN_STEPS = [
+  ["aarohAvroh", "Hear aaroh and avroh", "overview"],
+  ["pakad", "Learn the pakad", "overview"],
+  ["sthayi", "Learn a sthayi", "compositions"],
+  ["antara", "Learn an antara", "compositions"],
+  ["alaap", "Practice alaap", "improv"],
+  ["taan", "Practice taan", "improv"],
+];
+
 const $ = (sel) => document.querySelector(sel);
 const engine = new AudioEngine();
 const recorder = new SessionRecorder(engine);
@@ -68,6 +106,10 @@ const state = {
   improv: null,
   improvSeed: null,
   pendingRecording: null,
+  history: [],
+  future: [],
+  loop: null,
+  chosenPattern: -1,
 };
 
 // Notation helpers -----------------------------------------------------------
@@ -118,6 +160,110 @@ function el(tag, attrs = {}, ...children) {
   return node;
 }
 
+// Term help ------------------------------------------------------------------
+// A term button opens a short definition next to it. One definition is open at a time.
+function term(key, label = key) {
+  return el("button", { type: "button", class: "term", "aria-expanded": "false", "aria-controls": "term-pop", "data-term": key }, label);
+}
+
+function openTerm(button) {
+  const pop = $("#term-pop");
+  const key = button.dataset.term;
+  if (!pop.hidden && pop.dataset.for === key && pop.owner === button) return closeTerm();
+  closeTerm();
+  pop.replaceChildren(el("strong", {}, key), el("p", {}, GLOSSARY[key] || ""));
+  pop.setAttribute("aria-label", key);
+  pop.dataset.for = key;
+  pop.owner = button;
+  pop.hidden = false;
+  const r = button.getBoundingClientRect();
+  const left = Math.max(8, Math.min(r.left + window.scrollX, window.scrollX + document.documentElement.clientWidth - pop.offsetWidth - 8));
+  pop.style.left = `${left}px`;
+  pop.style.top = `${r.bottom + window.scrollY + 6}px`;
+  button.setAttribute("aria-expanded", "true");
+}
+
+function closeTerm() {
+  const pop = $("#term-pop");
+  if (pop.hidden) return;
+  pop.hidden = true;
+  pop.owner?.setAttribute("aria-expanded", "false");
+  pop.owner = null;
+}
+
+function bindTerms() {
+  document.addEventListener("click", (e) => {
+    const button = e.target.closest?.(".term");
+    if (button) return openTerm(button);
+    if (!e.target.closest?.("#term-pop")) closeTerm();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && !$("#term-pop").hidden) {
+      const owner = $("#term-pop").owner;
+      closeTerm();
+      owner?.focus();
+    }
+  });
+  window.addEventListener("resize", closeTerm);
+  $("#glossary-list").append(...Object.entries(GLOSSARY).flatMap(([k, v]) => [el("dt", {}, k), el("dd", {}, v)]));
+  $("#open-glossary").addEventListener("click", () => $("#glossary-dialog").showModal());
+  $("#glossary-close").addEventListener("click", () => $("#glossary-dialog").close());
+  $("#glossary-dialog").addEventListener("click", (e) => { if (e.target === e.currentTarget) e.currentTarget.close(); });
+}
+
+// Learning path --------------------------------------------------------------
+const progressKey = () => `swaramala.learnProgress.v1.${state.raga?.name}`;
+
+function learnProgress() {
+  try {
+    return JSON.parse(localStorage.getItem(progressKey())) || {};
+  } catch {
+    return state.sessionProgress?.[state.raga?.name] || {};
+  }
+}
+
+function markLearned(step) {
+  if (!state.raga) return;
+  const progress = learnProgress();
+  if (progress[step]) return;
+  progress[step] = true;
+  try {
+    localStorage.setItem(progressKey(), JSON.stringify(progress));
+  } catch {
+    state.sessionProgress = { ...state.sessionProgress, [state.raga.name]: progress };
+  }
+  const label = LEARN_STEPS.find(([k]) => k === step)?.[1];
+  if (label) toast(`Marked as practiced: ${label}.`);
+  renderLearnPath();
+}
+
+function renderLearnPath() {
+  const box = $("#learn-path");
+  box.replaceChildren();
+  if (!state.raga) return;
+  const progress = learnProgress();
+  const done = LEARN_STEPS.filter(([k]) => progress[k]).length;
+  box.append(
+    el("span", { class: "lp-title" }, "Your path"),
+    el("ol", {}, ...LEARN_STEPS.map(([key, label, tab], n) => el("li", {},
+      el("button", {
+        type: "button",
+        class: "lp-step" + (progress[key] ? " done" : ""),
+        "data-n": n + 1,
+        title: progress[key] ? "Practiced. Click to go there." : "Click to go there. Steps are marked as practiced when you play them.",
+        onclick: () => showTab(tab),
+      }, label, progress[key] ? el("span", { class: "sr-only" }, " (practiced)") : "")))),
+    el("span", { class: "lp-count" }, `${done} of ${LEARN_STEPS.length} practiced`),
+    done ? el("button", {
+      type: "button", class: "link-button", onclick: () => {
+        if (!confirm(`Reset learning progress for ${state.raga.name}?`)) return;
+        try { localStorage.removeItem(progressKey()); } catch { /* storage unavailable */ }
+        if (state.sessionProgress) delete state.sessionProgress[state.raga.name];
+        renderLearnPath();
+      },
+    }, "Reset") : "");
+}
+
 // Taal grid ------------------------------------------------------------------
 function renderGrid(container, tokens, npb, { selectable = false, bad = new Set(), idPrefix = "" } = {}) {
   container.innerHTML = "";
@@ -125,15 +271,25 @@ function renderGrid(container, tokens, npb, { selectable = false, bad = new Set(
   const beats = [];
   for (let i = 0; i < tokens.length; i += npb) beats.push(tokens.slice(i, i + npb).map((t, k) => [t, i + k]));
   if (!beats.length) {
-    container.append(el("div", { class: "muted small" }, "Empty line. Generate a pattern or click piano keys."));
+    container.append(selectable
+      ? el("div", { class: "empty-state" },
+        el("strong", {}, "Start with a line"),
+        el("ul", {},
+          el("li", {}, "Choose Use in editor on a generated option."),
+          el("li", {}, "Play swaras on the keyboard or the swara strip."),
+          el("li", {}, "Type notation in the box under this grid.")))
+      : el("div", { class: "muted small" }, "Empty line."));
     return;
   }
+  const markerName = (m) => (m === "X" ? "Sam" : m === "0" ? "Khali" : m ? `Tali ${m}` : "");
   for (let c = 0; c < beats.length; c += taal.beats) {
     const cycle = el("div", { class: "cycle" });
     let b = c;
     taal.vibhags.forEach((size, v) => {
       if (b >= beats.length) return;
-      const vib = el("div", { class: "vibhag" }, el("span", { class: "marker" }, taal.markers[v] ?? ""));
+      const marker = taal.markers[v] ?? "";
+      const vib = el("div", { class: "vibhag" + (marker === "X" ? " sam" : "") },
+        el("span", { class: "marker", title: markerName(marker) }, marker, el("span", { class: "sr-only" }, ` ${markerName(marker)}`)));
       for (let k = 0; k < size && b < beats.length; k++, b++) {
         const cell = el("div", { class: "beat" + (npb > 1 ? " multi" : "") });
         for (const [tok, idx] of beats[b]) {
@@ -158,7 +314,7 @@ function renderNotationBar() {
   const semis = new Set(state.raga?.semitones || []);
   SWARAS.forEach((s, i) => {
     const cls = "nkey" + (state.raga ? (semis.has(i) ? " in-raga" : " varjit") : "");
-    box.append(el("button", { class: cls, title: SWARA_LABELS[i], onclick: (e) => pianoPress(i, { replace: e.shiftKey }) },
+    box.append(el("button", { class: cls, title: SWARA_LABELS[i], "data-semi": i, onclick: (e) => pianoPress(i, { replace: e.shiftKey }) },
       el("b", {}, s), el("small", {}, SWARA_LABELS[i])));
   });
 }
@@ -196,8 +352,15 @@ function renderPiano() {
   }
 }
 
+function swaraKey(pitch) {
+  return document.querySelector(`#notation-keys [data-semi="${((pitch % 12) + 12) % 12}"]`);
+}
+
 function flashKey(pitch, ms = 250) {
-  const key = document.querySelector(`#piano [data-pitch="${pitch}"]`);
+  const keys = [document.querySelector(`#piano [data-pitch="${pitch}"]`), swaraKey(pitch)];
+  keys[1]?.classList.add("playing");
+  setTimeout(() => keys[1]?.classList.remove("playing"), ms);
+  const key = keys[0];
   if (!key) return;
   key.classList.add("active");
   setTimeout(() => key.classList.remove("active"), ms);
@@ -223,10 +386,12 @@ function startHold(pitch, replace) {
   const stop = engine.startNote(pitch);
   const key = () => document.querySelector(`#piano [data-pitch="${pitch}"]`);
   key()?.classList.add("active");
+  swaraKey(pitch)?.classList.add("playing");
   addToLine(pitch, replace);
   return () => {
     stop();
     key()?.classList.remove("active");
+    swaraKey(pitch)?.classList.remove("playing");
   };
 }
 
@@ -319,6 +484,7 @@ function addToLine(pitch, replace) {
   if (document.activeElement === $("#editor-text")) $("#editor-text").blur();
   const tok = { text: swaraText(pitch), pitch };
   const sel = state.selected;
+  remember();
   if (replace && sel >= 0) {
     state.line[sel] = tok;
   } else {
@@ -341,9 +507,36 @@ async function loadRagas() {
   renderRagaBrowser();
 }
 
+const TIME_FILTERS = ["Morning", "Afternoon", "Evening", "Night"];
+
+// Groups the traditional singing times into four broad parts of the day.
+function timeBucket(time = "") {
+  if (/dawn|morning/i.test(time)) return "Morning";
+  if (/midday|afternoon|of the day/i.test(time)) return "Afternoon";
+  if (/sunset|evening|first quarter of the night/i.test(time)) return "Evening";
+  if (/night/i.test(time)) return "Night";
+  return null;
+}
+
+function renderRagaFilters() {
+  const box = $("#raga-filter-chips");
+  const f = state.ragaFilters;
+  const chip = (label, pressed, onclick) => el("button", {
+    type: "button", class: "chip", "aria-pressed": String(pressed),
+    onclick: () => { onclick(); [...box.children].find((b) => b.textContent === label)?.focus(); },
+  }, label);
+  box.replaceChildren(
+    chip("Has compositions", f.comps, () => { f.comps = !f.comps; renderRagaBrowser(); }),
+    ...TIME_FILTERS.map((label) => chip(label, f.time === label, () => { f.time = f.time === label ? null : label; renderRagaBrowser(); })));
+}
+
 function renderRagaBrowser() {
+  state.ragaFilters ??= { comps: false, time: null };
+  renderRagaFilters();
   const filter = $("#raga-filter").value.trim().toLowerCase();
-  const matches = (r) => !filter || [r.name, r.thaat, r.time, ...r.aliases].some((v) => v?.toLowerCase().includes(filter));
+  const matches = (r) => (!filter || [r.name, r.thaat, r.time, ...r.aliases].some((v) => v?.toLowerCase().includes(filter)))
+    && (!state.ragaFilters.comps || r.compositions > 0)
+    && (!state.ragaFilters.time || timeBucket(r.time) === state.ragaFilters.time);
   const groups = new Map();
   for (const r of state.ragas.filter(matches)) {
     const key = r.custom ? "Your ragas" : r.thaat ? `${r.thaat} thaat` : "Other";
@@ -363,10 +556,13 @@ function renderRagaBrowser() {
         class: "chip raga-chip" + (state.raga?.name === r.name ? " current" : ""),
         title: [r.time, r.aliases.length && `Also known as ${r.aliases.join(", ")}`,
           `${r.compositions || "No"} composition${r.compositions === 1 ? "" : "s"} with notation`].filter(Boolean).join(". "),
-        onclick: () => { $("#raga-dialog").close(); setRaga(r.name); },
+        onclick: async () => {
+          $("#raga-dialog").close();
+          if (await setRaga(r.name) && !$("#welcome").hidden) showTab("overview");
+        },
       }, r.name, r.compositions ? el("span", { class: "count", title: `${r.compositions} with notation` }, r.compositions) : "")))));
   }
-  if (!box.children.length) box.append(el("p", { class: "muted" }, "No ragas match the filter."));
+  if (!box.children.length) box.append(el("p", { class: "muted" }, "No ragas match. Try a name, a thaat, or a time of day, or clear the filters."));
   $("#raga-dialog-title").textContent = `All ${state.ragas.length} ragas`;
 }
 
@@ -383,29 +579,86 @@ async function setRaga(name) {
     raga.semitones = [...new Set(tokenize([raga.aaroh, raga.avroh, ...raga.pakad, ...raga.patterns].join(" "))
       .filter((t) => t.pitch !== undefined).map((t) => ((t.pitch % 12) + 12) % 12))];
     state.raga = raga;
+    state.heard = new Set();
     localStorage.setItem("raga", raga.name);
     $("#raga-input").value = raga.name;
     if (state.ragas.length) renderRagaBrowser();
     renderRagaInfo();
+    renderLearnPath();
+    renderBuilderNotes();
     renderNotationBar();
     renderPiano();
     renderKeyMap();
     validateLine();
     loadSavedLines();
+    return true;
   } catch (err) {
     toast(err.message);
     showTab("overview");
     $("#raga-info").innerHTML = "";
     $("#raga-info").append(el("div", { class: "panel" }, el("p", { class: "error" }, err.message),
       el("button", { type: "button", onclick: openRagaDialog }, "Browse all ragas")));
+    return false;
   }
 }
 
-function phraseRow(text) {
-  return el("div", { class: "phrase" },
-    el("span", { class: "mono" }, text),
-    el("button", { title: "Play", onclick: () => playTokens(tokenize(text), 1) }, "▶"),
-    el("button", { title: "Load into the editor", onclick: () => loadLine(tokenize(text), 1) }, "Edit"));
+// Practice playback ------------------------------------------------------------
+// Plays a phrase once, slower, or in a loop until you stop it.
+function withTempo(factor, fn) {
+  const tempo = engine.tempo;
+  engine.tempo = tempo * factor;
+  try {
+    return fn();
+  } finally {
+    engine.tempo = tempo;
+  }
+}
+
+function practicePlay(tokens, npb, idPrefix, { cellFor, slow = false, loopButton = null, onDone = null, startAt = null } = {}) {
+  stopPlayback();
+  const loop = loopButton ? { button: loopButton } : null;
+  if (loop) {
+    state.loop = loop;
+    loopButton.setAttribute("aria-pressed", "true");
+    loopButton.textContent = "■ Stop loop";
+  }
+  const run = (keepLoop) => {
+    const go = () => playTokens(tokens, npb, idPrefix, {
+      cellFor,
+      keepLoop,
+      startAt: typeof startAt === "function" ? startAt() : startAt,
+      onEnd: () => {
+        onDone?.();
+        if (loop && state.loop === loop) setTimeout(() => { if (state.loop === loop) run(true); }, 500);
+        else stopPlayback();
+      },
+    });
+    slow ? withTempo(0.7, go) : go();
+  };
+  run(Boolean(loop));
+}
+
+function loopToggle(start) {
+  const button = el("button", { type: "button", class: "loop small", "aria-pressed": "false" }, "Loop");
+  button.addEventListener("click", () => (state.loop?.button === button ? stopPlayback() : start(button)));
+  return button;
+}
+
+let phraseSeq = 0;
+// A phrase you can hear, slow down, loop, and open in Compose. The note that is
+// sounding lights up in the phrase, on the swara strip, and on the keyboard.
+function phraseCard(text, { name, onDone = null } = {}) {
+  const tokens = tokenize(text);
+  const id = `ph${++phraseSeq}`;
+  const notes = el("span", { class: "phrase-notes", role: "img", "aria-label": `${name}: ${text}` },
+    ...tokens.map((t, i) => el("span", { id: `${id}-${i}`, "aria-hidden": "true" }, t.text)));
+  const play = (opts = {}) => practicePlay(tokens, 1, id, { onDone, ...opts });
+  return el("div", { class: "phrase-card" }, notes,
+    el("div", { class: "phrase-actions" },
+      el("button", { type: "button", class: "small", "aria-label": `Play ${name}`, onclick: () => play() }, "▶ Play"),
+      el("button", { type: "button", class: "small", "aria-label": `Play ${name} slower`, title: "Play at 70% of the tempo", onclick: () => play({ slow: true }) }, "Slower"),
+      loopToggle((button) => play({ loopButton: button })),
+      el("button", { type: "button", class: "small", title: "Open this phrase in the Compose editor", onclick: () => loadLine(tokens, 1) }, "Open in Compose")));
 }
 
 function renderRagaHeading() {
@@ -415,19 +668,24 @@ function renderRagaHeading() {
   const facts = $("#raga-facts");
   facts.innerHTML = "";
   if (!r) return;
-  const fact = (label, value) => value && facts.append(el("span", { class: "fact" }, el("b", {}, label), value));
-  fact("Thaat", r.thaat);
-  fact("Time", r.time);
-  fact("Vadi", r.vadi);
-  fact("Samvadi", r.samvadi);
-  fact("Jati", r.jati);
-  fact("Varjit", r.varjit.length ? r.varjit.join(", ") : "None");
-  if (r.aliases?.length) fact("Also", r.aliases.join(", "));
+  const fact = (key, label, value) => value && facts.append(el("span", { class: "fact" }, key ? term(key, label) : el("b", {}, label), value));
+  fact("thaat", "Thaat", r.thaat);
+  fact("time", "Time", r.time);
+  fact("vadi", "Vadi", r.vadi);
+  fact("samvadi", "Samvadi", r.samvadi);
+  fact("jati", "Jati", r.jati);
+  fact("varjit", "Varjit", r.varjit.length ? r.varjit.join(", ") : "None");
+  if (r.aliases?.length) fact(null, "Also", r.aliases.join(", "));
 }
 
 function nextStep(tab, title, text) {
   return el("button", { class: "next-step", type: "button", onclick: () => showTab(tab) },
     el("strong", {}, `${title} →`), el("span", {}, text));
+}
+
+function heardBoth(part) {
+  state.heard.add(part);
+  if (state.heard.has("aaroh") && state.heard.has("avroh")) markLearned("aarohAvroh");
 }
 
 function renderRagaInfo() {
@@ -438,25 +696,32 @@ function renderRagaInfo() {
   box.innerHTML = "";
   const comps = (r.compositions || []).filter((c) => c.sections.length);
   const taranas = comps.filter((c) => /tarana/i.test(`${c.type} ${c.title}`)).length;
+  const both = tokenize(`${r.aaroh} - ${r.avroh}`);
   box.append(
     el("div", { class: "panel" },
-      el("h3", {}, `The shape of ${r.name}`),
+      el("h3", {}, `Learn the shape of ${r.name}`),
       r.description ? el("p", { class: "muted small" }, r.description) : "",
-      el("p", { class: "hint" }, "Press ▶ to hear a phrase, or Edit to open it in Compose."),
-      el("div", { class: "label" }, "Aaroh (ascent)"), phraseRow(r.aaroh),
-      el("div", { class: "label" }, "Avroh (descent)"), phraseRow(r.avroh),
-      el("div", { class: "label" }, "Pakad (identifying phrases)"), ...r.pakad.map(phraseRow),
-      el("div", { class: "label" }, "Common patterns"), ...r.patterns.map(phraseRow)),
+      el("p", { class: "hint" }, "Start with the ascent and descent, then learn the pakad and the common patterns. Use Slower or Loop when you want to sing along."),
+      el("div", { class: "row between" },
+        el("div", { class: "label" }, term("aaroh", "Aaroh"), " and ", term("avroh", "avroh")),
+        el("button", { type: "button", class: "small", onclick: () => practicePlay(both, 1, null, { onDone: () => markLearned("aarohAvroh") }) }, "▶ Play both")),
+      phraseCard(r.aaroh, { name: "aaroh", onDone: () => heardBoth("aaroh") }),
+      phraseCard(r.avroh, { name: "avroh", onDone: () => heardBoth("avroh") }),
+      el("div", { class: "label" }, term("pakad", "Pakad"), " (the phrases that identify the raga)"),
+      ...r.pakad.map((p, i) => phraseCard(p, { name: `pakad ${i + 1}`, onDone: () => markLearned("pakad") })),
+      el("div", { class: "label" }, "Common patterns"),
+      ...r.patterns.map((p, i) => phraseCard(p, { name: `pattern ${i + 1}` })),
+      r.patterns.length < 5 ? el("p", { class: "hint" }, "You can generate more patterns in Compose.") : ""),
     el("div", { class: "next-steps" },
       el("h3", {}, "What you can do next"),
       nextStep("compositions", "Learn a composition",
         comps.length
-          ? `${comps.length} composition${comps.length === 1 ? "" : "s"} with notation${taranas ? `, including ${taranas} tarana${taranas === 1 ? "" : "s"}` : ""}. Play one, or perform it with alaap and taan on the tabla.`
+          ? `${comps.length} composition${comps.length === 1 ? "" : "s"} with notation and words${taranas ? `, including ${taranas} tarana${taranas === 1 ? "" : "s"}` : ""}. Play a line at a time, or perform one with alaap and taan on the tabla.`
           : `No compositions with notation are recorded for ${r.name} yet.`),
       nextStep("improv", "Practice alaap and taan",
-        "Short and full-cycle alaaps and taans for the sthayi and antara, in the taal you choose."),
+        "Listen to short and full-cycle alaaps and 8- and 16-beat taans for the sthayi and antara, then sing them back."),
       nextStep("compose", "Compose your own line",
-        "Describe a phrase in words, generate options that obey the raga, and arrange them into a taan."),
+        "Pick a direction, a start note, and an end note. Swaramala generates options that follow the raga."),
       nextStep("library", "Open your library", "Your saved lines and recordings.")),
   );
   renderCompositions();
@@ -474,7 +739,7 @@ async function loadImprovisations(seed = state.improvSeed) {
   const params = new URLSearchParams({ taal });
   if (seed !== null && seed !== undefined) params.set("seed", seed);
   const raga = state.raga.name;
-  $("#improv-title").textContent = `Alaap and taan in ${raga}`;
+  $("#improv-title").textContent = `Practice alaap and taan in ${raga}`;
   $("#improv-taal").textContent = `${taal}, ${state.taal?.beats ?? 16} beats`;
   try {
     const data = await api(`/api/ragas/${encodeURIComponent(raga)}/improvisations?${params}`);
@@ -484,7 +749,8 @@ async function loadImprovisations(seed = state.improvSeed) {
     renderImprovisations();
   } catch (err) {
     box.innerHTML = "";
-    box.append(el("p", { class: "error" }, err.message));
+    box.append(el("p", { class: "error" }, err.message),
+      el("button", { type: "button", onclick: () => loadImprovisations(Math.floor(Math.random() * 2 ** 31)) }, "Try another set"));
   }
 }
 
@@ -492,10 +758,16 @@ function renderImprovisations() {
   const box = $("#improv");
   box.innerHTML = "";
   const data = state.improv;
+  if (!data.groups.some((g) => g.items.length)) {
+    box.append(el("p", { class: "muted" }, "No practice phrases are available for this raga and taal. Choose another taal in the sound bar."));
+    return;
+  }
   data.groups.forEach((group, g) => {
+    const step = g === IMPROV_GROUPS.sthayiAlaap || g === IMPROV_GROUPS.antaraAlaap ? "alaap" : "taan";
     const col = el("div", { class: "improv-group" },
       el("h3", {}, group.title),
       el("p", { class: "hint" }, group.description));
+    const cards = [];
     group.items.forEach((item, i) => {
       const id = `ip-${g}-${i}`;
       const tokens = tokensFromStrings(item.tokens);
@@ -506,13 +778,41 @@ function renderImprovisations() {
         beats.append(el("span", { id: `${id}-${b}`, class: b % (data.taal_beats) === 0 ? "sam" : "" }, text));
       }
       const label = `${PHRASE_LABELS[item.kind]} · ${item.beats} beats`;
-      col.append(el("div", { class: "improv-item" },
+      const name = `${group.title} ${i + 1}`;
+      const cellFor = (k) => Math.floor(k / npb);
+      const next = el("button", { type: "button", class: "small", hidden: "" }, "Next phrase →");
+      const card = el("div", { class: "improv-item" });
+      const listen = (opts = {}) => {
+        document.querySelectorAll(".improv-item.is-current").forEach((n) => n.classList.remove("is-current"));
+        card.classList.add("is-current");
+        practicePlay(tokens, npb, id, {
+          cellFor,
+          ...opts,
+          onDone: () => {
+            markLearned(step);
+            if (cards[i + 1]) next.hidden = false;
+          },
+        });
+      };
+      card.listen = listen;
+      next.addEventListener("click", () => {
+        next.hidden = true;
+        cards[i + 1].scrollIntoView({ behavior: "smooth", block: "nearest" });
+        cards[i + 1].querySelector("button")?.focus();
+        cards[i + 1].listen();
+      });
+      card.append(
         el("div", { class: "row improv-head" },
-          el("span", { class: "muted small" }, label),
-          el("button", { title: "Play", onclick: (e) => togglePlay(e.currentTarget, tokens, npb, id, (k) => Math.floor(k / npb)) }, "▶"),
-          el("button", { title: "Load into the editor", onclick: () => loadLine(tokens, npb) }, "Edit"),
-          el("button", { title: "Save this line", onclick: () => saveLine(tokens, npb, `${group.title}, ${label.toLowerCase()}`) }, "Save")),
-        beats));
+          el("span", { class: "muted small" }, `${i + 1}. ${label}`),
+          el("button", { type: "button", class: "small", "aria-label": `Listen to ${name}`, onclick: () => listen() }, "▶ Listen"),
+          el("button", { type: "button", class: "small", "aria-label": `Listen to ${name} slower`, onclick: () => listen({ slow: true }) }, "Slower"),
+          loopToggle((button) => listen({ loopButton: button })),
+          el("button", { type: "button", class: "small", title: "Open in the Compose editor", onclick: () => loadLine(tokens, npb) }, "Open in Compose"),
+          el("button", { type: "button", class: "small", title: "Save this phrase to your library", onclick: () => saveLine(tokens, npb, `${group.title}, ${label.toLowerCase()}`) }, "Save"),
+          next),
+        beats);
+      cards.push(card);
+      col.append(card);
     });
     box.append(col);
   });
@@ -587,17 +887,39 @@ function sectionOffset(comp, sectionIndex) {
   return comp.sections.slice(0, sectionIndex ?? 0).reduce((n, s) => n + s.lines.length * s.lines[0].beats.length, 0);
 }
 
-function playComposition(comp, index, sectionIndex, button) {
-  if (button.dataset.stop) return stopPlayback();
+// The learning-path steps a section completes: the first section is the sthayi.
+function sectionSteps(comp, sectionIndex) {
+  const step = (si) => (/antara/i.test(comp.sections[si].name) ? "antara" : si === 0 ? "sthayi" : null);
+  if (sectionIndex !== null) return [step(sectionIndex)].filter(Boolean);
+  return comp.sections.map((_, si) => step(si)).filter(Boolean);
+}
+
+// Plays the whole composition, one section, or one line of a section, in time
+// with the tabla when it is playing.
+function playComposition(comp, index, sectionIndex, button, { lineIndex = null, loopButton = null } = {}) {
+  if (button?.dataset.stop) return stopPlayback();
   const taal = compositionTaal(comp);
   if (taal) switchTaal(taal);
-  const lines = compositionLines(comp, sectionIndex);
+  let lines = compositionLines(comp, sectionIndex);
+  let offset = sectionOffset(comp, sectionIndex);
+  if (lineIndex !== null) {
+    offset += lineIndex * lines[0].beats.length;
+    lines = [lines[lineIndex]];
+  }
   const { tokens, npb } = expandBeats(lines);
-  const offset = sectionOffset(comp, sectionIndex);
   const phase = taal ? ((comp.first_matra || 1) - 1) % taal.beats : 0;
-  playTokens(tokens, npb, `cb-${index}`, { cellFor: (i) => offset + Math.floor(i / npb), onEnd: stopPlayback, startAt: tablaStartAt(phase) });
-  button.dataset.stop = button.textContent;
-  button.textContent = "■ Stop";
+  practicePlay(tokens, npb, `cb-${index}`, {
+    cellFor: (i) => offset + Math.floor(i / npb),
+    startAt: () => tablaStartAt(phase),
+    loopButton,
+    onDone: () => {
+      if (lineIndex === null) sectionSteps(comp, sectionIndex).forEach(markLearned);
+    },
+  });
+  if (button && !loopButton) {
+    button.dataset.stop = button.textContent;
+    button.textContent = "■ Stop";
+  }
 }
 
 function openCompositionInEditor(comp, sectionIndex) {
@@ -742,23 +1064,52 @@ function performOptions() {
   };
 }
 
-async function performComposition(comp, index, button) {
-  if (button.dataset.stop) return stopPlayback();
+// Fetches the alaap and taan for a composition and lays out the performance.
+async function performancePlan(comp, index) {
   const taal = compositionTaal(comp);
-  if (!taal) return toast(`The ${comp.taal} taal has no tabla theka, so it can't be performed with alaap and taan.`);
+  if (!taal) throw new Error(`The ${comp.taal} taal has no tabla theka, so it can't be performed with alaap and taan.`);
   const raga = state.raga.name;
   const params = new URLSearchParams({ taal: taal.name, composition: comp.title });
   if (state.improvSeed !== null && state.improvSeed !== undefined) params.set("seed", state.improvSeed);
-  let improv;
+  const improv = await api(`/api/ragas/${encodeURIComponent(raga)}/improvisations?${params}`);
+  if (state.raga?.name !== raga) return null;
+  return { taal, plan: buildPerformance(comp, index, improv, taal.beats, performOptions()) };
+}
+
+// Shows the steps of a performance as a numbered list, so you can see where you are.
+function renderPlanSteps(index, plan) {
+  const list = document.getElementById(`plan-steps-${index}`);
+  if (!list) return;
+  const beats = (k) => Math.round(((plan.labels[k + 1]?.at ?? plan.tokens.length) - plan.labels[k].at) / plan.npb);
+  list.replaceChildren(...plan.labels.map((l, k) => el("li", { "data-k": k }, `${l.label} · ${beats(k)} beats`)));
+}
+
+async function previewPlan(comp, index) {
+  const list = document.getElementById(`plan-steps-${index}`);
+  list.replaceChildren(el("li", { class: "muted" }, "Preparing the plan."));
   try {
-    improv = await api(`/api/ragas/${encodeURIComponent(raga)}/improvisations?${params}`);
+    const result = await performancePlan(comp, index);
+    if (result) renderPlanSteps(index, result.plan);
+  } catch (err) {
+    list.replaceChildren(el("li", { class: "error" }, err.message));
+  }
+}
+
+async function performComposition(comp, index, button) {
+  if (button.dataset.stop) return stopPlayback();
+  let result;
+  try {
+    result = await performancePlan(comp, index);
   } catch (err) {
     return toast(err.message);
   }
-  if (state.raga?.name !== raga) return;
-  const plan = buildPerformance(comp, index, improv, taal.beats, performOptions());
+  if (!result) return;
+  const { taal, plan } = result;
   stopPlayback();
   switchTaal(taal);
+  renderPlanSteps(index, plan);
+  const details = document.getElementById(`plan-${index}`);
+  if (details) details.open = true;
   const startedTabla = !engine.tabla.running;
   let startAt;
   if (startedTabla) {
@@ -777,10 +1128,15 @@ async function performComposition(comp, index, button) {
       while (k + 1 < plan.labels.length && plan.labels[k + 1].at <= i) k++;
       if (k !== current) {
         current = k;
-        if (status) status.textContent = `Now playing: ${plan.labels[k].label}`;
+        if (status) status.textContent = `Now: ${plan.labels[k].label}`;
+        document.querySelectorAll(`#plan-steps-${index} [aria-current]`).forEach((n) => n.removeAttribute("aria-current"));
+        document.querySelector(`#plan-steps-${index} [data-k="${k}"]`)?.setAttribute("aria-current", "step");
       }
     },
-    onEnd: stopPlayback,
+    onEnd: () => {
+      sectionSteps(comp, null).forEach(markLearned);
+      stopPlayback();
+    },
   });
   state.autoTabla = startedTabla;
   button.dataset.stop = button.textContent;
@@ -809,70 +1165,156 @@ function renderCompositions() {
   $("#compositions-title").textContent = state.raga ? `Compositions in ${state.raga.name}` : "Compositions";
   $("#compositions-count").textContent = list.filter((c) => c.sections.length).length || "";
   box.innerHTML = "";
-  if (!state.raga) return void box.append(el("p", { class: "muted" }, "Choose a raga to see its traditional compositions."));
-  if (!list.length) return void box.append(el("p", { class: "muted" }, `No traditional compositions are recorded for ${state.raga.name} yet.`));
+  if (!state.raga) return void box.append(el("p", { class: "muted" }, "Choose a raga to see its compositions."));
+  if (!list.length) {
+    return void box.append(el("div", { class: "empty-state" },
+      el("strong", {}, `No compositions are recorded for ${state.raga.name} yet.`),
+      el("span", {}, "You can still practice its alaap and taan, or compose your own line."),
+      el("button", { type: "button", onclick: () => showTab("improv") }, "Practice alaap and taan")));
+  }
   if (list.length > 1) {
-    box.append(el("nav", { class: "comp-index", "aria-label": "Jump to a composition" },
+    box.append(el("nav", { class: "comp-index", "aria-label": "Compositions" },
       ...list.map((comp, index) => el("a", { href: `#comp-${index}`, onclick: (e) => {
         e.preventDefault();
         document.getElementById(`comp-${index}`).scrollIntoView({ behavior: "smooth", block: "start" });
       } }, el("strong", {}, comp.title), el("span", {}, [comp.type, comp.taal].filter(Boolean).join(" · "))))));
   }
-  list.forEach((comp, index) => {
-    const markers = taalMarkers(comp);
-    const meta = [comp.type, comp.taal, comp.laya && `${comp.laya} laya`, comp.composer].filter(Boolean).join(" · ");
-    const source = /^https?:\/\//.test(comp.source)
-      ? el("a", { href: comp.source, target: "_blank", rel: "noopener noreferrer" }, "Source")
-      : el("span", {}, `Source: ${comp.source}`);
-    const card = el("article", { class: "composition", id: `comp-${index}` },
-      el("header", {},
-        el("h3", {}, comp.title),
-        el("p", { class: "meta" }, meta, " · ", source)),
-      comp.notes ? el("details", { class: "comp-notes" }, el("summary", {}, "About this transcription"), el("p", { class: "hint" }, comp.notes)) : "");
-    if (!comp.sections.length) {
-      card.append(el("p", { class: "muted small" }, "Notation for this composition isn't available yet."));
-      return void box.append(card);
-    }
-    const playAll = el("button", { class: "primary", onclick: (e) => playComposition(comp, index, null, e.currentTarget) }, "▶ Play all");
-    const perform = el("button", {
-      title: "Play the composition with the alaap and taan, returning to the first line after each, on the tabla",
-      onclick: (e) => performComposition(comp, index, e.currentTarget),
-    }, "▶ Perform with alaap and taan");
-    card.append(el("div", { class: "row wrap" }, playAll, perform,
-      el("button", { onclick: () => openCompositionInEditor(comp, null) }, "Open in Compose"),
-      el("span", { class: "perform-status muted small", id: `perform-status-${index}`, "aria-live": "polite" })));
-    const withLyrics = comp.sections.filter((section) => section.lyrics?.length);
-    if (withLyrics.length) {
-      card.append(el("section", { class: "comp-words", "aria-label": "Words" },
-        ...withLyrics.map((section) => el("div", { class: "comp-words-section" },
-          el("span", { class: "comp-words-name" }, section.name),
-          el("p", {}, ...section.lyrics.flatMap((line, i) => (i ? [el("br"), line] : [line])))))));
-    }
-    let beatNo = 0;
-    comp.sections.forEach((section, si) => {
-      card.append(el("div", { class: "row section-head" },
-        el("h4", {}, section.name),
-        el("button", { title: `Play the ${section.name.toLowerCase()}`, onclick: (e) => playComposition(comp, index, si, e.currentTarget) }, "▶"),
-        el("button", { title: "Open in Compose", onclick: () => openCompositionInEditor(comp, si) }, "Edit")));
-      for (const line of section.lines) {
-        const row = el("div", { class: "comp-line" });
-        line.beats.forEach((beat, b) => {
-          const marker = markers.get(b);
-          row.append(el("div", { class: "cbeat" + (marker !== undefined ? " vib" : "") + (beat.trim() ? "" : " empty"), id: `cb-${index}-${beatNo++}` },
-            el("span", { class: "mk" }, marker ?? ""),
-            el("span", { class: "nt" }, beat.trim()),
-            el("span", { class: "wd" }, line.words?.[b] === "_" ? "ऽ" : line.words?.[b] || "")));
-        });
-        card.append(el("div", { class: "grid-wrap" }, row));
-      }
+  list.forEach((comp, index) => box.append(compositionCard(comp, index)));
+}
+
+function compositionCard(comp, index) {
+  const markers = taalMarkers(comp);
+  const taal = compositionTaal(comp);
+  const meta = [comp.type, comp.taal, comp.laya && `${comp.laya} laya`, comp.composer].filter(Boolean).join(" · ");
+  const source = /^https?:\/\//.test(comp.source)
+    ? el("a", { href: comp.source, target: "_blank", rel: "noopener noreferrer" }, "Source")
+    : el("span", {}, `Source: ${comp.source}`);
+  const card = el("article", { class: "composition", id: `comp-${index}` },
+    el("header", {},
+      el("h3", {}, comp.title),
+      el("p", { class: "meta" }, meta, " · ", source)),
+    comp.notes ? el("details", { class: "comp-notes" }, el("summary", {}, "About this transcription"), el("p", { class: "hint" }, comp.notes)) : "");
+  if (!comp.sections.length) {
+    card.append(el("p", { class: "muted small" }, "Notation for this composition isn't available yet."));
+    return card;
+  }
+  const jump = (id) => (e) => {
+    e.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  const withLyrics = comp.sections.filter((section) => section.lyrics?.length);
+  card.append(el("nav", { class: "comp-sections", "aria-label": `Parts of ${comp.title}` },
+    withLyrics.length ? el("a", { href: `#words-${index}`, onclick: jump(`words-${index}`) }, "Words") : "",
+    ...comp.sections.map((section, si) => el("a", { href: `#sec-${index}-${si}`, onclick: jump(`sec-${index}-${si}`) }, section.name)),
+    taal ? el("a", { href: `#plan-${index}`, onclick: (e) => { document.getElementById(`plan-${index}`).open = true; jump(`plan-${index}`)(e); } }, "Performance plan") : ""));
+
+  const playAll = el("button", { class: "primary", onclick: (e) => playComposition(comp, index, null, e.currentTarget) }, "▶ Play whole");
+  const perform = el("button", {
+    title: "Sing the composition with alaap and taan on the tabla, returning to the mukhda after each",
+    onclick: (e) => performComposition(comp, index, e.currentTarget),
+  }, "▶ Perform with alaap and taan");
+  card.append(el("div", { class: "row wrap" }, playAll, taal ? perform : "",
+    el("button", { onclick: () => openCompositionInEditor(comp, null) }, "Open in Compose"),
+    el("span", { class: "perform-status muted small", id: `perform-status-${index}`, "aria-live": "polite" })));
+  if (withLyrics.length) {
+    card.append(el("section", { class: "comp-words", id: `words-${index}`, "aria-label": "Words" },
+      ...withLyrics.map((section) => el("div", { class: "comp-words-section" },
+        el("span", { class: "comp-words-name" }, section.name),
+        el("p", {}, ...section.lyrics.flatMap((line, i) => (i ? [el("br"), line] : [line])))))));
+  }
+  const legend = el("p", { class: "taal-legend" },
+    el("b", {}, "X"), " = ", term("sam"), " · ", el("b", {}, "0"), " = ", term("khali"), " · ",
+    el("b", {}, "2, 3, 4"), " = ", term("tali", "tali"), ". Each box is one beat.");
+  if (taal && taal.name.toLowerCase() !== comp.taal.toLowerCase()) {
+    legend.append(` The tabla plays ${taal.name}, which has the same ${taal.beats} beats, because ${comp.taal} has no theka here.`);
+  }
+  card.append(legend);
+  let beatNo = 0;
+  comp.sections.forEach((section, si) => {
+    const sectionName = section.name.toLowerCase();
+    card.append(el("div", { class: "row wrap section-head", id: `sec-${index}-${si}` },
+      el("h4", {}, section.name),
+      el("button", { class: "small", onclick: (e) => playComposition(comp, index, si, e.currentTarget) }, `▶ Play ${sectionName}`),
+      loopToggle((button) => playComposition(comp, index, si, null, { loopButton: button })),
+      el("button", { class: "small", title: "Open this section in Compose", onclick: () => openCompositionInEditor(comp, si) }, "Open in Compose")));
+    section.lines.forEach((line, li) => {
+      const row = el("div", { class: "comp-line" });
+      line.beats.forEach((beat, b) => {
+        const marker = markers.get(b);
+        const cls = ["cbeat", marker !== undefined ? "vib" : "", marker === "X" ? "sam" : "", beat.trim() ? "" : "empty"].join(" ");
+        row.append(el("div", { class: cls, id: `cb-${index}-${beatNo++}` },
+          el("span", { class: "mk", title: marker === "X" ? "Sam" : marker === "0" ? "Khali" : "" }, marker ?? ""),
+          el("span", { class: "nt" }, beat.trim()),
+          el("span", { class: "wd" }, line.words?.[b] === "_" ? "ऽ" : line.words?.[b] || "")));
+      });
+      const name = `${section.name} line ${li + 1}`;
+      card.append(el("div", { class: "line-row" },
+        el("div", { class: "line-controls", role: "group", "aria-label": name },
+          el("button", { type: "button", "aria-label": `Play ${name}`, title: `Play ${name}`, onclick: (e) => playComposition(comp, index, si, e.currentTarget, { lineIndex: li }) }, `▶ ${li + 1}`),
+          loopToggle((button) => playComposition(comp, index, si, null, { lineIndex: li, loopButton: button }))),
+        el("div", { class: "grid-wrap" }, row)));
     });
-    box.append(card);
   });
+  if (taal) {
+    const plan = el("details", { class: "perform-plan", id: `plan-${index}` },
+      el("summary", {}, "Performance plan"),
+      el("p", { class: "hint" }, "Perform plays the composition, adds alaap and taan, and returns to the mukhda each time. The current step is highlighted while it plays."),
+      el("ol", { id: `plan-steps-${index}` }));
+    plan.addEventListener("toggle", () => {
+      if (plan.open && !document.getElementById(`plan-steps-${index}`).children.length) previewPlan(comp, index);
+    });
+    card.append(plan);
+  }
+  return card;
+}
+
+// Phrase builder ----------------------------------------------------------------------
+const OCTAVE_NAMES = { "-1": "mandra ", 0: "", 1: "taar " };
+
+// The raga's swaras across the octaves its phrases use, low to high.
+function ragaNotes() {
+  const r = state.raga;
+  if (!r) return [];
+  const pitches = new Set(tokenize([r.aaroh, r.avroh, ...r.pakad, ...r.patterns].join(" "))
+    .filter((t) => t.pitch !== undefined).map((t) => t.pitch));
+  return [...pitches].sort((x, y) => x - y);
+}
+
+function noteLabel(pitch) {
+  const semi = ((pitch % 12) + 12) % 12;
+  return `${swaraText(pitch)} (${OCTAVE_NAMES[Math.floor(pitch / 12)] ?? ""}${SWARA_LABELS[semi]})`;
+}
+
+function renderBuilderNotes() {
+  const pitches = ragaNotes();
+  for (const [id, fallback] of [["#b-start", ""], ["#b-end", "S"]]) {
+    const select = $(id);
+    const previous = select.value || fallback;
+    select.replaceChildren(el("option", { value: "" }, "Any"), ...pitches.map((p) => el("option", { value: swaraText(p) }, noteLabel(p))));
+    select.value = pitches.some((p) => swaraText(p) === previous) ? previous : "";
+  }
+  $("#b-vadi-label").textContent = state.raga?.vadi ? `Emphasize the vadi (${state.raga.vadi})` : "Emphasize the vadi";
+  writeIntent();
+}
+
+// Writes the prompt from the builder fields. The generator reads only the prompt.
+function writeIntent() {
+  const parts = [];
+  const contour = $("#b-contour").value;
+  if (contour) parts.push(contour);
+  if ($("#b-start").value) parts.push(`starting on ${$("#b-start").value}`);
+  if ($("#b-end").value) parts.push(`ending on ${$("#b-end").value}`);
+  parts.push(`${$("#beats").value} beats`);
+  if (+$("#npb").value > 1) parts.push(`${$("#npb").value} notes per beat`);
+  if ($("#b-pakad").checked) parts.push("use the pakad");
+  if ($("#b-vadi").checked) parts.push("emphasize the vadi");
+  if ($("#b-holds").checked) parts.push("with held notes");
+  $("#intent").value = parts.join(", ");
 }
 
 // Generation ------------------------------------------------------------------------
 async function generate({ intoEditor = false } = {}) {
-  if (!state.raga) return toast("Set a raga first.");
+  if (!state.raga) return toast("Choose a raga first.");
   const req = {
     raga: state.raga.name,
     text: $("#intent").value,
@@ -888,8 +1330,10 @@ async function generate({ intoEditor = false } = {}) {
     if (i.taal) setTaal(i.taal);
     const summary = $("#intent-summary");
     summary.innerHTML = "";
-    summary.append("Understood: ", ...i.summary.map((s) => el("span", { class: "tag" }, s)));
+    summary.append("Swaramala understood: ", ...i.summary.map((s) => el("span", { class: "tag" }, s)));
+    state.chosenPattern = -1;
     renderPatterns(res.patterns);
+    $("#generate").textContent = "Generate new options";
     if (intoEditor && res.patterns.length) loadLine(tokensFromStrings(res.patterns[0].tokens), res.patterns[0].notes_per_beat);
   } catch (err) {
     $("#patterns").innerHTML = "";
@@ -899,26 +1343,88 @@ async function generate({ intoEditor = false } = {}) {
   }
 }
 
+// Plain-language reasons an option suits the raga.
+function fitNotes(tokens, pattern) {
+  const r = state.raga;
+  const notes = tokens.filter((t) => t.pitch !== undefined);
+  const semi = (p) => ((p % 12) + 12) % 12;
+  const allowed = new Set(r.semitones);
+  const items = [];
+  const outside = notes.filter((t) => !allowed.has(semi(t.pitch)));
+  if (!outside.length) items.push([`Uses only ${r.name} swaras: ${SWARAS.filter((_, k) => allowed.has(k)).join(" ")}.`]);
+  else items.push([`Includes ${outside.map((t) => t.text).join(", ")}, outside the raga.`, "tip"]);
+  const last = notes.at(-1);
+  if (last) items.push([`Ends on ${swaraText(last.pitch)}${semi(last.pitch) === 0 ? ", Sa, which gives the phrase a resting point" : ""}.`]);
+  if (r.vadi) {
+    const n = notes.filter((t) => SWARAS[semi(t.pitch)] === r.vadi).length;
+    if (n) items.push([`Touches the vadi ${r.vadi} ${n === 1 ? "once" : `${n} times`}.`]);
+  }
+  const match = /raga phrases (\d+)%/.exec(pattern.explanation.join(" "));
+  if (match) {
+    const pct = +match[1];
+    items.push([`${pct}% of its three-note turns come from ${r.name}'s own phrases.`]);
+    if (pct < 40 && !$("#b-pakad").checked) items.push(["For a more characteristic line, select Use the pakad.", "tip"]);
+  }
+  return items;
+}
+
 function renderPatterns(patterns) {
   const box = $("#patterns");
   box.innerHTML = "";
+  if (!patterns.length) return void box.append(el("p", { class: "muted" }, "No options match. Change the start or end note, or add beats."));
   patterns.forEach((p, n) => {
     const tokens = tokensFromStrings(p.tokens);
     const grid = el("div", { class: "grid-wrap" });
     renderGrid(grid, tokens, p.notes_per_beat, { idPrefix: `pat${n}` });
-    box.append(el("div", { class: "pattern" },
+    const last = tokens.filter((t) => t.pitch !== undefined).at(-1);
+    box.append(el("article", { class: "pattern" + (state.chosenPattern === n ? " chosen" : ""), "aria-labelledby": `pat-title-${n}` },
+      el("h3", { id: `pat-title-${n}` }, `Option ${n + 1}`, last ? ` · ends on ${last.text}` : "",
+        state.chosenPattern === n ? el("span", { class: "muted small" }, " · in the editor") : ""),
       grid,
+      el("ul", { class: "fits", "aria-label": `Why option ${n + 1} fits ${state.raga.name}` },
+        ...fitNotes(tokens, p).map(([text, kind]) => el("li", { class: kind || "" }, text))),
       el("div", { class: "row wrap" },
         el("button", { onclick: () => playTokens(tokens, p.notes_per_beat, `pat${n}`) }, "▶ Play"),
-        el("button", { onclick: () => loadLine(tokens, p.notes_per_beat) }, "Arrange"),
-        el("button", { onclick: () => saveLine(tokens, p.notes_per_beat) }, "Save line"),
-        el("span", { class: "meta" }, p.explanation.join(" · ")),
+        el("button", { class: "primary", onclick: () => { state.chosenPattern = n; loadLine(tokens, p.notes_per_beat); renderPatterns(patterns); } }, "Use in editor"),
+        el("button", { onclick: () => saveLine(tokens, p.notes_per_beat, `${state.raga.name} option ${n + 1}, ${p.tokens.length / p.notes_per_beat} beats`) }, "Save to library"),
       )));
   });
 }
 
 // Editor ---------------------------------------------------------------------------
+// Undo history: each entry is a copy of the line before a change.
+function snapshot() {
+  return { line: state.line.map((t) => ({ ...t })), npb: state.npb, selected: state.selected };
+}
+
+function remember() {
+  state.history.push(snapshot());
+  if (state.history.length > 200) state.history.shift();
+  state.future = [];
+}
+
+function restore(entry) {
+  state.line = entry.line;
+  state.npb = entry.npb;
+  state.selected = entry.selected;
+  $("#editor-npb").value = entry.npb;
+  lineChanged();
+}
+
+function undo() {
+  if (!state.history.length) return;
+  state.future.push(snapshot());
+  restore(state.history.pop());
+}
+
+function redo() {
+  if (!state.future.length) return;
+  state.history.push(snapshot());
+  restore(state.future.pop());
+}
+
 function loadLine(tokens, npb) {
+  if (state.line.length) remember();
   state.line = tokens.map((t) => ({ ...t }));
   state.npb = npb;
   state.selected = -1;
@@ -935,20 +1441,70 @@ function selectToken(idx) {
   renderEditor();
 }
 
+// The raga swara nearest to a note outside the raga, preferring the same letter.
+function nearestAllowed(pitch) {
+  const allowed = new Set(state.raga?.semitones || []);
+  const semi = (p) => ((p % 12) + 12) % 12;
+  for (let d = 1; d < 6; d++) {
+    const options = [pitch + d, pitch - d].filter((p) => allowed.has(semi(p)));
+    const same = options.find((p) => SWARAS[semi(p)].toLowerCase() === SWARAS[semi(pitch)].toLowerCase());
+    if (same !== undefined || options.length) return same ?? options[0];
+  }
+  return null;
+}
+
+function fixCard(v) {
+  const tok = state.line[v.index];
+  const actions = [];
+  if (tok?.pitch !== undefined && /varjit/.test(v.message)) {
+    const near = nearestAllowed(tok.pitch);
+    if (near !== null) {
+      actions.push(el("button", { type: "button", class: "small", onclick: () => {
+        remember();
+        state.line[v.index] = { text: swaraText(near), pitch: near };
+        lineChanged();
+      } }, `Replace with ${swaraText(near)}`));
+    }
+  }
+  if (v.index >= 0) {
+    actions.push(el("button", { type: "button", class: "small", onclick: () => { state.selected = v.index; renderEditor(); } }, "Select note"));
+    actions.push(el("button", { type: "button", class: "small", onclick: () => {
+      remember();
+      state.line.splice(v.index, 1);
+      state.selected = -1;
+      lineChanged();
+    } }, "Delete note"));
+  }
+  return el("div", { class: "fix-card", id: `fix-${v.index}` },
+    el("strong", {}, v.index >= 0 ? `Note ${v.index + 1}${tok ? ` (${tok.text})` : ""}` : "Line"), " ", v.message,
+    actions.length ? el("div", { class: "row wrap" }, ...actions) : "");
+}
+
 function renderEditor() {
   const bad = new Set(state.violations.map((v) => v.index));
   renderGrid($("#editor-grid"), state.line, state.npb, { selectable: true, bad, idPrefix: "ed" });
+  document.querySelectorAll("#editor-grid .tok.bad").forEach((n) => {
+    n.setAttribute("aria-invalid", "true");
+    n.setAttribute("aria-describedby", `fix-${n.dataset.idx}`);
+  });
   const text = $("#editor-text");
   if (document.activeElement !== text) text.value = lineText(state.line);
+  const hasSelection = state.selected >= 0 && state.selected < state.line.length;
+  document.querySelectorAll("[data-needs-selection]").forEach((b) => { b.disabled = !hasSelection; });
+  $("#selection-hint").hidden = hasSelection;
+  $("#editor-undo").disabled = !state.history.length;
+  $("#editor-redo").disabled = !state.future.length;
+  $("#editor-clear").disabled = !state.line.length;
+  $("#save-line").textContent = state.violations.length ? "Save with warnings" : "Save line";
   const vbox = $("#violations");
   vbox.innerHTML = "";
   if (!state.line.length) return;
   if (!state.violations.length) {
     vbox.className = "violations ok";
-    vbox.textContent = state.raga ? `Obeys ${state.raga.name}.` : "";
+    vbox.textContent = state.raga ? `This line follows ${state.raga.name}.` : "";
   } else {
     vbox.className = "violations";
-    state.violations.forEach((v) => vbox.append(el("div", {}, `Note ${v.index + 1}: ${v.message}`)));
+    state.violations.forEach((v) => vbox.append(fixCard(v)));
   }
 }
 
@@ -973,12 +1529,12 @@ async function validateLine() {
 function editOp(op) {
   const i = state.selected;
   const line = state.line;
+  if (op !== "hold" && op !== "rest" && i < 0) return toast("Select a note first.");
+  remember();
   if (op === "hold" || op === "rest") {
     const at = i >= 0 ? i + 1 : line.length;
     line.splice(at, 0, op === "hold" ? { text: "_", hold: true } : { text: "-", rest: true });
     state.selected = at;
-  } else if (i < 0) {
-    return toast("Select a note first.");
   } else if (op === "delete") {
     line.splice(i, 1);
     state.selected = Math.min(i, line.length - 1);
@@ -990,6 +1546,15 @@ function editOp(op) {
     state.selected = i + 1;
   }
   lineChanged();
+}
+
+function clearLine() {
+  if (!state.line.length) return;
+  remember();
+  state.line = [];
+  state.selected = -1;
+  lineChanged();
+  toast("Line cleared. Undo brings it back.");
 }
 
 async function arrange(mode) {
@@ -1006,27 +1571,46 @@ async function arrange(mode) {
 }
 
 // Playback ---------------------------------------------------------------------------
-function stopPlayback() {
+// Silences the current sequence without ending a loop, so a loop can start its next pass.
+function haltPlayback() {
   state.playback?.cancel();
   state.playback = null;
+  document.querySelectorAll(".playing").forEach((n) => n.classList.remove("playing"));
+  document.querySelectorAll("[aria-current=true].tok, [aria-current=true].cbeat").forEach((n) => n.removeAttribute("aria-current"));
+}
+
+function stopPlayback() {
+  haltPlayback();
   if (state.autoTabla) setTablaRunning(false);
   state.autoTabla = false;
+  if (state.loop) {
+    state.loop.button?.setAttribute("aria-pressed", "false");
+    if (state.loop.button) state.loop.button.textContent = "Loop";
+    state.loop = null;
+  }
   document.querySelectorAll(".perform-status").forEach((n) => { n.textContent = ""; });
-  document.querySelectorAll(".playing").forEach((n) => n.classList.remove("playing"));
+  document.querySelectorAll(".perform-plan [aria-current]").forEach((n) => n.removeAttribute("aria-current"));
   document.querySelectorAll("[data-stop]").forEach((b) => { b.textContent = b.dataset.stop; delete b.dataset.stop; });
 }
 
-function playTokens(tokens, npb, idPrefix = null, { cellFor = (i) => i, idFor = null, onIndex = null, onEnd = null, startAt = null } = {}) {
-  stopPlayback();
+function playTokens(tokens, npb, idPrefix = null, { cellFor = (i) => i, idFor = null, onIndex = null, onEnd = null, startAt = null, keepLoop = false } = {}) {
+  if (keepLoop) haltPlayback();
+  else stopPlayback();
   const slotMs = (60 / engine.tempo / npb) * 1000;
   state.playback = engine.playSequence(tokens, npb, {
     startAt,
     onToken: (i, tok) => {
-      document.querySelectorAll(".playing").forEach((n) => n.classList.remove("playing"));
+      document.querySelectorAll(".playing:not(.nkey)").forEach((n) => { n.classList.remove("playing"); n.removeAttribute("aria-current"); });
       if (i < 0) return void onEnd?.();
       onIndex?.(i);
       const id = idFor ? idFor(i) : idPrefix && `${idPrefix}-${cellFor(i)}`;
-      if (id) document.getElementById(id)?.classList.add("playing");
+      const cell = id && document.getElementById(id);
+      if (cell) {
+        cell.classList.add("playing");
+        cell.setAttribute("aria-current", "true");
+        const wrap = cell.closest(".grid-wrap");
+        if (wrap && (cell.offsetLeft < wrap.scrollLeft || cell.offsetLeft > wrap.scrollLeft + wrap.clientWidth - 40)) wrap.scrollLeft = cell.offsetLeft - 40;
+      }
       if (tok.pitch !== undefined) {
         let len = 1;
         while (tokens[i + len]?.hold) len++;
@@ -1059,7 +1643,13 @@ async function loadSavedLines() {
   const lines = await api(`/api/lines?raga=${encodeURIComponent(state.raga.name)}`);
   box.className = "";
   box.innerHTML = "";
-  if (!lines.length) box.append(el("p", { class: "muted" }, `No saved lines for ${state.raga.name} yet.`));
+  $("#saved-title").textContent = `Saved lines in ${state.raga.name}`;
+  if (!lines.length) {
+    box.append(el("div", { class: "empty-state" },
+      el("strong", {}, `No saved lines in ${state.raga.name} yet.`),
+      el("span", {}, "Compose a phrase, then click Save line. Lines are stored in this browser."),
+      el("button", { type: "button", onclick: () => showTab("compose") }, `Compose in ${state.raga.name}`)));
+  }
   lines.forEach((line, n) => {
     const tokens = tokensFromStrings(line.tokens);
     const grid = el("div", { class: "grid-wrap" });
@@ -1076,11 +1666,15 @@ async function loadSavedLines() {
         el("span", { class: "muted small" }, `${line.taal || ""} · ${line.notes_per_beat}/beat`)),
       grid,
       el("div", { class: "row wrap" },
-        el("button", { onclick: () => playTokens(tokens, line.notes_per_beat, `saved${line.id}`) }, "▶"),
-        el("button", { onclick: () => loadLine(tokens, line.notes_per_beat) }, "Edit"),
-        el("button", { onclick: () => move(-1), disabled: n === 0 ? "" : undefined }, "↑"),
-        el("button", { onclick: () => move(1), disabled: n === lines.length - 1 ? "" : undefined }, "↓"),
-        el("button", { onclick: async () => { await api(`/api/lines/${line.id}`, { method: "DELETE" }); loadSavedLines(); } }, "Delete"),
+        el("button", { class: "small", onclick: () => playTokens(tokens, line.notes_per_beat, `saved${line.id}`) }, "▶ Play"),
+        el("button", { class: "small", onclick: () => loadLine(tokens, line.notes_per_beat) }, "Open in Compose"),
+        el("button", { class: "small", "aria-label": "Move up", onclick: () => move(-1), disabled: n === 0 ? "" : undefined }, "↑"),
+        el("button", { class: "small", "aria-label": "Move down", onclick: () => move(1), disabled: n === lines.length - 1 ? "" : undefined }, "↓"),
+        el("button", { class: "small", onclick: async () => {
+          if (!confirm(`Delete ${line.title || `line ${n + 1}`}?`)) return;
+          await api(`/api/lines/${line.id}`, { method: "DELETE" });
+          loadSavedLines();
+        } }, "Delete"),
       )));
   });
 }
@@ -1109,6 +1703,7 @@ async function toggleRecord() {
     clearInterval(recordTimer);
     btn.setAttribute("aria-pressed", "false");
     $("#record-label").textContent = "Record";
+    $("#record-time").hidden = true;
     const result = await recorder.stop();
     if (result) openSaveRecording(result);
     return;
@@ -1120,6 +1715,8 @@ async function toggleRecord() {
   }
   btn.setAttribute("aria-pressed", "true");
   $("#record-label").textContent = "Stop";
+  $("#record-time").textContent = "0:00";
+  $("#record-time").hidden = false;
   const started = Date.now();
   recordTimer = setInterval(() => {
     const s = Math.floor((Date.now() - started) / 1000);
@@ -1267,60 +1864,94 @@ function bindSoundbar() {
   $("#record").addEventListener("click", toggleRecord);
 }
 
-// Tabs and dock --------------------------------------------------------------------------
+// Navigation and dock ---------------------------------------------------------------------
 const TABS = ["overview", "compositions", "improv", "compose", "library"];
 
 function showTab(name, { focus = false } = {}) {
   if (!TABS.includes(name)) name = "overview";
-  for (const tab of TABS) {
+  endWelcome();
+  const section = SECTION_OF[name];
+  for (const tab of TABS) document.getElementById(`view-${tab}`).hidden = tab !== name;
+  for (const tab of LEARN_TABS) {
     const button = document.getElementById(`tab-${tab}`);
     button.setAttribute("aria-selected", String(tab === name));
     button.tabIndex = tab === name ? 0 : -1;
-    document.getElementById(`view-${tab}`).hidden = tab !== name;
   }
-  if (focus) document.getElementById(`tab-${name}`).focus();
+  $("#learn-nav").hidden = section !== "learn";
+  document.querySelectorAll(".primary-nav a").forEach((a) => {
+    if (a.dataset.section === section) a.setAttribute("aria-current", "page");
+    else a.removeAttribute("aria-current");
+  });
+  if (section === "compose" && !localStorage.getItem("dock") && !matchMedia("(max-width: 720px)").matches) setDock(true, false);
+  if (focus) document.getElementById(`tab-${name}`)?.focus();
   if (location.hash.slice(1) !== name) history.replaceState(null, "", `#${name}`);
 }
 
 function bindTabs() {
   document.querySelectorAll("[data-tab]").forEach((b) => b.addEventListener("click", () => showTab(b.dataset.tab)));
+  document.querySelectorAll(".primary-nav a").forEach((a) => a.addEventListener("click", (e) => {
+    e.preventDefault();
+    showTab(a.dataset.section === "learn" ? (LEARN_TABS.includes(location.hash.slice(1)) ? location.hash.slice(1) : "overview") : a.dataset.section);
+    window.scrollTo({ top: 0 });
+  }));
   $(".main-tabs").addEventListener("keydown", (e) => {
     const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
     if (!step) return;
     e.preventDefault();
     e.stopPropagation();
-    const current = TABS.findIndex((t) => document.getElementById(`tab-${t}`).getAttribute("aria-selected") === "true");
-    showTab(TABS[(current + step + TABS.length) % TABS.length], { focus: true });
+    const current = LEARN_TABS.findIndex((t) => document.getElementById(`tab-${t}`).getAttribute("aria-selected") === "true");
+    showTab(LEARN_TABS[(current + step + LEARN_TABS.length) % LEARN_TABS.length], { focus: true });
   });
   window.addEventListener("hashchange", () => showTab(location.hash.slice(1)));
-  showTab(location.hash.slice(1));
-  // Keeps the tabs just under the sticky sound bar.
+  // Keeps the Learn tabs just under the sticky sound bar.
   const bar = $(".soundbar");
   new ResizeObserver(() => document.documentElement.style.setProperty("--soundbar-h", `${bar.offsetHeight}px`)).observe(bar);
 }
 
+// The welcome screen shows on a first visit, before you choose a path.
+function startWelcome() {
+  document.body.classList.add("welcoming");
+  $("#welcome").hidden = false;
+}
+
+function endWelcome() {
+  if ($("#welcome").hidden) return;
+  $("#welcome").hidden = true;
+  document.body.classList.remove("welcoming");
+}
+
+function bindWelcome() {
+  document.querySelectorAll("[data-start]").forEach((b) => b.addEventListener("click", async () => {
+    if (await setRaga(b.dataset.raga)) showTab(b.dataset.start === "compose" ? "compose" : "overview");
+  }));
+  document.querySelectorAll("[data-browse]").forEach((b) => b.addEventListener("click", openRagaDialog));
+}
+
+function setDock(open, save = true) {
+  $("#dock-toggle").setAttribute("aria-expanded", String(open));
+  $("#dock-body").hidden = !open;
+  if (save) localStorage.setItem("dock", open ? "open" : "closed");
+}
+
 function bindDock() {
   const toggle = $("#dock-toggle");
-  const set = (open) => {
-    toggle.setAttribute("aria-expanded", String(open));
-    $("#dock-body").hidden = !open;
-    localStorage.setItem("dock", open ? "open" : "closed");
-  };
-  // On short screens the keyboard starts closed so the page has room.
-  const saved = localStorage.getItem("dock");
-  set(saved ? saved === "open" : window.innerHeight >= 820);
-  toggle.addEventListener("click", () => set(toggle.getAttribute("aria-expanded") !== "true"));
+  setDock(localStorage.getItem("dock") === "open", false);
+  toggle.addEventListener("click", () => setDock(toggle.getAttribute("aria-expanded") !== "true"));
 }
 
 function bindRagaPicker() {
   // Leave the search box after opening a raga, so the computer keyboard plays notes again.
-  $("#raga-form").addEventListener("submit", (e) => { e.preventDefault(); $("#raga-input").blur(); setRaga($("#raga-input").value.trim()); });
+  $("#raga-form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    $("#raga-input").blur();
+    if (await setRaga($("#raga-input").value.trim()) && !$("#welcome").hidden) showTab("overview");
+  });
   // Picking a suggestion from the list opens the raga right away.
   $("#raga-input").addEventListener("change", (e) => {
     const value = e.target.value.trim().toLowerCase();
     if (state.ragas.some((r) => r.name.toLowerCase() === value || r.aliases.some((a) => a.toLowerCase() === value))) {
       e.target.blur();
-      setRaga(e.target.value.trim());
+      setRaga(e.target.value.trim()).then((ok) => ok && !$("#welcome").hidden && showTab("overview"));
     }
   });
   $("#raga-browse").addEventListener("click", openRagaDialog);
@@ -1392,22 +2023,50 @@ async function init() {
   bindRagaPicker();
   bindTabs();
   bindDock();
+  bindTerms();
+  bindWelcome();
+  for (const id of ["#b-contour", "#b-start", "#b-end", "#beats", "#npb", "#b-pakad", "#b-vadi", "#b-holds"]) {
+    $(id).addEventListener("change", writeIntent);
+  }
   $("#generate").addEventListener("click", () => generate());
   $("#intent").addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); generate(); } });
   document.querySelectorAll("[data-op]").forEach((b) => b.addEventListener("click", () => editOp(b.dataset.op)));
   document.querySelectorAll("[data-arrange]").forEach((b) => b.addEventListener("click", () => arrange(b.dataset.arrange)));
+  $("#editor-text").addEventListener("focus", remember);
   $("#editor-text").addEventListener("input", (e) => { state.line = tokenize(e.target.value); state.selected = -1; lineChanged(); });
-  $("#editor-npb").addEventListener("change", (e) => { state.npb = +e.target.value; renderEditor(); });
+  $("#editor-npb").addEventListener("change", (e) => { remember(); state.npb = +e.target.value; renderEditor(); });
   $("#editor-play").addEventListener("click", () => playTokens(state.line, state.npb, "ed"));
+  $("#editor-undo").addEventListener("click", undo);
+  $("#editor-redo").addEventListener("click", redo);
+  $("#editor-clear").addEventListener("click", clearLine);
   $("#editor-regenerate").addEventListener("click", () => generate({ intoEditor: true }));
   $("#save-line").addEventListener("click", () => saveLine(state.line, state.npb, $("#line-title").value));
+  // The Compose switch and the dock setting are the same choice.
+  const mirror = (from, to) => $(from).addEventListener("change", () => { $(to).checked = $(from).checked; });
+  mirror("#compose-piano-input", "#piano-input");
+  mirror("#piano-input", "#compose-piano-input");
+  for (const id of ["#perform-return", "#perform-alaap", "#perform-taan"]) {
+    $(id).addEventListener("change", () => document.querySelectorAll(".perform-plan").forEach((d) => {
+      d.querySelector("ol").replaceChildren();
+      if (d.open) d.dispatchEvent(new Event("toggle"));
+    }));
+  }
   bindLibraryActions();
   bindComputerKeyboard();
   $("#save-recording-dialog").addEventListener("close", (e) => handleSaveRecording(e.target.returnValue));
   document.addEventListener("keydown", (e) => {
-    if (e.target.matches("input, textarea, select, button, summary") || $("#view-compose").hidden || document.querySelector("dialog[open]")) return;
+    if ($("#view-compose").hidden || document.querySelector("dialog[open]")) return;
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "z" && !e.target.matches("input, textarea")) {
+      e.preventDefault();
+      return e.shiftKey ? redo() : undo();
+    }
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "y" && !e.target.matches("input, textarea")) {
+      e.preventDefault();
+      return redo();
+    }
+    if (e.target.matches("input, textarea, select, button, summary")) return;
     if (e.key === "_") editOp("hold");
-    if (e.key === "Backspace" || e.key === "Delete") editOp("delete");
+    if ((e.key === "Backspace" || e.key === "Delete") && state.selected >= 0) editOp("delete");
     if (e.key === " ") { e.preventDefault(); playTokens(state.line, state.npb, "ed"); }
   });
 
@@ -1415,8 +2074,11 @@ async function init() {
   renderPiano();
   renderKeyMap();
   renderEditor();
+  const firstVisit = !localStorage.getItem("raga") && !TABS.includes(location.hash.slice(1));
   await loadRagas();
   await setRaga(localStorage.getItem("raga") || "Yaman");
+  if (firstVisit) startWelcome();
+  else showTab(location.hash.slice(1));
   await loadRecordings();
   hideLoadingStatus();
 }
