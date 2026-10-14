@@ -136,6 +136,68 @@ function tokenize(text) {
   return (text.match(TOKEN_RE) || []).map(parseToken).filter(Boolean);
 }
 
+// Display script for swaras. Typing always uses the Latin letters; only the
+// display changes. Devanagari follows Bhatkhande notation: a line below for
+// komal, a stroke above tivra Ma, a dot below for mandra, a dot above for taar,
+// and ऽ for a held note.
+const SCRIPTS = ["latin", "deva"];
+const KOMAL = "\u0952";
+const TIVRA = "\u0951";
+const DEVANAGARI = {
+  S: ["स", "ा"], r: ["र", "े", KOMAL], R: ["र", "े"], g: ["ग", "", KOMAL], G: ["ग", ""], m: ["म", ""], M: ["म", "", TIVRA],
+  P: ["प", ""], d: ["ध", "", KOMAL], D: ["ध", ""], n: ["न", "ि", KOMAL], N: ["न", "ि"],
+};
+
+function loadScript() {
+  try {
+    const saved = localStorage.getItem("swaramala.script");
+    return SCRIPTS.includes(saved) ? saved : "latin";
+  } catch {
+    return "latin";
+  }
+}
+state.script = loadScript();
+
+// One token, such as "N.", "S'", "M", or "_", in the chosen script.
+function noteText(text, { lowDot = true } = {}) {
+  if (state.script !== "deva") return text;
+  if (text === "_") return "ऽ";
+  const m = /^(ni|[SrRgGmMPpdDnN])('+|\.+)?$/.exec(text);
+  if (!m) return text;
+  const [consonant, vowel, mark = ""] = DEVANAGARI[{ p: "P", ni: "n" }[m[1]] ?? m[1]];
+  const marks = m[2] || "";
+  const low = marks.startsWith(".") && lowDot ? "\u093C" : "";
+  const high = marks.startsWith("'") ? "\u0902".repeat(marks.length) : "";
+  return consonant + low + vowel + high + mark;
+}
+
+// The same token as page content. In Devanagari, the mandra dot is drawn with
+// CSS, because a nukta collides with the komal line and is hard to see.
+function noteNode(text) {
+  if (state.script !== "deva" || !/\.$/.test(text)) return noteText(text);
+  return el("span", { class: "mandra" }, noteText(text, { lowDot: false }));
+}
+
+// A notation string, such as the beat "M D", as page content.
+function notationNodes(text) {
+  if (state.script !== "deva") return [text];
+  const nodes = [];
+  let last = 0;
+  for (const m of text.matchAll(TOKEN_RE)) {
+    if (m.index > last) nodes.push(text.slice(last, m.index));
+    nodes.push(noteNode(m[0]));
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) nodes.push(text.slice(last));
+  return nodes;
+}
+
+// Prose that mentions swaras, such as "G → m isn't allowed". Only standalone
+// tokens change, so English words stay as they are.
+const proseNotes = (text) => (state.script === "deva"
+  ? text.replace(/(^|[\s(:,])([SrRgGmMPdDnN](?:'+|\.+(?=[\s,);]|$))?)(?=$|[\s,);.])/g, (_, pre, tok) => pre + noteText(tok))
+  : text);
+
 const tokensFromStrings = (list) => list.map(parseToken).filter(Boolean);
 const lineText = (tokens) => tokens.map((t) => t.text).join(" ");
 
@@ -295,7 +357,7 @@ function renderGrid(container, tokens, npb, { selectable = false, bad = new Set(
         for (const [tok, idx] of beats[b]) {
           const cls = ["tok", tok.hold ? "hold" : "", tok.rest ? "rest" : "", bad.has(idx) ? "bad" : "",
             selectable && idx === state.selected ? "sel" : ""].join(" ");
-          const span = el("span", { class: cls, "data-idx": idx, id: idPrefix ? `${idPrefix}-${idx}` : undefined }, tok.text);
+          const span = el("span", { class: cls, "data-idx": idx, id: idPrefix ? `${idPrefix}-${idx}` : undefined }, noteNode(tok.text));
           if (selectable) span.addEventListener("click", () => selectToken(idx));
           cell.append(span);
         }
@@ -315,7 +377,7 @@ function renderNotationBar() {
   SWARAS.forEach((s, i) => {
     const cls = "nkey" + (state.raga ? (semis.has(i) ? " in-raga" : " varjit") : "");
     box.append(el("button", { class: cls, title: SWARA_LABELS[i], "data-semi": i, onclick: (e) => pianoPress(i, { replace: e.shiftKey }) },
-      el("b", {}, s), el("small", {}, SWARA_LABELS[i])));
+      el("b", {}, noteText(s)), el("small", {}, SWARA_LABELS[i])));
   });
 }
 
@@ -337,7 +399,7 @@ function renderPiano() {
     const midi = sa + p;
     const semi = ((p % 12) + 12) % 12;
     const cls = [semis.size ? (semis.has(semi) ? "in-raga" : "varjit") : "", semi === 0 ? "sa" : ""].join(" ");
-    const label = [el("span", { class: "sw" }, swaraText(p)), el("span", { class: "wn" }, WESTERN[midi % 12] + (Math.floor(midi / 12) - 1))];
+    const label = [el("span", { class: "sw" }, noteNode(swaraText(p))), el("span", { class: "wn" }, WESTERN[midi % 12] + (Math.floor(midi / 12) - 1))];
     let key;
     if (isBlack(midi)) {
       key = el("div", { class: "bkey " + cls, "data-pitch": p, style: `left:${(whiteIndex + 1) * width - width * 0.3}%;width:${width * 0.6}%` }, ...label);
@@ -417,7 +479,7 @@ function renderKeyMap() {
       inRange && semis.size && !semis.has(semi) ? "varjit" : "", inRange && semi === 0 ? "sa" : ""].join(" ");
     return el("div", { class: cls, title: octaveKey || "" },
       el("kbd", {}, KEY_LABELS[code] || ROW_KEY_TEXT[code]),
-      el("span", {}, octaveKey ? (code === "KeyZ" ? "8va ↓" : "8va ↑") : inRange ? swaraText(pitch) : ""));
+      el("span", {}, octaveKey ? (code === "KeyZ" ? "8va ↓" : "8va ↑") : inRange ? noteNode(swaraText(pitch)) : ""));
   }))));
 }
 
@@ -651,7 +713,7 @@ function phraseCard(text, { name, onDone = null } = {}) {
   const tokens = tokenize(text);
   const id = `ph${++phraseSeq}`;
   const notes = el("span", { class: "phrase-notes", role: "img", "aria-label": `${name}: ${text}` },
-    ...tokens.map((t, i) => el("span", { id: `${id}-${i}`, "aria-hidden": "true" }, t.text)));
+    ...tokens.map((t, i) => el("span", { id: `${id}-${i}`, "aria-hidden": "true" }, noteNode(t.text))));
   const play = (opts = {}) => practicePlay(tokens, 1, id, { onDone, ...opts });
   return el("div", { class: "phrase-card" }, notes,
     el("div", { class: "phrase-actions" },
@@ -671,8 +733,8 @@ function renderRagaHeading() {
   const fact = (key, label, value) => value && facts.append(el("span", { class: "fact" }, key ? term(key, label) : el("b", {}, label), value));
   fact("thaat", "Thaat", r.thaat);
   fact("time", "Time", r.time);
-  fact("vadi", "Vadi", r.vadi);
-  fact("samvadi", "Samvadi", r.samvadi);
+  fact("vadi", "Vadi", r.vadi && noteText(r.vadi));
+  fact("samvadi", "Samvadi", r.samvadi && noteText(r.samvadi));
   fact("jati", "Jati", r.jati);
   fact("varjit", "Varjit", r.varjit.length ? r.varjit.join(", ") : "None");
   if (r.aliases?.length) fact(null, "Also", r.aliases.join(", "));
@@ -775,12 +837,13 @@ function renderImprovisations() {
       const beats = el("div", { class: "improv-beats mono" });
       for (let b = 0; b < item.beats; b++) {
         const text = item.tokens.slice(b * npb, (b + 1) * npb).join(" ");
-        beats.append(el("span", { id: `${id}-${b}`, class: b % (data.taal_beats) === 0 ? "sam" : "" }, text));
+        beats.append(el("span", { id: `${id}-${b}`, class: b % (data.taal_beats) === 0 ? "sam" : "" }, ...notationNodes(text)));
       }
       const label = `${PHRASE_LABELS[item.kind]} · ${item.beats} beats`;
       const name = `${group.title} ${i + 1}`;
       const cellFor = (k) => Math.floor(k / npb);
-      const next = el("button", { type: "button", class: "small", hidden: "" }, "Next phrase →");
+      // Only alaap cards lead on to the next phrase.
+      const next = step === "alaap" ? el("button", { type: "button", class: "small", hidden: "" }, "Next phrase →") : null;
       const card = el("div", { class: "improv-item" });
       const listen = (opts = {}) => {
         document.querySelectorAll(".improv-item.is-current").forEach((n) => n.classList.remove("is-current"));
@@ -790,12 +853,12 @@ function renderImprovisations() {
           ...opts,
           onDone: () => {
             markLearned(step);
-            if (cards[i + 1]) next.hidden = false;
+            if (next && cards[i + 1]) next.hidden = false;
           },
         });
       };
       card.listen = listen;
-      next.addEventListener("click", () => {
+      next?.addEventListener("click", () => {
         next.hidden = true;
         cards[i + 1].scrollIntoView({ behavior: "smooth", block: "nearest" });
         cards[i + 1].querySelector("button")?.focus();
@@ -809,7 +872,7 @@ function renderImprovisations() {
           loopToggle((button) => listen({ loopButton: button })),
           el("button", { type: "button", class: "small", title: "Open in the Compose editor", onclick: () => loadLine(tokens, npb) }, "Open in Compose"),
           el("button", { type: "button", class: "small", title: "Save this phrase to your library", onclick: () => saveLine(tokens, npb, `${group.title}, ${label.toLowerCase()}`) }, "Save"),
-          next),
+          next || ""),
         beats);
       cards.push(card);
       col.append(card);
@@ -1244,7 +1307,7 @@ function compositionCard(comp, index) {
         const cls = ["cbeat", marker !== undefined ? "vib" : "", marker === "X" ? "sam" : "", beat.trim() ? "" : "empty"].join(" ");
         row.append(el("div", { class: cls, id: `cb-${index}-${beatNo++}` },
           el("span", { class: "mk", title: marker === "X" ? "Sam" : marker === "0" ? "Khali" : "" }, marker ?? ""),
-          el("span", { class: "nt" }, beat.trim()),
+          el("span", { class: "nt" }, ...notationNodes(beat.trim())),
           el("span", { class: "wd" }, line.words?.[b] === "_" ? "ऽ" : line.words?.[b] || "")));
       });
       const name = `${section.name} line ${li + 1}`;
@@ -1282,7 +1345,7 @@ function ragaNotes() {
 
 function noteLabel(pitch) {
   const semi = ((pitch % 12) + 12) % 12;
-  return `${swaraText(pitch)} (${OCTAVE_NAMES[Math.floor(pitch / 12)] ?? ""}${SWARA_LABELS[semi]})`;
+  return `${noteText(swaraText(pitch))} (${OCTAVE_NAMES[Math.floor(pitch / 12)] ?? ""}${SWARA_LABELS[semi]})`;
 }
 
 function renderBuilderNotes() {
@@ -1330,7 +1393,7 @@ async function generate({ intoEditor = false } = {}) {
     if (i.taal) setTaal(i.taal);
     const summary = $("#intent-summary");
     summary.innerHTML = "";
-    summary.append("Swaramala understood: ", ...i.summary.map((s) => el("span", { class: "tag" }, s)));
+    summary.append("Swaramala understood: ", ...i.summary.map((s) => el("span", { class: "tag" }, proseNotes(s))));
     state.chosenPattern = -1;
     renderPatterns(res.patterns);
     $("#generate").textContent = "Generate new options";
@@ -1351,13 +1414,13 @@ function fitNotes(tokens, pattern) {
   const allowed = new Set(r.semitones);
   const items = [];
   const outside = notes.filter((t) => !allowed.has(semi(t.pitch)));
-  if (!outside.length) items.push([`Uses only ${r.name} swaras: ${SWARAS.filter((_, k) => allowed.has(k)).join(" ")}.`]);
-  else items.push([`Includes ${outside.map((t) => t.text).join(", ")}, outside the raga.`, "tip"]);
+  if (!outside.length) items.push([`Uses only ${r.name} swaras: ${SWARAS.filter((_, k) => allowed.has(k)).map(noteText).join(" ")}.`]);
+  else items.push([`Includes ${outside.map((t) => noteText(t.text)).join(", ")}, outside the raga.`, "tip"]);
   const last = notes.at(-1);
-  if (last) items.push([`Ends on ${swaraText(last.pitch)}${semi(last.pitch) === 0 ? ", Sa, which gives the phrase a resting point" : ""}.`]);
+  if (last) items.push([`Ends on ${noteText(swaraText(last.pitch))}${semi(last.pitch) === 0 ? ", Sa, which gives the phrase a resting point" : ""}.`]);
   if (r.vadi) {
     const n = notes.filter((t) => SWARAS[semi(t.pitch)] === r.vadi).length;
-    if (n) items.push([`Touches the vadi ${r.vadi} ${n === 1 ? "once" : `${n} times`}.`]);
+    if (n) items.push([`Touches the vadi ${noteText(r.vadi)} ${n === 1 ? "once" : `${n} times`}.`]);
   }
   const match = /raga phrases (\d+)%/.exec(pattern.explanation.join(" "));
   if (match) {
@@ -1369,6 +1432,7 @@ function fitNotes(tokens, pattern) {
 }
 
 function renderPatterns(patterns) {
+  state.patterns = patterns;
   const box = $("#patterns");
   box.innerHTML = "";
   if (!patterns.length) return void box.append(el("p", { class: "muted" }, "No options match. Change the start or end note, or add beats."));
@@ -1378,7 +1442,7 @@ function renderPatterns(patterns) {
     renderGrid(grid, tokens, p.notes_per_beat, { idPrefix: `pat${n}` });
     const last = tokens.filter((t) => t.pitch !== undefined).at(-1);
     box.append(el("article", { class: "pattern" + (state.chosenPattern === n ? " chosen" : ""), "aria-labelledby": `pat-title-${n}` },
-      el("h3", { id: `pat-title-${n}` }, `Option ${n + 1}`, last ? ` · ends on ${last.text}` : "",
+      el("h3", { id: `pat-title-${n}` }, `Option ${n + 1}`, last ? ` · ends on ${noteText(last.text)}` : "",
         state.chosenPattern === n ? el("span", { class: "muted small" }, " · in the editor") : ""),
       grid,
       el("ul", { class: "fits", "aria-label": `Why option ${n + 1} fits ${state.raga.name}` },
@@ -1463,7 +1527,7 @@ function fixCard(v) {
         remember();
         state.line[v.index] = { text: swaraText(near), pitch: near };
         lineChanged();
-      } }, `Replace with ${swaraText(near)}`));
+      } }, `Replace with ${noteText(swaraText(near))}`));
     }
   }
   if (v.index >= 0) {
@@ -1476,7 +1540,7 @@ function fixCard(v) {
     } }, "Delete note"));
   }
   return el("div", { class: "fix-card", id: `fix-${v.index}` },
-    el("strong", {}, v.index >= 0 ? `Note ${v.index + 1}${tok ? ` (${tok.text})` : ""}` : "Line"), " ", v.message,
+    el("strong", {}, v.index >= 0 ? `Note ${v.index + 1}${tok ? ` (${noteText(tok.text)})` : ""}` : "Line"), " ", proseNotes(v.message),
     actions.length ? el("div", { class: "row wrap" }, ...actions) : "");
 }
 
@@ -1864,6 +1928,44 @@ function bindSoundbar() {
   $("#record").addEventListener("click", toggleRecord);
 }
 
+// Notation script -----------------------------------------------------------------
+function setScript(script, save = true) {
+  state.script = SCRIPTS.includes(script) ? script : "latin";
+  document.documentElement.dataset.script = state.script;
+  document.querySelectorAll("[data-script]").forEach((b) => {
+    if (b.tagName === "BUTTON") b.setAttribute("aria-pressed", String(b.dataset.script === state.script));
+  });
+  if (save) {
+    try { localStorage.setItem("swaramala.script", state.script); } catch { /* storage unavailable */ }
+  }
+}
+
+// Redraw every view that shows swaras, keeping the current playback state.
+function rerenderNotation() {
+  renderNotationBar();
+  renderPiano();
+  renderKeyMap();
+  if (state.raga) {
+    renderRagaInfo();
+    renderCompositions();
+    renderBuilderNotes();
+    loadSavedLines();
+  }
+  if (state.improv) renderImprovisations();
+  if (state.patterns) renderPatterns(state.patterns);
+  renderEditor();
+}
+
+function bindScriptSwitch() {
+  setScript(state.script, false);
+  document.querySelectorAll(".script-switch [data-script]").forEach((b) => b.addEventListener("click", () => {
+    if (b.dataset.script === state.script) return;
+    stopPlayback();
+    setScript(b.dataset.script);
+    rerenderNotation();
+  }));
+}
+
 // Navigation and dock ---------------------------------------------------------------------
 const TABS = ["overview", "compositions", "improv", "compose", "library"];
 
@@ -2025,6 +2127,7 @@ async function init() {
   bindDock();
   bindTerms();
   bindWelcome();
+  bindScriptSwitch();
   for (const id of ["#b-contour", "#b-start", "#b-end", "#beats", "#npb", "#b-pakad", "#b-vadi", "#b-holds"]) {
     $(id).addEventListener("change", writeIntent);
   }

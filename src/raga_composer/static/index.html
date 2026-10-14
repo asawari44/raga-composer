@@ -108,12 +108,18 @@
   </div>
   <div class="swara-strip">
     <div class="notation-keys" id="notation-keys" aria-label="Swaras; highlighted swaras are in the raga"></div>
+    <div class="script-switch" role="group" aria-label="Show notes in">
+      <span class="muted small">Notes in</span>
+      <button type="button" class="small" data-script="latin" aria-pressed="true">S R G</button>
+      <button type="button" class="small" data-script="deva" aria-pressed="false" lang="hi">सा रे ग</button>
+    </div>
     <details class="legend">
       <summary>How to read the notation</summary>
       <ul>
         <li><code>S r R g G m M P d D n N</code>: lowercase is komal, <code>M</code> is tivra Ma. You can also type <code>p</code> for <code>P</code> and <code>ni</code> for <code>n</code>.</li>
         <li><code>S'</code>: taar (upper) octave. <code>N.</code>: mandra (lower) octave.</li>
         <li><code>_</code>: hold the previous note for one more slot. <code>-</code>: rest.</li>
+        <li>Click <strong>सा रे ग</strong> to show notes in Devanagari, as in Bhatkhande notation: <span lang="hi">रे॒</span> (a line below) is komal, <span lang="hi">म॑</span> (a stroke above) is tivra Ma, <span lang="hi">ऩि</span> (a dot below) is mandra, <span lang="hi">सां</span> (a dot above) is taar, and <span lang="hi">ऽ</span> holds the note. You still type with the Latin letters.</li>
         <li>In a composition, each box is one beat of the taal. <strong>X</strong> marks sam, <strong>0</strong> marks khali, and numbers mark the other talis.</li>
       </ul>
     </details>

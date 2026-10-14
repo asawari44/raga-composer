@@ -185,6 +185,13 @@ body.welcoming .raga-hero, body.welcoming .learn-nav, body.welcoming main { disp
 .fact .term { font-weight: 600; }
 .swara-strip { display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: flex-start; }
 .notation-keys { display: flex; flex-wrap: wrap; gap: .25rem; }
+.script-switch { display: inline-flex; align-items: center; gap: .25rem; }
+.script-switch button[aria-pressed=true] { background: var(--color-brand); color: #fff; border-color: var(--color-brand); }
+/* Devanagari swaras need a Devanagari font and room for marks above and below. */
+[data-script=deva] :is(.tok, .nkey b, .wkey .sw, .bkey .sw, .km-key span, .phrase-notes, .improv-beats, .cbeat .nt) { font-family: var(--font-devanagari); }
+.mandra { position: relative; display: inline-block; }
+.mandra::after { content: ""; position: absolute; left: 50%; bottom: -.2em; width: .24em; height: .24em; border-radius: 50%; background: currentColor; transform: translateX(-50%); }
+[data-script=deva] :is(.tok, .phrase-notes span, .improv-beats span, .cbeat .nt) { line-height: 1.6; }
 .nkey { min-width: 2.6rem; min-height: var(--target-min); flex-direction: column; gap: 0; text-align: center; border: 1px solid var(--color-line); border-radius: var(--radius-sm); padding: .15rem .3rem; background: #fff; }
 .nkey b { display: block; font-family: var(--font-mono); font-size: 1.05rem; }
 .nkey small { font-size: .65rem; color: var(--color-muted); }

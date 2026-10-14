@@ -24,6 +24,10 @@ The page has these parts:
   screens the bar stays at the top while you scroll.
 - **Raga summary**: the raga's facts and swaras. Click an underlined term, such
   as **Vadi**, for a short definition, or click **Glossary** for every term.
+  Next to the swaras, **Notes in** switches the notation between Latin letters
+  (`S R G`) and Devanagari (सा रे ग) in Bhatkhande style: a line below for komal,
+  a stroke above tivra Ma, a dot below for mandra, a dot above for taar, and ऽ
+  for a held note. You always type with the Latin letters.
 - **Learn**: three tabs and a learning path.
   - **Overview**: aaroh, avroh, pakad, and common patterns. Each phrase has
     **Play**, **Slower**, **Loop**, and **Open in Compose**.
@@ -31,7 +35,7 @@ The page has these parts:
     a whole composition, one section, or one line, and preview the performance
     plan before you click **Perform with alaap and taan**.
   - **Practice alaap and taan**: practice cards that you can play, slow down,
-    loop, save, or step through with **Next phrase**.
+    loop, or save. Alaap cards also have **Next phrase**.
   - The learning path marks a step as practiced when you play it. Progress is
     saved per raga in this browser.
 - **Compose**: choose a contour, start and end swaras, beats, and options, or
