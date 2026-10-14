@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import shutil
@@ -68,6 +69,41 @@ def _copy_marketing() -> None:
             shutil.copy2(source, target)
 
 
+JS_IMPORT = re.compile(r"""((?:\bfrom\s+|\bimport\s*\(\s*)["'])(\.{1,2}/[^"'?]+\.js)(["'])""")
+DATA_URL = re.compile(r"""(["'])(data/[^"'?]+\.json)(["'])""")
+ASSET_URL = re.compile(r"""((?:href|src)=")(\./(?:styles\.css|js/app\.js))(")""")
+
+
+def _asset_version() -> str:
+    """Return a short hash of every asset, so each deploy gets fresh URLs."""
+    digest = hashlib.sha256()
+    for path in sorted(SITE_DIR.rglob("*")):
+        if path.is_file() and path.suffix in {".js", ".css", ".json", ".html"}:
+            digest.update(path.relative_to(SITE_DIR).as_posix().encode())
+            digest.update(path.read_bytes())
+    return digest.hexdigest()[:10]
+
+
+def _bust_caches() -> None:
+    """Add ?v=VERSION to CSS, module, and data URLs.
+
+    Browsers cache JavaScript modules aggressively. Without a version, a visitor
+    can get a new index.html with an old app.js after a deploy, and the app
+    fails to start.
+    """
+    version = _asset_version()
+    for js in (SITE_DIR / "js").rglob("*.js"):
+        text = js.read_text("utf-8")
+        text = JS_IMPORT.sub(rf"\g<1>\g<2>?v={version}\g<3>", text)
+        text = DATA_URL.sub(rf"\g<1>\g<2>?v={version}\g<3>", text)
+        js.write_text(text, encoding="utf-8")
+    for page in ("index.html", "404.html"):
+        path = SITE_DIR / page
+        if path.exists():
+            html = ASSET_URL.sub(rf"\g<1>\g<2>?v={version}\g<3>", path.read_text("utf-8"))
+            path.write_text(html, encoding="utf-8")
+
+
 def build() -> None:
     if SITE_DIR.exists():
         shutil.rmtree(SITE_DIR)
@@ -92,6 +128,7 @@ def build() -> None:
     _inject_head_tags()
     shutil.move(SITE_DIR / "marketing" / "sitemap.xml", SITE_DIR / "sitemap.xml")
     (SITE_DIR / "marketing" / "head-tags.html").unlink()
+    _bust_caches()
     (SITE_DIR / ".nojekyll").touch()
 
 
