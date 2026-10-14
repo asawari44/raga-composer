@@ -1,4 +1,42 @@
 {
   "target_count": 200,
-  "songs": []
+  "songs": [
+    {
+      "id": "ganga-jamuna-tirath-kar-le-1914",
+      "title": "Ganga Jamuna Tirath Kar Le",
+      "title_hi": "गंगा जमुना तीरथ कर ले",
+      "category": "Historical devotional",
+      "language": "hi",
+      "composer": "Traditional; collected by A. H. Fox Strangways",
+      "notes": "Historical pilgrimage song, not a transcription of a modern recording. Source: The Music of Hindostan (Clarendon Press, 1914), printed page 23, example 9, scan leaf 43. The preceding page locates the performance at the Allahabad fair. The title is derived from the opening words. This setting has four solo bars and two chorus bars in 2/4. The printed bass-clef pitches are F3, E3, D3, and C3; the app uses C as its transcription reference for Sa, mapping these to m, G, R, and S. This is a playback reference, not a source-specified raga or tonic. Sixteenth notes occupy one slot and eighth notes two slots at four slots per quarter-note beat. The printed half-note = 60 becomes 120 quarter-note BPM. The final eighth-note rest is retained. The source's chorus repeat is available through Loop; no repeats or variants are counted as additional songs. Playback omits vocal slides and expressive inflections not represented by the printed note values. Pitches and durations were checked against the scan; a singing teacher has not reviewed this transcription.",
+      "rights": {
+        "status": "public-domain",
+        "license": "Public domain",
+        "source_url": "https://archive.org/details/musicofhindostan00foxs/page/23/mode/1up",
+        "evidence_url": "https://imslp.org/wiki/The_Music_of_Hindostan_(Fox_Strangways,_Arthur_Henry)",
+        "notes": "Reuse is based on the specific 1914 printed melody and transcription, not the age of devotional lyrics or a later recording. IMSLP identifies this Clarendon Press edition as Public Domain, and Internet Archive metadata labels it NOT_IN_COPYRIGHT. The anonymous melody was already documented in the 1914 edition. Fox Strangways died in 1948; the edition is past the US publication term and ordinary life-plus-70 term for his contribution. This does not grant rights to later arrangements, performances, or recordings, and is not a claim of identical copyright rules in every jurisdiction."
+      },
+      "sections": [
+        {
+          "name": "Solo",
+          "notation": "m m m m m _ m m | G _ G G G _ G _ | R _ G G G _ R R | S _ S S S _ S _",
+          "notes_per_beat": 4,
+          "tempo": 120
+        },
+        {
+          "name": "Chorus",
+          "notation": "R _ G G G _ R R | S _ S S S _ - -",
+          "notes_per_beat": 4,
+          "tempo": 120
+        }
+      ],
+      "sources": [
+        "https://archive.org/details/musicofhindostan00foxs",
+        "https://archive.org/metadata/musicofhindostan00foxs",
+        "https://archive.org/download/musicofhindostan00foxs/musicofhindostan00foxs_jp2.zip",
+        "https://imslp.org/wiki/The_Music_of_Hindostan_(Fox_Strangways,_Arthur_Henry)",
+        "https://en.wikipedia.org/wiki/Arthur_Henry_Fox_Strangways"
+      ]
+    }
+  ]
 }

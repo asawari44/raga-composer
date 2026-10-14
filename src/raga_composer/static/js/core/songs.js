@@ -31,6 +31,9 @@ export function validateSongCatalog(catalog) {
     ids.add(song.id);
     titles.add(title);
     if (typeof song.title_hi !== "string") throw new Error(`Missing Hindi title field: ${song.title}`);
+    if (song.notes !== undefined && typeof song.notes !== "string") {
+      throw new Error(`Invalid transcription notes: ${song.title}`);
+    }
     const rights = song.rights;
     if (!rights || !(rights.status === "public-domain" && rights.license === "Public domain")
         && !(rights.status === "open-license" && OPEN_LICENSES.has(rights.license))) {

@@ -30,7 +30,7 @@ HEAD_TAGS_BLOCK = re.compile(r"[ \t]*<!-- head-tags:.*?<!-- /head-tags -->\n", r
 
 def _json_default(value: Any) -> Any:
     if isinstance(value, BaseModel):
-        return value.model_dump()
+        return value.model_dump(mode="json")
     raise TypeError(f"Object of type {type(value).__name__} isn't JSON serializable")
 
 

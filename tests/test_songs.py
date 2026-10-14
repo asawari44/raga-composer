@@ -8,6 +8,7 @@ from fastapi.testclient import TestClient
 from pydantic import ValidationError
 
 from raga_composer.api import create_app
+from raga_composer.notation import Swara, tokenize
 from raga_composer.songs import SongCatalog
 
 FIXTURE = Path(__file__).parent / "js" / "fixtures" / "song-test.json"
@@ -104,3 +105,36 @@ def test_builtin_catalog_counts_only_published_playable_songs() -> None:
     catalog = SongCatalog.builtin()
     assert catalog.target_count == 200
     assert all(song.id != "test-only" for song in catalog.songs)
+
+
+def test_1914_pilgrimage_song_matches_printed_bars() -> None:
+    song = next(song for song in SongCatalog.builtin().songs if song.id == "ganga-jamuna-tirath-kar-le-1914")
+    assert [section.name for section in song.sections] == ["Solo", "Chorus"]
+    # Sixteenth-note slots from page 23, example 9. Sa is the chosen C reference.
+    bars = [
+        ["m", "m", "m", "m", "m", "_", "m", "m"],
+        ["G", "_", "G", "G", "G", "_", "G", "_"],
+        ["R", "_", "G", "G", "G", "_", "R", "R"],
+        ["S", "_", "S", "S", "S", "_", "S", "_"],
+        ["R", "_", "G", "G", "G", "_", "R", "R"],
+        ["S", "_", "S", "S", "S", "_", "-", "-"],
+    ]
+    actual = [str(token) for section in song.sections for token in tokenize(section.notation)]
+    assert actual == [slot for bar in bars for slot in bar]
+    assert [len(tokenize(section.notation)) for section in song.sections] == [32, 16]
+    assert all(section.notes_per_beat == 4 and section.tempo == 120 for section in song.sections)
+    pitches = {
+        token.pitch for section in song.sections for token in tokenize(section.notation) if isinstance(token, Swara)
+    }
+    assert pitches == {0, 2, 4, 5}
+    assert (
+        sum(len(tokenize(section.notation)) / section.notes_per_beat * 60 / section.tempo for section in song.sections)
+        == 6
+    )
+
+
+def test_live_catalog_api_includes_historical_notation(tmp_path: Path) -> None:
+    client = TestClient(create_app(tmp_path))
+    catalog = SongCatalog.builtin().model_dump(mode="json")
+    assert client.get("/api/songs").json() == catalog
+    assert client.get("/data/songs.json").json() == catalog

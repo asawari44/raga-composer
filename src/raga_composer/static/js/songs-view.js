@@ -20,6 +20,10 @@ export function createSongsView({ api, el, tokenize, notationNodes, practicePlay
       el("h3", {}, song.title),
       song.title_hi ? el("p", { lang: "hi" }, song.title_hi) : "",
       el("p", { class: "meta" }, `${song.category} · ${song.composer} · ${song.rights.license}`));
+    if (song.notes) {
+      card.append(el("details", {}, el("summary", {}, "About this historical setting"),
+        el("p", {}, song.notes)));
+    }
     song.sections.forEach((section, index) => {
       const tokens = tokenize(section.notation);
       const id = `song-${song.id}-${index}`;
@@ -51,7 +55,7 @@ export function createSongsView({ api, el, tokenize, notationNodes, practicePlay
     const pageCount = Math.ceil(songs.length / pageSize);
     page = Math.min(page, Math.max(0, pageCount - 1));
     const start = page * pageSize;
-    status.textContent = `${catalog.songs.length} playable songs with documented reuse rights. Target: ${catalog.target_count}. ${songs.length} match your filters.`;
+    status.textContent = `${catalog.songs.length} playable song${catalog.songs.length === 1 ? "" : "s"} with documented reuse rights. Target: ${catalog.target_count}. ${songs.length} match your filters.`;
     list.replaceChildren(...songs.slice(start, start + pageSize).map(songCard));
     previous.disabled = page === 0;
     next.disabled = page + 1 >= pageCount;

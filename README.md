@@ -48,7 +48,10 @@ The page has these parts:
   use the current Sa and instrument, not the selected raga's restrictions.
   **Sources and reuse rights** shows the notation source and licensing evidence.
   The catalog displays its actual count and the target of 200 distinct songs.
-  It remains empty until entries pass both notation and rights checks.
+  The first entry is **Ganga Jamuna Tirath Kar Le**, transcribed from example 9
+  on page 23 of A. H. Fox Strangways's *The Music of Hindostan* (1914).
+  This is a historical setting, not a modern recording's arrangement.
+  The 200-song target is not yet met.
 - **Keyboard dock**: the instrument picker is always visible. Click
   **Keyboard** to show or hide the swara keyboard. The URL keeps the current
   view, so you can bookmark `/#compositions`, for example.
@@ -95,6 +98,15 @@ musical accuracy of a transcription. Review the evidence and compare pitches,
 octaves, and rhythm with the source before adding an entry. Don't fabricate
 notation, count different excerpts as separate songs, or duplicate songs to
 meet the target. Run `make site`, `make check`, and the song tests after changes.
+
+For historical scores, inspect the page image rather than extracting notes
+from OCR. Record the edition, printed page, example number, scan leaf, pitch
+reference, note durations, repeats, and tempo conversion in the song's `notes`.
+Reader indexes and downloadable page-image indexes can differ; check the
+printed page number. The first entry uses C as a transcription reference for Sa
+(not a source-specified tonic), four slots per quarter note, and 120 BPM from
+the printed half-note = 60. Its solo and chorus total 12 quarter-note beats
+before repeats. A singing teacher has not reviewed it.
 
 ## Features
 

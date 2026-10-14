@@ -80,6 +80,7 @@ class Song(SongModel):
     category: str = Field(min_length=1, max_length=80)
     language: str = Field(min_length=1, max_length=80)
     composer: str = Field(min_length=1, max_length=200)
+    notes: str = Field(default="", max_length=3000)
     rights: SongRights
     sections: list[SongSection] = Field(min_length=1, max_length=40)
     sources: list[HttpUrl] = Field(min_length=1, max_length=20)
