@@ -1,0 +1,2412 @@
+[
+  {
+    "name": "Yaman",
+    "aliases": [
+      "Kalyan",
+      "Eman"
+    ],
+    "thaat": "Kalyan",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "First quarter of the night",
+    "description": "Tivra Ma, all other swaras shuddha. Phrases often start from mandra Ni and skip Sa and Pa while ascending.",
+    "aaroh": "N. R G M D N S'",
+    "avroh": "S' N D P M G R S",
+    "pakad": [
+      "N. R G R S",
+      "P M G R",
+      "N. R S"
+    ],
+    "patterns": [
+      "N. R G M D N S'",
+      "G M D N D P",
+      "M D N R' S'",
+      "P M G R G R S",
+      "N. D. N. R S",
+      "G M D N S' N D P"
+    ]
+  },
+  {
+    "name": "Bhupali",
+    "aliases": [
+      "Bhoop",
+      "Bhopali"
+    ],
+    "thaat": "Kalyan",
+    "jati": "Audav-Audav",
+    "vadi": "G",
+    "samvadi": "D",
+    "time": "First quarter of the night",
+    "description": "Pentatonic: Ma and Ni are omitted. Calm and devotional.",
+    "aaroh": "S R G P D S'",
+    "avroh": "S' D P G R S",
+    "pakad": [
+      "G R S D.",
+      "S R G",
+      "P G",
+      "D P G R S"
+    ],
+    "patterns": [
+      "S R G P D S'",
+      "G P D S' D P",
+      "S' D P G R S",
+      "G R S D. S",
+      "P G R G P D",
+      "D. S R G R S"
+    ]
+  },
+  {
+    "name": "Durga",
+    "aliases": [],
+    "thaat": "Bilawal",
+    "jati": "Audav-Audav",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Second quarter of the night",
+    "description": "Pentatonic: Ga and Ni are omitted.",
+    "aaroh": "S R m P D S'",
+    "avroh": "S' D P m R S",
+    "pakad": [
+      "m P D m R",
+      "R m P D",
+      "D. S"
+    ],
+    "patterns": [
+      "S R m P D S'",
+      "m P D S' D P",
+      "S' D P m R S",
+      "R m R D. S",
+      "m P D m P m R",
+      "D. S R m P"
+    ]
+  },
+  {
+    "name": "Hamsadhwani",
+    "aliases": [
+      "Hansadhwani"
+    ],
+    "thaat": "Bilawal",
+    "jati": "Audav-Audav",
+    "vadi": "S",
+    "samvadi": "P",
+    "time": "First quarter of the night",
+    "description": "Pentatonic: Ma and Dha are omitted. Bright and auspicious.",
+    "aaroh": "S R G P N S'",
+    "avroh": "S' N P G R S",
+    "pakad": [
+      "N. R S",
+      "G P N P",
+      "G R S"
+    ],
+    "patterns": [
+      "S R G P N S'",
+      "G P N S' N P",
+      "S' N P G R S",
+      "N. R G R S",
+      "R G P G R S",
+      "P N R' S'"
+    ]
+  },
+  {
+    "name": "Bhairav",
+    "aliases": [],
+    "thaat": "Bhairav",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "d",
+    "samvadi": "r",
+    "time": "Dawn",
+    "description": "Komal Re and komal Dha, sung with a slow oscillation (andolan). Serious and devotional.",
+    "aaroh": "S r G m P d N S'",
+    "avroh": "S' N d P m G r S",
+    "pakad": [
+      "G m d P",
+      "G m r S"
+    ],
+    "patterns": [
+      "S r G m P",
+      "G m d P",
+      "d N S' r' S'",
+      "S' N d P m G r S",
+      "N. S r G m",
+      "P d m G r S"
+    ]
+  },
+  {
+    "name": "Todi",
+    "aliases": [
+      "Miyan ki Todi"
+    ],
+    "thaat": "Todi",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "d",
+    "samvadi": "g",
+    "time": "Late morning",
+    "description": "Komal Re, Ga, and Dha with tivra Ma. Pa is used sparingly and mostly in descent.",
+    "aaroh": "S r g M d N S'",
+    "avroh": "S' N d P M g r S",
+    "pakad": [
+      "d. N. S r g r S",
+      "M g r g r S"
+    ],
+    "patterns": [
+      "S r g M d N S'",
+      "r g M d",
+      "M d N S' N d",
+      "S' N d P M g r S",
+      "d. N. S r g",
+      "g M d M g r S"
+    ]
+  },
+  {
+    "name": "Kafi",
+    "aliases": [],
+    "thaat": "Kafi",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Late night",
+    "description": "Komal Ga and komal Ni. Folk-like and romantic; the basis of many hori and thumri compositions.",
+    "aaroh": "S R g m P D n S'",
+    "avroh": "S' n D P m g R S",
+    "pakad": [
+      "S S R R g g m m P"
+    ],
+    "patterns": [
+      "R g m P",
+      "m P D n S'",
+      "S' n D P m g R S",
+      "R P m g R S",
+      "g R m P",
+      "n. S R g R S"
+    ]
+  },
+  {
+    "name": "Bageshree",
+    "aliases": [
+      "Bageshri",
+      "Bageshwari"
+    ],
+    "thaat": "Kafi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Late night",
+    "description": "Komal Ga and komal Ni. Re and Pa are omitted in ascent. Expresses longing.",
+    "aaroh": "S g m D n S'",
+    "avroh": "S' n D m g R S",
+    "pakad": [
+      "S n. D. n. S",
+      "m D n D",
+      "m g R S"
+    ],
+    "patterns": [
+      "S g m D n S'",
+      "m D n D m g",
+      "g m g R S",
+      "n. D. S g m",
+      "D n S' n D m",
+      "S' n D m g R S"
+    ]
+  },
+  {
+    "name": "Bhimpalasi",
+    "aliases": [
+      "Bhimpalas"
+    ],
+    "thaat": "Kafi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Afternoon",
+    "description": "Komal Ga and komal Ni. Re and Dha are omitted in ascent.",
+    "aaroh": "n. S g m P n S'",
+    "avroh": "S' n D P m g R S",
+    "pakad": [
+      "n. S m",
+      "m g P m",
+      "g m g R S"
+    ],
+    "patterns": [
+      "n. S g m P",
+      "m P n S'",
+      "S' n D P m",
+      "P m g m g R S",
+      "g m P n D P",
+      "n. S g R S"
+    ]
+  },
+  {
+    "name": "Malkauns",
+    "aliases": [
+      "Malkosh"
+    ],
+    "thaat": "Bhairavi",
+    "jati": "Audav-Audav",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Late night",
+    "description": "Pentatonic: Re and Pa are omitted; Ga, Dha, and Ni are komal. Deep and meditative.",
+    "aaroh": "n. S g m d n S'",
+    "avroh": "S' n d m g S",
+    "pakad": [
+      "m g m d",
+      "n d m",
+      "g m g S"
+    ],
+    "patterns": [
+      "n. S g m d n S'",
+      "g m d n d m",
+      "S' n d m g S",
+      "d. n. S g S",
+      "m d n S' g' S'",
+      "m g m g S"
+    ]
+  },
+  {
+    "name": "Khamaj",
+    "aliases": [],
+    "thaat": "Khamaj",
+    "jati": "Shadav-Sampoorna",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "Second quarter of the night",
+    "description": "Shuddha Ni in ascent, komal Ni in descent. Re is omitted in ascent. Light and playful.",
+    "aaroh": "S G m P D N S'",
+    "avroh": "S' n D P m G R S",
+    "pakad": [
+      "n D",
+      "m P D",
+      "m G"
+    ],
+    "patterns": [
+      "S G m P D N S'",
+      "G m P D n D P",
+      "m G R S",
+      "S' n D P m G",
+      "N. S G m G",
+      "G m P D N S'"
+    ]
+  },
+  {
+    "name": "Desh",
+    "aliases": [],
+    "thaat": "Khamaj",
+    "jati": "Audav-Sampoorna",
+    "vadi": "R",
+    "samvadi": "P",
+    "time": "Second quarter of the night",
+    "description": "Shuddha Ni in ascent, komal Ni in descent. Ga and Dha are omitted in ascent. Associated with the monsoon.",
+    "aaroh": "S R m P N S'",
+    "avroh": "S' n D P m G R S",
+    "pakad": [
+      "R m P N S'",
+      "n D P",
+      "m G R G S"
+    ],
+    "patterns": [
+      "R m P N S'",
+      "S' n D P",
+      "m G R G S",
+      "P D m G R",
+      "R m P D m G R",
+      "N. S R m P"
+    ]
+  },
+  {
+    "name": "Bhairavi",
+    "aliases": [],
+    "thaat": "Bhairavi",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Morning; often sung to close a concert",
+    "description": "Re, Ga, Dha, and Ni are komal.",
+    "aaroh": "S r g m P d n S'",
+    "avroh": "S' n d P m g r S",
+    "pakad": [
+      "m g r g",
+      "m P d P",
+      "g m g r S"
+    ],
+    "patterns": [
+      "S r g m P",
+      "m P d n S'",
+      "S' n d P m g r S",
+      "g m P d P",
+      "d. n. S r g r S",
+      "P d m g r S"
+    ]
+  },
+  {
+    "name": "Shuddha Kalyan",
+    "aliases": [
+      "Bhoop Kalyan"
+    ],
+    "thaat": "Kalyan",
+    "jati": "Audav-Sampoorna",
+    "vadi": "G",
+    "samvadi": "D",
+    "time": "First quarter of the night",
+    "description": "Ascends like Bhupali; tivra Ma and Ni appear only lightly in descent. Long meends from Ga to Re and Pa to Re.",
+    "aaroh": "S R G P D S'",
+    "avroh": "S' N D P M G R S",
+    "pakad": [
+      "G R S N. D. P.",
+      "P. N. D. S",
+      "G R P R S"
+    ],
+    "patterns": [
+      "S R G P D S'",
+      "G P D S' N D P",
+      "P D P M G R",
+      "G R P R S",
+      "N. D. P. S R G",
+      "S' N D P M G R S"
+    ]
+  },
+  {
+    "name": "Hameer",
+    "aliases": [
+      "Hamir"
+    ],
+    "thaat": "Kalyan",
+    "jati": "Sampoorna-Sampoorna (vakra)",
+    "vadi": "D",
+    "samvadi": "G",
+    "time": "First quarter of the night",
+    "description": "Both Ma; shuddha Ma dominates. Dha is strong and Ni is approached from Dha in a zigzag.",
+    "aaroh": "S R S G m D N D S'",
+    "avroh": "S' N D P M P D P G m R S",
+    "pakad": [
+      "S R S G m D",
+      "N D P",
+      "G m R S"
+    ],
+    "patterns": [
+      "G m N D",
+      "D N S' R' S'",
+      "S' N D P",
+      "M P D P",
+      "G m P G m R S",
+      "G m D N D S'"
+    ]
+  },
+  {
+    "name": "Kedar",
+    "aliases": [
+      "Kedara"
+    ],
+    "thaat": "Kalyan",
+    "jati": "Audav-Shadav (vakra)",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "First quarter of the night",
+    "description": "Shuddha Ma is the centre; tivra Ma appears in M P. Ga is touched only in m G m R S and S m G P.",
+    "aaroh": "S m m P M P D P N D S'",
+    "avroh": "S' N D P M P D P m G m R S",
+    "pakad": [
+      "S m m P",
+      "M P D P m",
+      "m G m R S"
+    ],
+    "patterns": [
+      "S m G P",
+      "M P D P m",
+      "P D N D S'",
+      "S' N D P",
+      "m G m R S",
+      "S R S"
+    ]
+  },
+  {
+    "name": "Bihag",
+    "aliases": [],
+    "thaat": "Bilawal",
+    "jati": "Audav-Sampoorna",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "Second quarter of the night",
+    "description": "Re and Dha are omitted in ascent. Tivra Ma appears in P M P G m G.",
+    "aaroh": "N. S G m P N S'",
+    "avroh": "S' N D P M P G m G R S",
+    "pakad": [
+      "N. S G m P",
+      "G m G R S"
+    ],
+    "patterns": [
+      "N. S G m G",
+      "G m P N S'",
+      "S' N D P",
+      "P M P G m G",
+      "G R S",
+      "P N S' R' S'"
+    ]
+  },
+  {
+    "name": "Maru Bihag",
+    "aliases": [
+      "Marubihag"
+    ],
+    "thaat": "Kalyan",
+    "jati": "Audav-Sampoorna",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "First quarter of the night",
+    "description": "Like Bihag but centred on tivra Ma; shuddha Ma appears rarely.",
+    "aaroh": "N. S G M P N S'",
+    "avroh": "S' N D P M G R S",
+    "pakad": [
+      "N. S G M P",
+      "P N S'",
+      "M G R S"
+    ],
+    "patterns": [
+      "N. S G M P",
+      "G M P N S'",
+      "S' N D P",
+      "P M G R S",
+      "M G M P",
+      "P N S' R' S'"
+    ]
+  },
+  {
+    "name": "Tilak Kamod",
+    "aliases": [],
+    "thaat": "Khamaj",
+    "jati": "Audav-Sampoorna (vakra)",
+    "vadi": "R",
+    "samvadi": "P",
+    "time": "Second quarter of the night",
+    "description": "A zigzag raga built around P. N. S R G S and R m P N S'.",
+    "aaroh": "P. N. S R G S R m P N S'",
+    "avroh": "S' P D m G S R G S N.",
+    "pakad": [
+      "P. N. S R G S",
+      "R P m G",
+      "S N."
+    ],
+    "patterns": [
+      "P. N. S R G S",
+      "R m P N S'",
+      "S' P D m G",
+      "S R G S N.",
+      "P N S' R' S'",
+      "R P m G S R G S"
+    ]
+  },
+  {
+    "name": "Jhinjhoti",
+    "aliases": [],
+    "thaat": "Khamaj",
+    "jati": "Shadav-Sampoorna",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "Second quarter of the night",
+    "description": "Light raga that dwells in the lower and middle octaves; komal Ni in descent.",
+    "aaroh": "D. S R m P D S'",
+    "avroh": "S' n D P m G R S",
+    "pakad": [
+      "D. S R m G",
+      "R G S n. D.",
+      "P. D. S"
+    ],
+    "patterns": [
+      "D. S R m P D",
+      "m P D S'",
+      "S' n D P m G",
+      "R G S n. D. P. D. S",
+      "P D S' R' n D P",
+      "m G R S"
+    ]
+  },
+  {
+    "name": "Kalavati",
+    "aliases": [],
+    "thaat": "Khamaj",
+    "jati": "Audav-Audav",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Second quarter of the night",
+    "description": "Pentatonic: Sa, Ga, Pa, Dha, and komal Ni.",
+    "aaroh": "S G P D n S'",
+    "avroh": "S' n D P G S",
+    "pakad": [
+      "G P D n D P",
+      "G S"
+    ],
+    "patterns": [
+      "S G P D n S'",
+      "S' n D P G",
+      "G P D n D P",
+      "D. n. S G S",
+      "P D n S' G' S'",
+      "G P n D P G S"
+    ]
+  },
+  {
+    "name": "Rageshree",
+    "aliases": [
+      "Rageshri"
+    ],
+    "thaat": "Khamaj",
+    "jati": "Audav-Shadav",
+    "vadi": "G",
+    "samvadi": "n",
+    "time": "Second quarter of the night",
+    "description": "Pa is omitted; Re appears only in descent.",
+    "aaroh": "S G m D n S'",
+    "avroh": "S' n D m G R S",
+    "pakad": [
+      "G m D n D",
+      "m G R S"
+    ],
+    "patterns": [
+      "S G m D n S'",
+      "S' n D m G",
+      "G m D n D m G",
+      "n. D. S G m",
+      "m D n S' R' S'",
+      "G m G R S"
+    ]
+  },
+  {
+    "name": "Tilang",
+    "aliases": [],
+    "thaat": "Khamaj",
+    "jati": "Audav-Audav",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "Second quarter of the night",
+    "description": "Re and Dha are omitted. Shuddha Ni in ascent, komal Ni in descent.",
+    "aaroh": "S G m P N S'",
+    "avroh": "S' n P m G S",
+    "pakad": [
+      "N. S G m P",
+      "n P m G",
+      "m G S"
+    ],
+    "patterns": [
+      "S G m P N S'",
+      "S' n P m G",
+      "G m P N S'",
+      "P n P m G",
+      "N. S G m G S",
+      "N S' G' S'"
+    ]
+  },
+  {
+    "name": "Jog",
+    "aliases": [],
+    "thaat": "Khamaj",
+    "jati": "Audav-Shadav",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Second quarter of the night",
+    "description": "Shuddha Ga in ascent and komal Ga in descent, heard in G m g S.",
+    "aaroh": "S G m P n S'",
+    "avroh": "S' n P m G m g S",
+    "pakad": [
+      "n. S G m",
+      "P n P m G",
+      "m g S"
+    ],
+    "patterns": [
+      "S G m P",
+      "m P n S'",
+      "S' n P m",
+      "G m g S",
+      "n. S G m",
+      "P n S' G' S'"
+    ]
+  },
+  {
+    "name": "Jaijaivanti",
+    "aliases": [
+      "Jaijaiwanti",
+      "Jaijawanti"
+    ],
+    "thaat": "Khamaj",
+    "jati": "Sampoorna-Sampoorna (vakra)",
+    "vadi": "R",
+    "samvadi": "P",
+    "time": "Second quarter of the night",
+    "description": "Both Ga and both Ni. Komal Ga appears only in R g R S.",
+    "aaroh": "S R G m P N S'",
+    "avroh": "S' n D P m G R g R S",
+    "pakad": [
+      "R g R S",
+      "n. D. P. R",
+      "R G m P"
+    ],
+    "patterns": [
+      "S R G m P",
+      "m P N S'",
+      "S' n D P",
+      "m G R g R S",
+      "D. n. R",
+      "R G m G R g R S"
+    ]
+  },
+  {
+    "name": "Ahir Bhairav",
+    "aliases": [],
+    "thaat": "Bhairav",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Early morning",
+    "description": "Komal Re and komal Ni with shuddha Dha: a blend of Bhairav and Kafi.",
+    "aaroh": "S r G m P D n S'",
+    "avroh": "S' n D P m G r S",
+    "pakad": [
+      "G m r S",
+      "D. n. r S"
+    ],
+    "patterns": [
+      "S r G m",
+      "G m P D n D P",
+      "m G r S",
+      "D. n. r S",
+      "P D n S' r' S'",
+      "m P D n S'"
+    ]
+  },
+  {
+    "name": "Kalingada",
+    "aliases": [],
+    "thaat": "Bhairav",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Last quarter of the night",
+    "description": "Bhairav's scale without andolan on Re and Dha; brighter and lighter.",
+    "aaroh": "S r G m P d N S'",
+    "avroh": "S' N d P m G r S",
+    "pakad": [
+      "d P G m G",
+      "r S"
+    ],
+    "patterns": [
+      "S r G m P",
+      "P d N S'",
+      "S' N d P",
+      "G m d P G m G",
+      "m G r S",
+      "N. S r G m G r S"
+    ]
+  },
+  {
+    "name": "Jogiya",
+    "aliases": [],
+    "thaat": "Bhairav",
+    "jati": "Audav-Sampoorna",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Early morning",
+    "description": "Ga and Ni are omitted in ascent. A plaintive raga that dwells on Ma.",
+    "aaroh": "S r m P d S'",
+    "avroh": "S' N d P d m G r S",
+    "pakad": [
+      "r m P d m",
+      "G r S"
+    ],
+    "patterns": [
+      "S r m P d S'",
+      "d m P d m",
+      "m G r S",
+      "P d S' N d P",
+      "N. S r m",
+      "S' r' S' N d P"
+    ]
+  },
+  {
+    "name": "Gunkali",
+    "aliases": [
+      "Gunakri",
+      "Gunakali"
+    ],
+    "thaat": "Bhairav",
+    "jati": "Audav-Audav",
+    "vadi": "d",
+    "samvadi": "r",
+    "time": "Early morning",
+    "description": "Pentatonic with komal Re and komal Dha; Ga and Ni are omitted.",
+    "aaroh": "S r m P d S'",
+    "avroh": "S' d P m r S",
+    "pakad": [
+      "S r m P d P m r S"
+    ],
+    "patterns": [
+      "S r m P d S'",
+      "S' d P m r S",
+      "m P d P m",
+      "d. S r m",
+      "P d S' r' S'",
+      "r m P m r S"
+    ]
+  },
+  {
+    "name": "Bairagi",
+    "aliases": [
+      "Bairagi Bhairav"
+    ],
+    "thaat": "Bhairav",
+    "jati": "Audav-Audav",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Early morning",
+    "description": "Pentatonic with komal Re and komal Ni; Ga and Dha are omitted.",
+    "aaroh": "S r m P n S'",
+    "avroh": "S' n P m r S",
+    "pakad": [
+      "r m P n P",
+      "m r S"
+    ],
+    "patterns": [
+      "S r m P",
+      "m P n S'",
+      "S' n P m",
+      "P m r S",
+      "n. S r m",
+      "n S' r' S'"
+    ]
+  },
+  {
+    "name": "Vibhas",
+    "aliases": [
+      "Bibhas"
+    ],
+    "thaat": "Bhairav",
+    "jati": "Audav-Audav",
+    "vadi": "d",
+    "samvadi": "G",
+    "time": "Early morning",
+    "description": "Pentatonic with komal Re and komal Dha; Ma and Ni are omitted.",
+    "aaroh": "S r G P d S'",
+    "avroh": "S' d P G r S",
+    "pakad": [
+      "d P G P",
+      "G r S",
+      "S r G P d P"
+    ],
+    "patterns": [
+      "S r G P d S'",
+      "S' d P G r",
+      "d P G P",
+      "G r S",
+      "d. S r G",
+      "P d S' r' S'"
+    ]
+  },
+  {
+    "name": "Basant Mukhari",
+    "aliases": [],
+    "thaat": "Bhairav",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Morning",
+    "description": "Bhairav's lower half with Bhairavi's upper half: komal Re, Dha, and Ni with shuddha Ga.",
+    "aaroh": "S r G m P d n S'",
+    "avroh": "S' n d P m G r S",
+    "pakad": [
+      "G m P d P",
+      "m G r S"
+    ],
+    "patterns": [
+      "S r G m P",
+      "P d n S'",
+      "S' n d P",
+      "G m P d P m G",
+      "m G r S",
+      "d n S' r' S'"
+    ]
+  },
+  {
+    "name": "Lalit",
+    "aliases": [],
+    "thaat": "Marwa",
+    "jati": "Shadav-Shadav",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Dawn",
+    "description": "Pa is omitted. Both Ma are used one after the other, as in m M m G.",
+    "aaroh": "N. r G m M m d N S'",
+    "avroh": "r' N d M d m M m G r S",
+    "pakad": [
+      "N. r G m",
+      "M m G",
+      "m M d M m"
+    ],
+    "patterns": [
+      "N. r G m M m G",
+      "m M d N S'",
+      "S' N d M d m",
+      "m G r S",
+      "G m M m d N S'",
+      "r' N d M m G r S"
+    ]
+  },
+  {
+    "name": "Poorvi",
+    "aliases": [
+      "Purvi"
+    ],
+    "thaat": "Poorvi",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "Sunset",
+    "description": "Komal Re and Dha with tivra Ma; shuddha Ma appears in descent as G m G.",
+    "aaroh": "N. r G M P d N S'",
+    "avroh": "S' N d P M G m G r S",
+    "pakad": [
+      "N. r G M G",
+      "P M G m G",
+      "r G r S"
+    ],
+    "patterns": [
+      "N. r G M P",
+      "M d N S'",
+      "S' N d P",
+      "M G m G",
+      "r G r S",
+      "P d N S' r' S'"
+    ]
+  },
+  {
+    "name": "Puriya Dhanashree",
+    "aliases": [
+      "Puriya Dhanashri"
+    ],
+    "thaat": "Poorvi",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "P",
+    "samvadi": "r",
+    "time": "Sunset",
+    "description": "Poorvi's scale with only tivra Ma; Pa is a strong resting note.",
+    "aaroh": "N. r G M P d N S'",
+    "avroh": "r' N d P M G M r G r S",
+    "pakad": [
+      "N. r G M P",
+      "d P M G",
+      "M r G r S"
+    ],
+    "patterns": [
+      "M d N S'",
+      "N r' S'",
+      "d P M G",
+      "G M d M G",
+      "r G r S",
+      "S' N d P M G"
+    ]
+  },
+  {
+    "name": "Shree",
+    "aliases": [
+      "Shri",
+      "Sri"
+    ],
+    "thaat": "Poorvi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "r",
+    "samvadi": "P",
+    "time": "Sunset",
+    "description": "Serious raga with a long meend from komal Re to Pa.",
+    "aaroh": "S r M P N S'",
+    "avroh": "S' N d P M G r S",
+    "pakad": [
+      "S r r P",
+      "M G r",
+      "G r S"
+    ],
+    "patterns": [
+      "S r P",
+      "r M P N S'",
+      "P M G r",
+      "S' N d P",
+      "N. S r S",
+      "M P d M G r S"
+    ]
+  },
+  {
+    "name": "Marwa",
+    "aliases": [],
+    "thaat": "Marwa",
+    "jati": "Shadav-Shadav",
+    "vadi": "r",
+    "samvadi": "D",
+    "time": "Sunset",
+    "description": "Pa is omitted. Komal Re and shuddha Dha are strong; Sa is often avoided.",
+    "aaroh": "S r G M D N D S'",
+    "avroh": "S' N D M G r S",
+    "pakad": [
+      "D. N. r G M G r",
+      "D. N. r S"
+    ],
+    "patterns": [
+      "N. r G M D",
+      "M D N D S'",
+      "S' N D M G",
+      "G M G r",
+      "D. N. r S",
+      "r G M D M G r S"
+    ]
+  },
+  {
+    "name": "Puriya",
+    "aliases": [],
+    "thaat": "Marwa",
+    "jati": "Shadav-Shadav",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "Sunset",
+    "description": "Marwa's scale with emphasis on Ga and Ni and the lower half of the octave.",
+    "aaroh": "N. r G M D N r' S'",
+    "avroh": "S' N D M G r S",
+    "pakad": [
+      "N. r G",
+      "M D G M G",
+      "r S"
+    ],
+    "patterns": [
+      "M D N r' S'",
+      "N. D. N. r S",
+      "G M D G M G",
+      "S' N D M G",
+      "M G r S",
+      "N. r G M D N"
+    ]
+  },
+  {
+    "name": "Sohni",
+    "aliases": [
+      "Sohini"
+    ],
+    "thaat": "Marwa",
+    "jati": "Audav-Shadav",
+    "vadi": "D",
+    "samvadi": "G",
+    "time": "Last quarter of the night",
+    "description": "Pa is omitted. An upper-octave raga that dwells on taar Sa and komal Re.",
+    "aaroh": "S G M D N S'",
+    "avroh": "S' r' S' N D G M D M G r S",
+    "pakad": [
+      "M D N S'",
+      "r' S' N D",
+      "G M D M G r S"
+    ],
+    "patterns": [
+      "S G M D N S'",
+      "S' r' S'",
+      "N D G M D",
+      "M G r S",
+      "G M D N S' r' S'",
+      "S' N D M G"
+    ]
+  },
+  {
+    "name": "Hindol",
+    "aliases": [],
+    "thaat": "Kalyan",
+    "jati": "Audav-Audav",
+    "vadi": "D",
+    "samvadi": "G",
+    "time": "Morning",
+    "description": "Re and Pa are omitted. Tivra Ma and a strong Dha.",
+    "aaroh": "S G M D N S'",
+    "avroh": "S' N D M G S",
+    "pakad": [
+      "S G M D",
+      "M G S",
+      "N. D. S"
+    ],
+    "patterns": [
+      "S G M D N S'",
+      "S' N D M G",
+      "G M D M G S",
+      "D. N. S G",
+      "M D S' N D",
+      "G M D N S' G' S'"
+    ]
+  },
+  {
+    "name": "Brindavani Sarang",
+    "aliases": [
+      "Vrindavani Sarang"
+    ],
+    "thaat": "Kafi",
+    "jati": "Audav-Audav",
+    "vadi": "R",
+    "samvadi": "P",
+    "time": "Midday",
+    "description": "Ga and Dha are omitted. Shuddha Ni in ascent, komal Ni in descent.",
+    "aaroh": "S R m P N S'",
+    "avroh": "S' n P m R S",
+    "pakad": [
+      "N. S R m R",
+      "P m R S",
+      "n. P. N. S"
+    ],
+    "patterns": [
+      "S R m P N S'",
+      "S' n P m R",
+      "R m P n P",
+      "m R S",
+      "N. S R S",
+      "P N S' R' S'"
+    ]
+  },
+  {
+    "name": "Megh",
+    "aliases": [
+      "Megh Malhar"
+    ],
+    "thaat": "Kafi",
+    "jati": "Audav-Audav",
+    "vadi": "S",
+    "samvadi": "P",
+    "time": "Rainy season; any time",
+    "description": "Monsoon raga with Ga and Dha omitted. Re is shaken with gamak and linked to Pa.",
+    "aaroh": "S R m P n S'",
+    "avroh": "S' n P m R S",
+    "pakad": [
+      "R m R P",
+      "m R n. S",
+      "n P m R"
+    ],
+    "patterns": [
+      "S R m P n S'",
+      "S' n P m R",
+      "m P n P m R",
+      "R n. S",
+      "n. S R m P",
+      "P n S' R' S'"
+    ]
+  },
+  {
+    "name": "Miyan ki Malhar",
+    "aliases": [
+      "Miya Malhar",
+      "Mian Malhar"
+    ],
+    "thaat": "Kafi",
+    "jati": "Shadav-Sampoorna (vakra)",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Rainy season; late night",
+    "description": "Both Ni, played next to each other as n D N S'. Komal Ga appears in g m R S.",
+    "aaroh": "S R P m P n D N S'",
+    "avroh": "S' n P m P g m R S",
+    "pakad": [
+      "m R P",
+      "g m R S",
+      "n D N S'"
+    ],
+    "patterns": [
+      "R P m P",
+      "n D N S'",
+      "S' n P",
+      "m P g m R S",
+      "R n. S",
+      "n. D. N. S"
+    ]
+  },
+  {
+    "name": "Bahar",
+    "aliases": [],
+    "thaat": "Kafi",
+    "jati": "Shadav-Shadav (vakra)",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Spring; midnight",
+    "description": "Spring raga with both Ni side by side and a bright, quick character.",
+    "aaroh": "S m P g m n D N S'",
+    "avroh": "S' n P m P g m R S",
+    "pakad": [
+      "m P g m",
+      "n D N S'",
+      "g m R S"
+    ],
+    "patterns": [
+      "S m m P g m",
+      "g m n D N S'",
+      "S' n P m P",
+      "g m R S",
+      "N S' R' S'",
+      "n P m P g m"
+    ]
+  },
+  {
+    "name": "Dhani",
+    "aliases": [],
+    "thaat": "Kafi",
+    "jati": "Audav-Audav",
+    "vadi": "g",
+    "samvadi": "n",
+    "time": "Afternoon",
+    "description": "Pentatonic minor: Sa, komal Ga, Ma, Pa, and komal Ni.",
+    "aaroh": "n. S g m P n S'",
+    "avroh": "S' n P m g S",
+    "pakad": [
+      "n. S g m P",
+      "g m g S"
+    ],
+    "patterns": [
+      "S g m P n S'",
+      "S' n P m g",
+      "g m P n P",
+      "m g S",
+      "n. S g S",
+      "P n S' g' S'"
+    ]
+  },
+  {
+    "name": "Patdeep",
+    "aliases": [
+      "Pradeepaki"
+    ],
+    "thaat": "Kafi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Afternoon",
+    "description": "Komal Ga with shuddha Ni. Re and Dha are omitted in ascent.",
+    "aaroh": "N. S g m P N S'",
+    "avroh": "S' N D P m g R S",
+    "pakad": [
+      "g m P N S'",
+      "N D P",
+      "m g R S"
+    ],
+    "patterns": [
+      "N. S g m P",
+      "P N S'",
+      "S' N D P",
+      "m P g m",
+      "g R S",
+      "P N S' R' S' N D P"
+    ]
+  },
+  {
+    "name": "Abhogi",
+    "aliases": [
+      "Abhogi Kanada"
+    ],
+    "thaat": "Kafi",
+    "jati": "Audav-Audav",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Second quarter of the night",
+    "description": "Pa and Ni are omitted: Sa, Re, komal Ga, Ma, and Dha.",
+    "aaroh": "S R g m D S'",
+    "avroh": "S' D m g R S",
+    "pakad": [
+      "S R g m D",
+      "m g R S",
+      "D. S"
+    ],
+    "patterns": [
+      "S R g m",
+      "g m D S'",
+      "S' D m g",
+      "m g R S",
+      "D. S R g",
+      "D S' R' S'"
+    ]
+  },
+  {
+    "name": "Shivranjani",
+    "aliases": [
+      "Shivaranjani"
+    ],
+    "thaat": "Kafi",
+    "jati": "Audav-Audav",
+    "vadi": "P",
+    "samvadi": "R",
+    "time": "Night",
+    "description": "Pentatonic with komal Ga; Ma and Ni are omitted. Popular in light music.",
+    "aaroh": "S R g P D S'",
+    "avroh": "S' D P g R S",
+    "pakad": [
+      "g R S",
+      "D P g R",
+      "S D. S"
+    ],
+    "patterns": [
+      "S R g P D S'",
+      "S' D P g",
+      "P D S' R' S'",
+      "g P D P g R S",
+      "D. S R g",
+      "R g R S"
+    ]
+  },
+  {
+    "name": "Chandrakauns",
+    "aliases": [],
+    "thaat": "",
+    "jati": "Audav-Audav",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Late night",
+    "description": "Malkauns with shuddha Ni in place of komal Ni. It doesn't fit a single thaat.",
+    "aaroh": "S g m d N S'",
+    "avroh": "S' N d m g S",
+    "pakad": [
+      "g m d N S'",
+      "N d m g",
+      "m g S"
+    ],
+    "patterns": [
+      "S g m d",
+      "m d N S'",
+      "S' N d m",
+      "d m g S",
+      "N. S g m",
+      "N S' g' S'"
+    ]
+  },
+  {
+    "name": "Jaunpuri",
+    "aliases": [
+      "Jonpuri"
+    ],
+    "thaat": "Asavari",
+    "jati": "Shadav-Sampoorna",
+    "vadi": "d",
+    "samvadi": "g",
+    "time": "Late morning",
+    "description": "Komal Ga, Dha, and Ni. Ga is omitted in ascent.",
+    "aaroh": "S R m P d n S'",
+    "avroh": "S' n d P m g R S",
+    "pakad": [
+      "m P n d P",
+      "g R m P"
+    ],
+    "patterns": [
+      "S R m P",
+      "m P d n S'",
+      "S' n d P",
+      "m P n d P",
+      "d P m g R S",
+      "R n. S"
+    ]
+  },
+  {
+    "name": "Asavari",
+    "aliases": [
+      "Asawari"
+    ],
+    "thaat": "Asavari",
+    "jati": "Audav-Sampoorna",
+    "vadi": "d",
+    "samvadi": "g",
+    "time": "Late morning",
+    "description": "Ga and Ni are omitted in ascent; komal Dha is the resting note.",
+    "aaroh": "S R m P d S'",
+    "avroh": "S' n d P m g R S",
+    "pakad": [
+      "R m P n d P",
+      "g R S"
+    ],
+    "patterns": [
+      "S R m P d",
+      "m P d S'",
+      "S' n d P",
+      "d P m g R S",
+      "R m P",
+      "P d S' R' S'"
+    ]
+  },
+  {
+    "name": "Darbari Kanada",
+    "aliases": [
+      "Darbari",
+      "Darbari Kanhra"
+    ],
+    "thaat": "Asavari",
+    "jati": "Sampoorna-Shadav (vakra)",
+    "vadi": "R",
+    "samvadi": "P",
+    "time": "Midnight",
+    "description": "Grave raga of the lower octave. Komal Ga and komal Dha are played with slow andolan.",
+    "aaroh": "n. S R g R S m P d n S'",
+    "avroh": "S' d n P m P g m R S",
+    "pakad": [
+      "g m R S",
+      "d. n. P.",
+      "m. P. n. S R S"
+    ],
+    "patterns": [
+      "n. S R g R S",
+      "m P d n S'",
+      "S' d n P",
+      "m P g m R S",
+      "g g m R S",
+      "d. n. S R S"
+    ]
+  },
+  {
+    "name": "Multani",
+    "aliases": [],
+    "thaat": "Todi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Afternoon",
+    "description": "Todi's scale, but Re and Dha are omitted in ascent and used lightly in descent.",
+    "aaroh": "N. S g M P N S'",
+    "avroh": "S' N d P M g r S",
+    "pakad": [
+      "N. S M g",
+      "M P N",
+      "M g r S"
+    ],
+    "patterns": [
+      "N. S g M P",
+      "M P N S'",
+      "S' N d P",
+      "M g M P",
+      "M g r S",
+      "P N S' r' S'"
+    ]
+  },
+  {
+    "name": "Madhuvanti",
+    "aliases": [],
+    "thaat": "Todi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Afternoon",
+    "description": "Komal Ga with tivra Ma and shuddha Re, Dha, and Ni. Re and Dha are omitted in ascent.",
+    "aaroh": "N. S g M P N S'",
+    "avroh": "S' N D P M g R S",
+    "pakad": [
+      "N. S g M P",
+      "M g R S",
+      "M P N S'"
+    ],
+    "patterns": [
+      "N. S g M P",
+      "M P N S'",
+      "S' N D P",
+      "M g M P",
+      "M g R S",
+      "P N S' R' S'"
+    ]
+  },
+  {
+    "name": "Bhupal Todi",
+    "aliases": [
+      "Bhupal"
+    ],
+    "thaat": "Bhairavi",
+    "jati": "Audav-Audav",
+    "vadi": "d",
+    "samvadi": "g",
+    "time": "Morning",
+    "description": "Pentatonic with komal Re, Ga, and Dha; Ma and Ni are omitted.",
+    "aaroh": "S r g P d S'",
+    "avroh": "S' d P g r S",
+    "pakad": [
+      "d P g r",
+      "g r S",
+      "d. S r g"
+    ],
+    "patterns": [
+      "S r g P d S'",
+      "S' d P g r",
+      "d P g r S",
+      "d. S r g",
+      "P d S' r' S'",
+      "g P d P g r S"
+    ]
+  },
+  {
+    "name": "Alhaiya Bilawal",
+    "aliases": [
+      "Bilawal"
+    ],
+    "thaat": "Bilawal",
+    "jati": "Shadav-Sampoorna (vakra)",
+    "vadi": "D",
+    "samvadi": "G",
+    "time": "Morning",
+    "description": "All shuddha swaras, with komal Ni used in D n D P. Ma is omitted in ascent.",
+    "aaroh": "S R G P D N S'",
+    "avroh": "S' N D n D P D m G R S",
+    "pakad": [
+      "G R G P",
+      "D n D P",
+      "D m G R S"
+    ],
+    "patterns": [
+      "S R G P",
+      "G P D N S'",
+      "S' N D P",
+      "D n D P",
+      "G m R S",
+      "G R G P D N S'"
+    ]
+  },
+  {
+    "name": "Deshkar",
+    "aliases": [],
+    "thaat": "Bilawal",
+    "jati": "Audav-Audav",
+    "vadi": "D",
+    "samvadi": "G",
+    "time": "Morning",
+    "description": "Bhupali's notes, but centred on Dha and Pa in the upper half.",
+    "aaroh": "S R G P D S'",
+    "avroh": "S' D P G P D P G R S",
+    "pakad": [
+      "G P D P",
+      "G P D S'",
+      "D P G P",
+      "G R S"
+    ],
+    "patterns": [
+      "S R G P D S'",
+      "S' D P G",
+      "G P D P",
+      "D P G P D P",
+      "G R S",
+      "P D S' R' S'"
+    ]
+  },
+  {
+    "name": "Bhinna Shadja",
+    "aliases": [
+      "Kaushik Dhwani"
+    ],
+    "thaat": "Bilawal",
+    "jati": "Audav-Audav",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Late night",
+    "description": "Re and Pa are omitted: Sa, Ga, Ma, Dha, and Ni.",
+    "aaroh": "S G m D N S'",
+    "avroh": "S' N D m G S",
+    "pakad": [
+      "G m D N D",
+      "m G S",
+      "D. N. S"
+    ],
+    "patterns": [
+      "S G m D N S'",
+      "S' N D m G",
+      "G m D N D m G",
+      "D. N. S G",
+      "m D N S' G' S'",
+      "m G S"
+    ]
+  },
+  {
+    "name": "Kirwani",
+    "aliases": [
+      "Keeravani"
+    ],
+    "thaat": "",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Night",
+    "description": "Harmonic minor: komal Ga and Dha with shuddha Ni. Of Carnatic origin.",
+    "aaroh": "S R g m P d N S'",
+    "avroh": "S' N d P m g R S",
+    "pakad": [
+      "g m P d P",
+      "d N S'",
+      "m g R S"
+    ],
+    "patterns": [
+      "S R g m P",
+      "P d N S'",
+      "S' N d P",
+      "g m P d P m g",
+      "m g R S",
+      "N. S R g R S"
+    ]
+  },
+  {
+    "name": "Charukeshi",
+    "aliases": [
+      "Charukesi"
+    ],
+    "thaat": "",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Any time",
+    "description": "Shuddha lower half with komal Dha and Ni. Of Carnatic origin.",
+    "aaroh": "S R G m P d n S'",
+    "avroh": "S' n d P m G R S",
+    "pakad": [
+      "G m P d P",
+      "d n S'",
+      "m G R S"
+    ],
+    "patterns": [
+      "S R G m P",
+      "P d n S'",
+      "S' n d P",
+      "G m P d P m G",
+      "m G R S",
+      "d n S' R' S'"
+    ]
+  },
+  {
+    "name": "Shankara",
+    "aliases": [
+      "Shankra"
+    ],
+    "thaat": "Bilawal",
+    "jati": "Audav-Shadav (vakra)",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "Second quarter of the night",
+    "description": "Re and Ma are omitted in ascent; a bright uttaranga raga built on G P N S'.",
+    "aaroh": "S G P N D S'",
+    "avroh": "S' N P G P R G S",
+    "pakad": [
+      "S' N P G P",
+      "G P R G S",
+      "P N D S'"
+    ],
+    "patterns": [
+      "S G P N D S'",
+      "S' N P G P",
+      "G P R G S",
+      "P N S' R' S'",
+      "G P N D S' N P",
+      "S G P G R S"
+    ]
+  },
+  {
+    "name": "Shyam Kalyan",
+    "aliases": [],
+    "thaat": "Kalyan",
+    "jati": "Shadav-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "First quarter of the night",
+    "description": "Both Ma: tivra Ma in R M P and shuddha Ma in G m R. Ga is weak in ascent.",
+    "aaroh": "N. S R M P N S'",
+    "avroh": "S' N D P M P G m R N. S",
+    "pakad": [
+      "N. S R M P",
+      "M P G m R",
+      "N. S"
+    ],
+    "patterns": [
+      "N. S R M P",
+      "M P N S'",
+      "S' N D P",
+      "R M P D P M P",
+      "M P G m R",
+      "G m R N. S"
+    ]
+  },
+  {
+    "name": "Puriya Kalyan",
+    "aliases": [],
+    "thaat": "Marwa",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "Sunset",
+    "description": "Komal Re and tivra Ma; joins Puriya in the lower half with Kalyan in the upper half.",
+    "aaroh": "N. r G M P D N S'",
+    "avroh": "S' N D P M G r S",
+    "pakad": [
+      "N. r G",
+      "M D N D P",
+      "M G r S"
+    ],
+    "patterns": [
+      "N. r G M P",
+      "M D N S'",
+      "S' N D P",
+      "M D N D P",
+      "M G r S",
+      "N. r G M G r S"
+    ]
+  },
+  {
+    "name": "Gaud Sarang",
+    "aliases": [],
+    "thaat": "Kalyan",
+    "jati": "Sampoorna-Sampoorna (vakra)",
+    "vadi": "G",
+    "samvadi": "D",
+    "time": "Midday",
+    "description": "Zigzag movement with both Ma; tivra Ma appears in P M D P.",
+    "aaroh": "S G R m G P M D P S'",
+    "avroh": "S' N D P M P G m R S",
+    "pakad": [
+      "S G R m G",
+      "P R S",
+      "G R m G P"
+    ],
+    "patterns": [
+      "S G R m G",
+      "G R m G P",
+      "P M D P",
+      "D P S'",
+      "S' N D P",
+      "G m R S"
+    ]
+  },
+  {
+    "name": "Chhayanat",
+    "aliases": [
+      "Chayanat"
+    ],
+    "thaat": "Kalyan",
+    "jati": "Sampoorna-Sampoorna (vakra)",
+    "vadi": "R",
+    "samvadi": "P",
+    "time": "First quarter of the night",
+    "description": "The leap P R and the phrase R G m P define it; tivra Ma appears lightly in descent.",
+    "aaroh": "S R G m P D N S'",
+    "avroh": "S' N D P M P D P G m R S",
+    "pakad": [
+      "P R G m P",
+      "G m R S",
+      "S R S"
+    ],
+    "patterns": [
+      "S R G m P",
+      "P R G m P",
+      "P D N S'",
+      "S' N D P",
+      "M P D P",
+      "G m R S"
+    ]
+  },
+  {
+    "name": "Kamod",
+    "aliases": [],
+    "thaat": "Kalyan",
+    "jati": "Sampoorna-Sampoorna (vakra)",
+    "vadi": "P",
+    "samvadi": "R",
+    "time": "First quarter of the night",
+    "description": "Zigzag raga: R P, M P D P, and G m P G m R S are its signature moves.",
+    "aaroh": "S m R P M P D P N D S'",
+    "avroh": "S' N D P M P D P G m R S",
+    "pakad": [
+      "R P",
+      "M P D P",
+      "G m P G m R S"
+    ],
+    "patterns": [
+      "S m R P",
+      "M P D P",
+      "P N D S'",
+      "S' N D P",
+      "G m P G m R S",
+      "R P M P D P"
+    ]
+  },
+  {
+    "name": "Yaman Kalyan",
+    "aliases": [],
+    "thaat": "Kalyan",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "First quarter of the night",
+    "description": "Yaman with a touch of shuddha Ma in descent as G m G R.",
+    "aaroh": "N. R G M P D N S'",
+    "avroh": "S' N D P M G m G R S",
+    "pakad": [
+      "N. R G",
+      "P M G m G R S"
+    ],
+    "patterns": [
+      "N. R G M P",
+      "M D N S'",
+      "S' N D P",
+      "P M G m G R S",
+      "G M D N D P",
+      "N. R S"
+    ]
+  },
+  {
+    "name": "Nand",
+    "aliases": [
+      "Anandi Kalyan",
+      "Anandi"
+    ],
+    "thaat": "Kalyan",
+    "jati": "Sampoorna-Sampoorna (vakra)",
+    "vadi": "S",
+    "samvadi": "P",
+    "time": "Second quarter of the night",
+    "description": "Shuddha Ma leads; tivra Ma appears in P M P. Ga is approached from Ma.",
+    "aaroh": "S G m P D N S'",
+    "avroh": "S' N D P M P D P G m R S",
+    "pakad": [
+      "S G m P",
+      "M P D P",
+      "G m R S"
+    ],
+    "patterns": [
+      "S G m P",
+      "P D N S'",
+      "S' N D P",
+      "M P D P",
+      "G m R S",
+      "G m D P"
+    ]
+  },
+  {
+    "name": "Gorakh Kalyan",
+    "aliases": [],
+    "thaat": "Khamaj",
+    "jati": "Audav-Shadav",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Second quarter of the night",
+    "description": "Ga is omitted; komal Ni and a strong Ma give a folk-like character.",
+    "aaroh": "S R m D n S'",
+    "avroh": "S' n D P D m R S",
+    "pakad": [
+      "R m D",
+      "D m R S",
+      "n. D. S"
+    ],
+    "patterns": [
+      "S R m D",
+      "m D n S'",
+      "S' n D P D m",
+      "R m D m R S",
+      "n. D. S R m",
+      "D n S' R' S'"
+    ]
+  },
+  {
+    "name": "Khambavati",
+    "aliases": [],
+    "thaat": "Khamaj",
+    "jati": "Shadav-Sampoorna (vakra)",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Second quarter of the night",
+    "description": "Ma is the centre; komal Ni in descent.",
+    "aaroh": "S m G m P D S'",
+    "avroh": "S' n D P m G R S",
+    "pakad": [
+      "S m G m P",
+      "m G R S"
+    ],
+    "patterns": [
+      "S m G m P",
+      "P D S'",
+      "S' n D P",
+      "m G R S",
+      "G m P D P m",
+      "D S' R' S'"
+    ]
+  },
+  {
+    "name": "Gara",
+    "aliases": [],
+    "thaat": "Khamaj",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "Second quarter of the night",
+    "description": "Light raga using both Ga and both Ni.",
+    "aaroh": "N. S G m P D N S'",
+    "avroh": "S' n D P m g R S",
+    "pakad": [
+      "N. S G m P",
+      "m g R S"
+    ],
+    "patterns": [
+      "N. S G m P",
+      "P D N S'",
+      "S' n D P",
+      "m g R S",
+      "G m P D P m",
+      "R g R S"
+    ]
+  },
+  {
+    "name": "Pilu",
+    "aliases": [
+      "Peelu"
+    ],
+    "thaat": "Kafi",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "g",
+    "samvadi": "N",
+    "time": "Third quarter of the day",
+    "description": "Light raga that mixes komal and shuddha Ga and Ni and dwells in the lower octave.",
+    "aaroh": "N. S g m P N S'",
+    "avroh": "S' n D P m g R S N.",
+    "pakad": [
+      "N. S g",
+      "g R S N.",
+      "P. N. S"
+    ],
+    "patterns": [
+      "N. S g m P",
+      "P N S'",
+      "S' n D P",
+      "m g R S N.",
+      "P. N. S g",
+      "g m P D P m g"
+    ]
+  },
+  {
+    "name": "Sindhura",
+    "aliases": [
+      "Sindhu Bhairavi"
+    ],
+    "thaat": "Kafi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Afternoon",
+    "description": "Ga and Ni are omitted in ascent; komal Ga and Ni in descent.",
+    "aaroh": "S R m P D S'",
+    "avroh": "S' n D P m g R S",
+    "pakad": [
+      "R m P D",
+      "m g R S"
+    ],
+    "patterns": [
+      "S R m P",
+      "P D S'",
+      "S' n D P",
+      "R m P D P m",
+      "m g R S",
+      "D S' R' S'"
+    ]
+  },
+  {
+    "name": "Barwa",
+    "aliases": [],
+    "thaat": "Kafi",
+    "jati": "Sampoorna-Sampoorna (vakra)",
+    "vadi": "R",
+    "samvadi": "P",
+    "time": "Afternoon",
+    "description": "Re is the resting note; ascent is zigzag around R g R m.",
+    "aaroh": "N. S R g R m P D S'",
+    "avroh": "S' n D P m g R S",
+    "pakad": [
+      "R g R m P",
+      "m g R S"
+    ],
+    "patterns": [
+      "N. S R g R m",
+      "m P D S'",
+      "S' n D P",
+      "R g R m P",
+      "m g R S",
+      "P D n D P"
+    ]
+  },
+  {
+    "name": "Sur Malhar",
+    "aliases": [],
+    "thaat": "Kafi",
+    "jati": "Audav-Shadav",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Rainy season",
+    "description": "Ga is omitted; both Ni. The Malhar phrase m R P marks it.",
+    "aaroh": "S R m P N S'",
+    "avroh": "S' n D P m R S",
+    "pakad": [
+      "m R P",
+      "n D N S'",
+      "R m R S"
+    ],
+    "patterns": [
+      "S R m P",
+      "m R P",
+      "P N S'",
+      "S' n D P",
+      "n D N S'",
+      "m R S"
+    ]
+  },
+  {
+    "name": "Gaud Malhar",
+    "aliases": [],
+    "thaat": "Khamaj",
+    "jati": "Sampoorna-Sampoorna (vakra)",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Rainy season",
+    "description": "Gaud phrases (G m R) with the Malhar move m R P.",
+    "aaroh": "S R G m P D N S'",
+    "avroh": "S' n D P m G m R S",
+    "pakad": [
+      "m R P",
+      "G m R S",
+      "D N S'"
+    ],
+    "patterns": [
+      "S R G m P",
+      "m R P",
+      "P D N S'",
+      "S' n D P",
+      "G m R S",
+      "R G m P"
+    ]
+  },
+  {
+    "name": "Madhmad Sarang",
+    "aliases": [
+      "Madhyamad Sarang"
+    ],
+    "thaat": "Kafi",
+    "jati": "Audav-Audav",
+    "vadi": "R",
+    "samvadi": "P",
+    "time": "Midday",
+    "description": "Pentatonic: Sa, Re, Ma, Pa, and komal Ni.",
+    "aaroh": "S R m P n S'",
+    "avroh": "S' n P m R S",
+    "pakad": [
+      "n. S R",
+      "m R S",
+      "R m P n P"
+    ],
+    "patterns": [
+      "S R m P",
+      "P n S'",
+      "S' n P m",
+      "m R S",
+      "n. S R m R",
+      "R m P n P"
+    ]
+  },
+  {
+    "name": "Shuddh Sarang",
+    "aliases": [
+      "Shuddha Sarang"
+    ],
+    "thaat": "Kalyan",
+    "jati": "Audav-Shadav",
+    "vadi": "R",
+    "samvadi": "P",
+    "time": "Midday",
+    "description": "Ga is omitted; both Ma, with tivra Ma in ascent.",
+    "aaroh": "S R M P N S'",
+    "avroh": "S' N D P M P m R S",
+    "pakad": [
+      "R M P",
+      "m R S",
+      "N. S R"
+    ],
+    "patterns": [
+      "S R M P",
+      "P N S'",
+      "S' N D P",
+      "M P m R",
+      "m R S",
+      "N. S R M P"
+    ]
+  },
+  {
+    "name": "Nayaki Kanada",
+    "aliases": [
+      "Nayaki"
+    ],
+    "thaat": "Kafi",
+    "jati": "Shadav-Shadav (vakra)",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Second quarter of the night",
+    "description": "Kanada phrase g m R S; Dha is omitted.",
+    "aaroh": "S R m P n P S'",
+    "avroh": "S' n P m P g m R S",
+    "pakad": [
+      "g m R S",
+      "m P n P",
+      "R m P"
+    ],
+    "patterns": [
+      "S R m P",
+      "m P n P S'",
+      "S' n P m",
+      "P g m R S",
+      "R m P n P",
+      "n. S R S"
+    ]
+  },
+  {
+    "name": "Kaunsi Kanada",
+    "aliases": [
+      "Kaushi Kanada"
+    ],
+    "thaat": "Kafi",
+    "jati": "Audav-Shadav (vakra)",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Late night",
+    "description": "Malkauns notes with the Kanada phrase g m R S in descent.",
+    "aaroh": "S g m d n S'",
+    "avroh": "S' n P m g m R S",
+    "pakad": [
+      "g m d n",
+      "g m R S"
+    ],
+    "patterns": [
+      "S g m d n S'",
+      "S' n P m",
+      "g m R S",
+      "m d n S'",
+      "n P m g m",
+      "d. n. S g m"
+    ]
+  },
+  {
+    "name": "Adana",
+    "aliases": [
+      "Adana Kanada"
+    ],
+    "thaat": "Asavari",
+    "jati": "Shadav-Sampoorna (vakra)",
+    "vadi": "S'",
+    "samvadi": "P",
+    "time": "Second quarter of the night",
+    "description": "Upper-octave raga with the Kanada phrase g m R S and Dha approached from Ni.",
+    "aaroh": "S R m P d n S'",
+    "avroh": "S' d n P m P g m R S",
+    "pakad": [
+      "m P d n S'",
+      "S' d n P",
+      "g m R S"
+    ],
+    "patterns": [
+      "S R m P",
+      "m P d n S'",
+      "S' d n P",
+      "P g m R S",
+      "S' R' S' n S'",
+      "d n S' R' S'"
+    ]
+  },
+  {
+    "name": "Dhanashree",
+    "aliases": [
+      "Dhanashri"
+    ],
+    "thaat": "Kafi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Third quarter of the day",
+    "description": "Close to Bhimpalasi, with Pa as the centre.",
+    "aaroh": "N. S g m P n S'",
+    "avroh": "S' n D P m g R S",
+    "pakad": [
+      "N. S g m P",
+      "m g R S"
+    ],
+    "patterns": [
+      "N. S g m P",
+      "P n S'",
+      "S' n D P",
+      "m g R S",
+      "g m P n D P",
+      "P n S' R' S'"
+    ]
+  },
+  {
+    "name": "Komal Rishabh Asavari",
+    "aliases": [
+      "Komal Re Asavari"
+    ],
+    "thaat": "Bhairavi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "d",
+    "samvadi": "g",
+    "time": "Late morning",
+    "description": "Asavari with komal Re.",
+    "aaroh": "S r m P d S'",
+    "avroh": "S' n d P m g r S",
+    "pakad": [
+      "r m P",
+      "d m P g r S"
+    ],
+    "patterns": [
+      "S r m P",
+      "P d S'",
+      "S' n d P",
+      "m P d m P",
+      "g r S",
+      "d S' r' S'"
+    ]
+  },
+  {
+    "name": "Desi",
+    "aliases": [
+      "Desi Todi"
+    ],
+    "thaat": "Asavari",
+    "jati": "Audav-Sampoorna",
+    "vadi": "P",
+    "samvadi": "R",
+    "time": "Late morning",
+    "description": "Shuddha Re and Dha in ascent, komal Dha in descent.",
+    "aaroh": "S R m P D S'",
+    "avroh": "S' n d P m g R S",
+    "pakad": [
+      "R m P",
+      "m g R S",
+      "R n. S"
+    ],
+    "patterns": [
+      "S R m P",
+      "P D S'",
+      "S' n d P",
+      "m g R S",
+      "R m P D P",
+      "R n. S"
+    ]
+  },
+  {
+    "name": "Ramkali",
+    "aliases": [],
+    "thaat": "Bhairav",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Early morning",
+    "description": "Bhairav notes plus tivra Ma and komal Ni in a descending phrase.",
+    "aaroh": "S r G m P d N S'",
+    "avroh": "S' N d P M P d n d P G m r S",
+    "pakad": [
+      "d n d P",
+      "G m r S",
+      "M P d P"
+    ],
+    "patterns": [
+      "S r G m P",
+      "P d N S'",
+      "S' N d P",
+      "M P d n d P",
+      "G m r S",
+      "G m P d P"
+    ]
+  },
+  {
+    "name": "Nat Bhairav",
+    "aliases": [],
+    "thaat": "Bhairav",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Early morning",
+    "description": "Shuddha Re and Ga in the lower half with komal Dha in the upper half.",
+    "aaroh": "S R G m P d N S'",
+    "avroh": "S' N d P m G R S",
+    "pakad": [
+      "G m P d",
+      "m G R S"
+    ],
+    "patterns": [
+      "S R G m P",
+      "P d N S'",
+      "S' N d P",
+      "G m P d P",
+      "m G R S",
+      "d N S' R' S'"
+    ]
+  },
+  {
+    "name": "Bilaskhani Todi",
+    "aliases": [
+      "Bilaskhani"
+    ],
+    "thaat": "Bhairavi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "d",
+    "samvadi": "g",
+    "time": "Late morning",
+    "description": "Todi-like phrases on Bhairavi notes; Ma and Ni are omitted in ascent.",
+    "aaroh": "S r g P d S'",
+    "avroh": "S' n d P m g r S",
+    "pakad": [
+      "r g r S",
+      "d P m g",
+      "g P d"
+    ],
+    "patterns": [
+      "S r g P d",
+      "P d S'",
+      "S' n d P",
+      "d P m g",
+      "r g r S",
+      "g P d n d P"
+    ]
+  },
+  {
+    "name": "Gurjari Todi",
+    "aliases": [
+      "Gujari Todi"
+    ],
+    "thaat": "Todi",
+    "jati": "Shadav-Shadav",
+    "vadi": "d",
+    "samvadi": "g",
+    "time": "Late morning",
+    "description": "Todi without Pa.",
+    "aaroh": "S r g M d N S'",
+    "avroh": "S' N d M g r S",
+    "pakad": [
+      "d M g r",
+      "r g r S",
+      "M d N S'"
+    ],
+    "patterns": [
+      "S r g M d",
+      "M d N S'",
+      "S' N d M",
+      "d M g r",
+      "r g r S",
+      "g M d N d M"
+    ]
+  },
+  {
+    "name": "Basant",
+    "aliases": [
+      "Vasant"
+    ],
+    "thaat": "Poorvi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "S'",
+    "samvadi": "P",
+    "time": "Spring, late night",
+    "description": "Upper-octave raga; both Ma, with shuddha Ma in M G m G.",
+    "aaroh": "S G M d S'",
+    "avroh": "S' N d P M G m G r S",
+    "pakad": [
+      "M d S'",
+      "S' N d P",
+      "m G r S"
+    ],
+    "patterns": [
+      "S G M d S'",
+      "S' N d P",
+      "M G m G",
+      "G r S",
+      "M d N S' r' S'",
+      "P M G M d"
+    ]
+  },
+  {
+    "name": "Paraj",
+    "aliases": [],
+    "thaat": "Poorvi",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "S'",
+    "samvadi": "P",
+    "time": "Late night",
+    "description": "Upper-octave raga close to Basant, with Pa in descent.",
+    "aaroh": "S G M d N S'",
+    "avroh": "S' N d P M P G M G r S",
+    "pakad": [
+      "M d N S'",
+      "N S' r' N S'",
+      "G M G r S"
+    ],
+    "patterns": [
+      "S G M d N S'",
+      "S' N d P",
+      "M P G M G",
+      "G r S",
+      "N S' r' N S'",
+      "M d N d P"
+    ]
+  },
+  {
+    "name": "Pahadi",
+    "aliases": [
+      "Pahari"
+    ],
+    "thaat": "Bilawal",
+    "jati": "Audav-Sampoorna",
+    "vadi": "S",
+    "samvadi": "P",
+    "time": "Any time",
+    "description": "Folk-based light raga that dwells in the lower octave around D. P. S.",
+    "aaroh": "S R G P D S'",
+    "avroh": "S' N D P G m G R S",
+    "pakad": [
+      "G R S D. P.",
+      "D. P. D. S"
+    ],
+    "patterns": [
+      "S R G P D",
+      "P D S'",
+      "S' N D P",
+      "G m G R S",
+      "G R S D. P.",
+      "D. P. D. S"
+    ]
+  },
+  {
+    "name": "Malgunji",
+    "aliases": [],
+    "thaat": "Khamaj",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Second quarter of the night",
+    "description": "Bageshree-like phrases with both Ga.",
+    "aaroh": "S R G m D n S'",
+    "avroh": "S' n D P m g R S",
+    "pakad": [
+      "G m D n D",
+      "m g R S"
+    ],
+    "patterns": [
+      "S R G m",
+      "m D n S'",
+      "S' n D P m",
+      "m g R S",
+      "G m D n D m",
+      "n. D. S"
+    ]
+  },
+  {
+    "name": "Shahana",
+    "aliases": [
+      "Shahana Kanada"
+    ],
+    "thaat": "Kafi",
+    "jati": "Sampoorna-Sampoorna (vakra)",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Second quarter of the night",
+    "description": "Kanada phrase g m R S with D N S' in ascent.",
+    "aaroh": "S R G m P m P D N S'",
+    "avroh": "S' n P m P g m R S",
+    "pakad": [
+      "m P D N S'",
+      "g m R S"
+    ],
+    "patterns": [
+      "S R G m P",
+      "m P D N S'",
+      "S' n P m",
+      "P g m R S",
+      "D N S' R' S'",
+      "m P n P"
+    ]
+  }
+]

@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Swaramala · compose Hindustani classical phrases</title>
+  <meta name="description" content="Swaramala helps you compose raga-true Hindustani classical phrases, taans, and paltas.">
+  <link rel="icon" href="/static/img/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/" aria-label="Swaramala home">
+    <img src="/static/img/logo-mark.svg" alt="" width="40" height="40">
+    <span class="wordmark">Swaramala <span class="devanagari" lang="hi">स्वरमाला</span></span>
+    <span class="tagline">A garland of swaras</span>
+  </a>
+  <form id="raga-form" class="raga-picker" role="search">
+    <label for="raga-input" class="sr-only">Raga</label>
+    <input id="raga-input" list="raga-list" placeholder="Search ragas, for example Yaman" autocomplete="off">
+    <datalist id="raga-list"></datalist>
+    <button type="submit" class="primary">Open</button>
+    <button type="button" id="raga-browse">Browse all</button>
+  </form>
+  <div id="account" class="account"></div>
+</header>
+
+<section class="soundbar" aria-label="Sound controls">
+  <div class="group" role="group" aria-label="Scale and tempo">
+    <label title="The note that Sa sounds on">Sa <select id="tonic"></select></label>
+    <label>Octave
+      <select id="tonic-octave"><option>2</option><option selected>3</option><option>4</option></select>
+    </label>
+    <label>Tempo <input id="tempo" type="number" min="30" max="400" value="80"> BPM</label>
+  </div>
+  <div class="group" role="group" aria-label="Accompaniment">
+    <button id="tanpura-toggle" class="toggle" aria-pressed="false" title="Start or stop the tanpura drone">Tanpura</button>
+    <button id="tabla-toggle" class="toggle" aria-pressed="false" title="Start or stop the tabla">Tabla</button>
+    <label>Taal <select id="taal"></select></label>
+    <details class="popover">
+      <summary>Sound settings</summary>
+      <div class="popover-body">
+        <h3>Tanpura</h3>
+        <div class="row wrap">
+          <label class="check"><input id="tanpura-link" type="checkbox" checked> Follow Sa</label>
+          <label>Sa <select id="tanpura-tonic"></select></label>
+          <label>Octave <select id="tanpura-octave"><option>2</option><option selected>3</option><option>4</option></select></label>
+          <label>1st string
+            <select id="tanpura-first">
+              <option value="P">Pa</option><option value="m">Ma</option>
+              <option value="M">Tivra Ma</option><option value="N">Ni</option><option value="n">Komal Ni</option>
+            </select>
+          </label>
+        </div>
+        <label>Volume <input id="tanpura-vol" type="range" min="0" max="1" step="0.05" value="0.45"></label>
+        <h3>Tabla</h3>
+        <label>Volume <input id="tabla-vol" type="range" min="0" max="1" step="0.05" value="0.8"></label>
+      </div>
+    </details>
+  </div>
+  <div class="group" role="group" aria-label="Recording">
+    <button id="record" class="record" aria-pressed="false"><span class="dot"></span><span id="record-label">Record</span></button>
+    <span id="record-time" class="mono">0:00</span>
+    <label class="check"><input id="record-mic" type="checkbox" checked> Microphone</label>
+  </div>
+  <div id="theka" class="theka" aria-label="Tabla theka"></div>
+</section>
+
+<section class="raga-hero" aria-labelledby="raga-name">
+  <div class="raga-heading">
+    <h1 id="raga-name">Choose a raga</h1>
+    <div id="raga-facts" class="facts"></div>
+  </div>
+  <div class="swara-strip">
+    <div class="notation-keys" id="notation-keys" aria-label="Swaras; highlighted swaras are in the raga"></div>
+    <details class="legend">
+      <summary>How to read the notation</summary>
+      <ul>
+        <li><code>S r R g G m M P d D n N</code>: lowercase is komal, <code>M</code> is tivra Ma. You can also type <code>p</code> for <code>P</code> and <code>ni</code> for <code>n</code>.</li>
+        <li><code>S'</code>: taar (upper) octave. <code>N.</code>: mandra (lower) octave.</li>
+        <li><code>_</code>: hold the previous note for one more slot. <code>-</code>: rest.</li>
+        <li>In a composition, each box is one beat of the taal. <strong>X</strong> marks sam, <strong>0</strong> marks khali, and numbers mark the other talis.</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<nav class="tabs main-tabs" role="tablist" aria-label="Sections">
+  <button role="tab" id="tab-overview" aria-controls="view-overview" data-tab="overview" aria-selected="true">Overview</button>
+  <button role="tab" id="tab-compositions" aria-controls="view-compositions" data-tab="compositions" aria-selected="false">Compositions <span class="count" id="compositions-count"></span></button>
+  <button role="tab" id="tab-improv" aria-controls="view-improv" data-tab="improv" aria-selected="false">Alaap and taan</button>
+  <button role="tab" id="tab-compose" aria-controls="view-compose" data-tab="compose" aria-selected="false">Compose</button>
+  <button role="tab" id="tab-library" aria-controls="view-library" data-tab="library" aria-selected="false">My library</button>
+</nav>
+
+<main>
+  <section class="view" id="view-overview" role="tabpanel" aria-labelledby="tab-overview">
+    <div id="raga-info" class="raga-info muted">Choose a raga to see its aaroh, avroh, pakad, and common patterns.</div>
+  </section>
+
+  <section class="view" id="view-compositions" role="tabpanel" aria-labelledby="tab-compositions" hidden>
+    <div class="panel compositions-panel">
+      <div class="panel-head">
+        <h2 id="compositions-title">Compositions</h2>
+        <p class="hint">Published compositions with notation. Each row is one cycle of the taal, with the words under the notes.</p>
+      </div>
+      <div class="toolbar perform-options" role="group" aria-label="Performance options">
+        <span class="toolbar-title">Perform options</span>
+        <label>After each phrase, return to
+          <select id="perform-return">
+            <option value="half">the first half of the first line</option>
+            <option value="full">the full first line</option>
+          </select>
+        </label>
+        <label class="check"><input type="checkbox" id="perform-alaap" checked> Include alaap</label>
+        <label class="check"><input type="checkbox" id="perform-taan" checked> Include taan</label>
+      </div>
+      <div id="compositions"><p class="muted">Choose a raga to see its compositions.</p></div>
+    </div>
+  </section>
+
+  <section class="view" id="view-improv" role="tabpanel" aria-labelledby="tab-improv" hidden>
+    <div class="panel improv-panel">
+      <div class="panel-head row">
+        <h2 id="improv-title">Alaap and taan</h2>
+        <span id="improv-taal" class="muted small"></span>
+        <button id="improv-regenerate" type="button">New set</button>
+      </div>
+      <p class="hint">Generated from the raga's rules for the taal chosen in the sound bar. Sthayi phrases stay low and resolve to Sa; antara phrases rise to taar Sa. Each box is one beat.</p>
+      <div id="improv" class="improv"><p class="muted">Choose a raga to see alaap and taan phrases.</p></div>
+    </div>
+  </section>
+
+  <section class="view compose-view" id="view-compose" role="tabpanel" aria-labelledby="tab-compose" hidden>
+    <div class="panel compose-panel">
+      <h2><span class="step">1</span> Describe a phrase</h2>
+      <textarea id="intent" rows="2" placeholder="For example: ascending ending on S and has 16 beats"></textarea>
+      <div class="chips" id="intent-examples" aria-label="Examples"></div>
+      <div class="row wrap">
+        <label>Beats <input id="beats" type="number" min="1" max="64" value="16"></label>
+        <label>Notes per beat <select id="npb"><option>1</option><option>2</option><option>3</option><option>4</option><option>6</option><option>8</option></select></label>
+        <label>How many <input id="count" type="number" min="1" max="12" value="4"></label>
+        <button id="generate" class="primary">Generate</button>
+      </div>
+      <div id="intent-summary" class="summary"></div>
+      <div id="patterns"></div>
+    </div>
+
+    <div class="panel editor-panel">
+      <h2><span class="step">2</span> Arrange the line</h2>
+      <p class="hint">Click a note to select it. Keys you play insert after the selected note, or at the end. Hold <kbd>Shift</kbd> to replace the selected note instead.</p>
+      <div id="editor-grid" class="grid-wrap editor-grid"></div>
+      <div class="row">
+        <input id="editor-text" class="mono grow" spellcheck="false" placeholder="Or type notation, for example N. R G _ M D N S'">
+        <label>Notes per beat <select id="editor-npb"><option>1</option><option>2</option><option>3</option><option>4</option><option>6</option><option>8</option></select></label>
+      </div>
+      <div id="violations" class="violations"></div>
+      <div class="tool-groups">
+        <div class="tool-group" role="group" aria-label="Edit the selected note">
+          <span class="toolbar-title">Selected note</span>
+          <button data-op="hold" title="Add a hold (_) after the selected note">Hold _</button>
+          <button data-op="rest" title="Add a rest (-) after the selected note">Rest -</button>
+          <button data-op="delete">Delete</button>
+          <button data-op="left" aria-label="Move left">◀</button>
+          <button data-op="right" aria-label="Move right">▶</button>
+        </div>
+        <div class="tool-group" role="group" aria-label="Arrange the whole line">
+          <span class="toolbar-title">Whole line</span>
+          <label>Taan speed <select id="taan-npb"><option>2</option><option>3</option><option selected>4</option><option>6</option><option>8</option></select></label>
+          <button data-arrange="taan">As taan</button>
+          <button data-arrange="palta">As palta</button>
+          <button data-arrange="sustain">Elongate</button>
+          <button data-arrange="compact">Remove holds</button>
+        </div>
+      </div>
+      <div class="row wrap actions">
+        <button id="editor-play" class="primary">▶ Play</button>
+        <button id="editor-regenerate">Regenerate</button>
+        <span class="grow"></span>
+        <input id="line-title" placeholder="Title (optional)">
+        <button id="save-line">Save line</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="view library-view" id="view-library" role="tabpanel" aria-labelledby="tab-library" hidden>
+    <div class="panel saved-panel">
+      <h2>Saved lines</h2>
+      <div id="saved-lines" class="muted">Sign in to save lines.</div>
+    </div>
+    <div class="panel recordings-panel">
+      <h2>Recordings</h2>
+      <div id="recordings" class="muted">Sign in to save recordings to your account.</div>
+    </div>
+  </section>
+</main>
+
+<section class="dock" aria-label="Keyboard">
+  <div class="dock-head">
+    <button id="dock-toggle" class="dock-toggle" aria-expanded="true" aria-controls="dock-body">Keyboard</button>
+    <label>Instrument <select id="instrument"></select></label>
+    <label class="vol">Volume <input id="instrument-vol" type="range" min="0" max="1" step="0.05" value="0.8"></label>
+    <label class="check" title="Add the notes you play to the line in Compose"><input id="piano-input" type="checkbox" checked> Add played notes to the line</label>
+    <label class="check" title="S D V G H M comma L play S R G m P D N S'; X C B N K play r g M d n; Z and period change the octave"><input id="keyboard-play" type="checkbox" checked> Play from computer keyboard</label>
+    <details class="popover key-map-popover">
+      <summary>Key map</summary>
+      <div class="popover-body">
+        <p class="hint">Each computer key plays the swara under it: <kbd>S</kbd> <kbd>D</kbd> <kbd>V</kbd> <kbd>G</kbd> <kbd>H</kbd> <kbd>M</kbd> <kbd>,</kbd> <kbd>L</kbd> play the shuddha swaras from Sa to taar Sa, and <kbd>X</kbd> <kbd>C</kbd> <kbd>B</kbd> <kbd>N</kbd> <kbd>K</kbd> play komal Re, komal Ga, tivra Ma, komal Dha, and komal Ni. Hold <kbd>Shift</kbd> to replace the selected note.</p>
+        <div id="key-map" class="key-map"></div>
+      </div>
+    </details>
+    <span class="hint keyboard-hint" id="keyboard-hint"><kbd>S</kbd> plays Sa, <kbd>Z</kbd> and <kbd>.</kbd> change the octave (now <strong id="key-octave">madhya</strong>).</span>
+  </div>
+  <div id="dock-body" class="dock-body">
+    <div id="piano" class="piano"></div>
+  </div>
+</section>
+
+<dialog id="raga-dialog" aria-labelledby="raga-dialog-title">
+  <div class="dialog-head">
+    <h2 id="raga-dialog-title">All ragas</h2>
+    <button type="button" id="raga-dialog-close" aria-label="Close">✕</button>
+  </div>
+  <input id="raga-filter" type="search" placeholder="Filter by name, thaat, or time" autocomplete="off">
+  <p class="hint raga-dialog-hint">The number after a raga is how many compositions with notation it has.</p>
+  <div id="raga-groups" class="raga-groups"></div>
+</dialog>
+
+<dialog id="auth-dialog">
+  <form id="auth-form" method="dialog" novalidate>
+    <div class="tabs" role="tablist">
+      <button type="button" role="tab" data-mode="login" aria-selected="true">Sign in</button>
+      <button type="button" role="tab" data-mode="register" aria-selected="false">Create account</button>
+    </div>
+    <label class="stack">Username
+      <input name="username" required minlength="3" maxlength="40" pattern="[A-Za-z0-9_.\-]+" autocomplete="username" autocapitalize="none" spellcheck="false">
+    </label>
+    <label class="stack">Password
+      <span class="pw-field">
+        <input name="password" type="password" required maxlength="128" autocomplete="current-password">
+        <button type="button" class="reveal" aria-label="Show password">Show</button>
+      </span>
+    </label>
+    <label class="stack register-only">Confirm password
+      <input name="confirm" type="password" maxlength="128" autocomplete="new-password">
+    </label>
+    <p class="hint register-only">Use 3–40 letters, digits, <code>.</code>, <code>_</code>, or <code>-</code> for the username, and at least 8 characters for the password.</p>
+    <p id="auth-error" class="error" role="alert"></p>
+    <div class="row">
+      <button value="submit" class="primary" id="auth-submit">Sign in</button>
+      <button value="cancel" formnovalidate>Cancel</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="password-dialog">
+  <form id="password-form" method="dialog" novalidate>
+    <h2>Change password</h2>
+    <label class="stack">Current password <input name="current" type="password" required autocomplete="current-password"></label>
+    <label class="stack">New password <input name="next" type="password" required minlength="8" maxlength="128" autocomplete="new-password"></label>
+    <label class="stack">Confirm new password <input name="confirm" type="password" required autocomplete="new-password"></label>
+    <p class="hint">Changing your password signs you out on every other device.</p>
+    <p id="password-error" class="error" role="alert"></p>
+    <div class="row">
+      <button value="submit" class="primary">Change password</button>
+      <button value="cancel" formnovalidate>Cancel</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="save-recording-dialog">
+  <form id="save-recording-form" method="dialog">
+    <h2>Save recording</h2>
+    <audio id="recording-preview" controls></audio>
+    <label>Title <input name="title" placeholder="Untitled recording"></label>
+    <p id="save-recording-note" class="muted small"></p>
+    <div class="row">
+      <button value="save" class="primary">Save to account</button>
+      <button value="download">Download</button>
+      <button value="discard" formnovalidate>Discard</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script type="module" src="/static/js/app.js"></script>
+</body>
+</html>
