@@ -38,6 +38,7 @@ from raga_composer.improvise import ImprovisationError, Improvisations, improvis
 from raga_composer.intent import Intention, parse_intention
 from raga_composer.notation import NotationError, Swara, Token, tokenize
 from raga_composer.raga import Raga, RagaDefinition, RagaRegistry
+from raga_composer.songs import SongCatalog
 from raga_composer.storage import LocalBlobStore, Repository
 from raga_composer.taal import TAALS, Taal
 
@@ -189,6 +190,7 @@ def create_app(data_dir: Path | None = None) -> FastAPI:
     blobs = LocalBlobStore(data_dir / "recordings")
     registry = RagaRegistry.with_builtins()
     compositions = CompositionLibrary.builtin()
+    songs = SongCatalog.builtin()
 
     app = FastAPI(title=APP_NAME, version="0.2.0")
     app.state.repo = repo
@@ -307,6 +309,11 @@ def create_app(data_dir: Path | None = None) -> FastAPI:
         return user
 
     # Reference data ---------------------------------------------------------
+    @app.get("/api/songs", response_model=SongCatalog)
+    @app.get("/data/songs.json", response_model=SongCatalog)
+    def song_catalog() -> SongCatalog:
+        return songs
+
     @app.get("/api/config")
     def config() -> dict[str, Any]:
         return {"taals": list(TAALS.values()), "tonics": TONICS, "default_tonic": "G#"}

@@ -14,6 +14,7 @@ from pydantic import BaseModel
 
 from raga_composer.compositions import CompositionLibrary
 from raga_composer.raga import RagaRegistry
+from raga_composer.songs import SongCatalog
 from raga_composer.taal import TAALS
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -124,6 +125,7 @@ def build() -> None:
     _write_json(DATA_DIR / "ragas.json", [r.definition for r in registry.all()])
     _write_json(DATA_DIR / "taals.json", list(TAALS.values()))
     _write_json(DATA_DIR / "compositions.json", compositions.all())
+    _write_json(DATA_DIR / "songs.json", SongCatalog.builtin())
     _copy_marketing()
     _inject_head_tags()
     shutil.move(SITE_DIR / "marketing" / "sitemap.xml", SITE_DIR / "sitemap.xml")

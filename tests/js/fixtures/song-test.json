@@ -1,0 +1,29 @@
+{
+  "target_count": 200,
+  "songs": [
+    {
+      "id": "test-only",
+      "title": "Test-only melody",
+      "title_hi": "परीक्षण",
+      "category": "Test",
+      "language": "hi",
+      "composer": "Test fixture",
+      "rights": {
+        "status": "open-license",
+        "license": "CC0-1.0",
+        "source_url": "https://example.org/notation",
+        "evidence_url": "https://example.org/rights",
+        "notes": "Synthetic test fixture, not a researched song. Never publish this entry in the catalog."
+      },
+      "sections": [
+        {
+          "name": "Test section",
+          "notation": "N. S _ R - G M P S' _",
+          "notes_per_beat": 2,
+          "tempo": 90
+        }
+      ],
+      "sources": ["https://example.org/reference"]
+    }
+  ]
+}

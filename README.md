@@ -16,7 +16,7 @@ used.
 
 The page has these parts:
 
-- **Header**: the three sections, **Learn**, **Compose**, and **Library**, and
+- **Header**: **Learn**, **Compose**, **Hindi songs**, and **Library**, and
   the raga search. Click **Browse** to filter the 93 ragas by name, thaat, time
   of day, or whether they have compositions.
 - **Sound bar**: the scale (Sa), tempo, taal, **Tanpura**, **Tabla**, and
@@ -43,6 +43,12 @@ The page has these parts:
   option you like. The editor has undo and redo (Cmd+Z and Cmd+Shift+Z, or
   Ctrl+Z and Ctrl+Y), explains any note that breaks the raga, and offers a fix.
 - **Library**: saved lines and recordings, with export and import.
+- **Hindi songs**: a separate, searchable catalog of rights-documented melodies.
+  Browse 12 songs per page. Play or loop a section, use **Slower**, or apply its suggested tempo. Songs
+  use the current Sa and instrument, not the selected raga's restrictions.
+  **Sources and reuse rights** shows the notation source and licensing evidence.
+  The catalog displays its actual count and the target of 200 distinct songs.
+  It remains empty until entries pass both notation and rights checks.
 - **Keyboard dock**: the instrument picker is always visible. Click
   **Keyboard** to show or hide the swara keyboard. The URL keeps the current
   view, so you can bookmark `/#compositions`, for example.
@@ -64,6 +70,31 @@ inserting one.
 Keys don't play while a text box has focus, so you can type. Press `Escape`
 to leave the text box and play again. Keys are matched by the letter they
 type, so the map follows the printed letters on QWERTZ and AZERTY keyboards.
+
+## Adding Hindi songs
+
+The catalog lives in [songs.json](src/raga_composer/data/songs.json).
+[songs.py](src/raga_composer/songs.py) validates it when the API starts and when
+the static site builds. The browser also validates the loaded catalog.
+
+Each song needs a unique ID and title, a composer, a category, a language,
+sources, and one or more named sections. A section has `notation`,
+`notes_per_beat` (1–8), and `tempo` (30–400 BPM). Each note, hold, or rest occupies
+one slot. Use holds to encode longer durations; don't replace a sourced rhythm
+with evenly spaced notes. Holds must follow a note or another hold.
+
+Each entry also needs `rights`: `status`, `license`, `source_url`,
+`evidence_url`, and `notes`. Explain the reuse rights for both the melody and
+the transcription or arrangement. Public-domain lyrics do not establish
+public-domain music. Public web access is not a reuse license. The catalog
+accepts documented public-domain works, CC0, CC BY, and CC BY-SA editions;
+retain the attribution and share-alike obligations where applicable.
+
+Validation checks the data structure, not the truth of a rights claim or the
+musical accuracy of a transcription. Review the evidence and compare pitches,
+octaves, and rhythm with the source before adding an entry. Don't fabricate
+notation, count different excerpts as separate songs, or duplicate songs to
+meet the target. Run `make site`, `make check`, and the song tests after changes.
 
 ## Features
 

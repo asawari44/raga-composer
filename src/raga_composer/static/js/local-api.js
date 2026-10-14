@@ -9,9 +9,24 @@ import {
   listRecordings,
   patchLine,
 } from "./library-store.js";
+import { validateSongCatalog } from "./core/songs.js";
 
 let corePromise = null;
 let dataPromise = null;
+let songsPromise = null;
+
+function loadSongs() {
+  if (!songsPromise) {
+    songsPromise = fetch("data/songs.json").then(async (response) => {
+      if (!response.ok) throw errorWithStatus(response.status, "Couldn't load the songs catalog.");
+      return validateSongCatalog(await response.json());
+    }).catch((error) => {
+      songsPromise = null;
+      throw error;
+    });
+  }
+  return songsPromise;
+}
 
 function errorWithStatus(status, message) {
   const error = new Error(message);
@@ -127,6 +142,7 @@ export async function api(path, options = {}) {
   try {
     const url = new URL(path, window.location.href);
     const pathname = url.pathname.endsWith("/") && url.pathname !== "/" ? url.pathname.slice(0, -1) : url.pathname;
+    if (pathname === "/api/songs" && (options.method || "GET").toUpperCase() === "GET") return loadSongs();
     const libraryResult = await routeLibrary(pathname, url.searchParams, options);
     if (libraryResult !== undefined) return ok(libraryResult);
     const coreResult = await routeCore(pathname, url.searchParams, options);

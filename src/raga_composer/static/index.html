@@ -20,6 +20,7 @@
   <nav class="primary-nav" aria-label="Main">
     <a href="#overview" data-section="learn">Learn</a>
     <a href="#compose" data-section="compose">Compose</a>
+    <a href="#songs" data-section="songs">Hindi songs</a>
     <a href="#library" data-section="library">Library</a>
   </nav>
   <form id="raga-form" class="raga-picker" role="search">
@@ -262,6 +263,26 @@
         <input id="line-title" placeholder="Title (optional)">
         <button id="save-line" class="primary">Save line</button>
       </div>
+    </div>
+  </section>
+
+  <section class="view" id="view-songs" aria-labelledby="songs-title" hidden>
+    <div class="panel">
+      <h2 id="songs-title">Hindi songs</h2>
+      <p class="hint">Practice public-domain and openly licensed melodies. Playback uses the Sa, tempo, and instrument you choose above and in the keyboard dock. Songs are not restricted to the selected raga.</p>
+      <div class="row wrap song-filters">
+        <label for="song-search">Search songs</label>
+        <input id="song-search" type="search" placeholder="Title or composer, in Hindi or English" autocomplete="off">
+        <label for="song-category">Category</label>
+        <select id="song-category"><option value="">All categories</option></select>
+      </div>
+      <p id="songs-status" class="hint" role="status" aria-live="polite"></p>
+      <div id="songs-list"></div>
+      <nav class="row wrap" aria-label="Song result pages">
+        <button type="button" id="songs-previous" disabled>Previous page</button>
+        <span id="songs-page" class="hint"></span>
+        <button type="button" id="songs-next" disabled>Next page</button>
+      </nav>
     </div>
   </section>
 

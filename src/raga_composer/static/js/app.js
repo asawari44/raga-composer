@@ -2,6 +2,7 @@ import { AudioEngine, SessionRecorder, TONICS } from "./audio.js";
 import { tokenize as coreTokenize } from "./core/notation.js";
 import { DEFAULT_INSTRUMENT, INSTRUMENTS } from "./instruments.js";
 import { api, exportLibrary, importLibraryFile } from "./local-api.js";
+import { createSongsView } from "./songs-view.js";
 
 const SWARAS = ["S", "r", "R", "g", "G", "m", "M", "P", "d", "D", "n", "N"];
 const SWARA_LABELS = ["Sa", "komal Re", "Re", "komal Ga", "Ga", "Ma", "tivra Ma", "Pa", "komal Dha", "Dha", "komal Ni", "Ni"];
@@ -79,7 +80,7 @@ const GLOSSARY = {
 };
 
 const LEARN_TABS = ["overview", "compositions", "improv"];
-const SECTION_OF = { overview: "learn", compositions: "learn", improv: "learn", compose: "compose", library: "library" };
+const SECTION_OF = { overview: "learn", compositions: "learn", improv: "learn", compose: "compose", songs: "songs", library: "library" };
 const LEARN_STEPS = [
   ["aarohAvroh", "Hear aaroh and avroh", "overview"],
   ["pakad", "Learn the pakad", "overview"],
@@ -92,6 +93,13 @@ const LEARN_STEPS = [
 const $ = (sel) => document.querySelector(sel);
 const engine = new AudioEngine();
 const recorder = new SessionRecorder(engine);
+const songsView = createSongsView({
+  api, el, tokenize, notationNodes, practicePlay, loopToggle, stopPlayback,
+  setTempo: (tempo) => {
+    $("#tempo").value = tempo;
+    $("#tempo").dispatchEvent(new Event("change"));
+  },
+});
 
 const state = {
   keyOctave: 0,
@@ -739,7 +747,8 @@ function phraseCard(text, { name, onDone = null } = {}) {
 function renderRagaHeading() {
   const r = state.raga;
   $("#raga-name").textContent = r ? `Raga ${r.name}` : "Choose a raga";
-  document.title = r ? `${r.name} · Riyaaz your way` : "Riyaaz your way · compose Hindustani classical phrases";
+  document.title = !$("#view-songs").hidden ? "Hindi songs · Riyaaz your way"
+    : r ? `${r.name} · Riyaaz your way` : "Riyaaz your way · compose Hindustani classical phrases";
   const facts = $("#raga-facts");
   facts.innerHTML = "";
   if (!r) return;
@@ -1713,7 +1722,7 @@ function haltPlayback() {
   state.playback?.cancel();
   state.playback = null;
   document.querySelectorAll(".playing").forEach((n) => n.classList.remove("playing"));
-  document.querySelectorAll("[aria-current=true].tok, [aria-current=true].cbeat").forEach((n) => n.removeAttribute("aria-current"));
+  document.querySelectorAll("[aria-current=true].tok, [aria-current=true].cbeat, .song-notes [aria-current=true]").forEach((n) => n.removeAttribute("aria-current"));
 }
 
 function stopPlayback() {
@@ -2043,6 +2052,7 @@ function rerenderNotation() {
   if (state.improv) renderImprovisations();
   if (state.patterns) renderPatterns(state.patterns);
   renderEditor();
+  songsView.render();
 }
 
 function bindScriptSwitch() {
@@ -2056,10 +2066,11 @@ function bindScriptSwitch() {
 }
 
 // Navigation and dock ---------------------------------------------------------------------
-const TABS = ["overview", "compositions", "improv", "compose", "library"];
+const TABS = ["overview", "compositions", "improv", "compose", "songs", "library"];
 
 function showTab(name, { focus = false } = {}) {
   if (!TABS.includes(name)) name = "overview";
+  if (!$("#view-songs").hidden && name !== "songs") stopPlayback();
   endWelcome();
   const section = SECTION_OF[name];
   for (const tab of TABS) document.getElementById(`view-${tab}`).hidden = tab !== name;
@@ -2069,6 +2080,12 @@ function showTab(name, { focus = false } = {}) {
     button.tabIndex = tab === name ? 0 : -1;
   }
   $("#learn-nav").hidden = section !== "learn";
+  $(".raga-heading").hidden = section === "songs";
+  if (section === "songs") {
+    document.title = "Hindi songs · Riyaaz your way";
+    stopPlayback();
+    songsView.load();
+  } else renderRagaHeading();
   document.querySelectorAll(".primary-nav a").forEach((a) => {
     if (a.dataset.section === section) a.setAttribute("aria-current", "page");
     else a.removeAttribute("aria-current");

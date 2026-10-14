@@ -106,6 +106,12 @@ kbd { font-family: var(--font-mono); font-size: .8em; border: 1px solid var(--co
 .primary-nav a { color: var(--color-header-muted); text-decoration: none; font-weight: 600; padding: .4rem .8rem; border-radius: var(--radius-pill); }
 .primary-nav a:hover { background: var(--color-header-hover); color: #fff; }
 .primary-nav a[aria-current=page] { background: var(--color-saffron); color: var(--color-header); }
+.song-filters input { flex: 1; min-width: min(100%, 14rem); }
+.song-notes { display: flex; flex-wrap: wrap; gap: var(--space-1); margin: var(--space-3) 0; }
+.song-notes span { padding: var(--space-1) var(--space-2); border: 1px solid var(--color-line); border-radius: var(--radius-sm); }
+.song-notes .playing { background: var(--color-saffron-soft); border-color: var(--color-saffron); }
+.song-card a { overflow-wrap: anywhere; }
+.song-card h4 { margin-bottom: var(--space-2); }
 .raga-picker { display: flex; gap: .4rem; flex: 1; justify-content: flex-end; min-width: min(100%, 22rem); }
 .raga-picker input { flex: 1; max-width: 22rem; min-width: 8rem; background: var(--color-header-field); color: #fff; border-color: var(--color-header-border); }
 .raga-picker input::placeholder { color: var(--color-header-placeholder); }
@@ -177,6 +183,7 @@ body.welcoming .raga-hero, body.welcoming .learn-nav, body.welcoming main { disp
 /* Raga summary under the sound bar. */
 .raga-hero { padding: var(--space-4) var(--space-4) var(--space-2); display: grid; gap: var(--space-2); max-width: var(--shell-max); margin: 0 auto; }
 .raga-heading { display: flex; flex-wrap: wrap; align-items: baseline; gap: var(--space-2) var(--space-4); }
+.raga-heading[hidden] { display: none; }
 .raga-heading h1 { font-family: var(--font-serif); font-size: 2rem; font-weight: 600; }
 .facts { display: flex; flex-wrap: wrap; gap: .35rem; }
 .fact { font-size: var(--text-sm); background: #fff; border: 1px solid var(--color-line); border-radius: var(--radius-pill); padding: .1rem .65rem; display: inline-flex; align-items: center; gap: .3rem; }
