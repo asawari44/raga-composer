@@ -51,3 +51,13 @@ resolve overlaps between the specs.
 10. Phrase builder and option cards in Compose.
 11. Play-in panel, editor empty state, undo, redo, and clear.
 12. Validation cards with fixes, and library empty states.
+
+## Color palette
+
+On October 14, 2026, Swaramala moved from the walnut-and-saffron palette to
+**indigo and marigold**. Five palettes were compared on the welcome, Learn,
+Compositions, and Compose screens. Indigo and marigold had the highest contrast
+(white on primary buttons is 9.9:1, and body text is 15:1), kept the saffron
+logo, and stayed clearly separate from the red used for warnings and the green
+used for correct notes. The values live in the `--color-*` tokens at the top of
+`src/raga_composer/static/styles.css`; components don't use hard-coded colors.

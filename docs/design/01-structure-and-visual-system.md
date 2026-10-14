@@ -160,7 +160,7 @@ Add this token layer to `styles.css` and migrate existing rules over time:
   --color-subtle: #9a8069;
   --color-line: #e7d8c5;
   --color-line-strong: #c9ad8d;
-  --color-brand: #8f3f16;
+  --color-brand: #2f3a8f;  /* Updated to indigo; see README.md. */
   --color-brand-strong: #6e2f10;
   --color-saffron: #e4a038;
   --color-saffron-soft: #fde8bd;
