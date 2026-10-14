@@ -61,6 +61,7 @@ const GLOSSARY = {
   vadi: "The most important swara in the raga.",
   samvadi: "The second most important swara in the raga.",
   varjit: "Swaras the raga leaves out.",
+  nyas: "Resting swaras: the notes a phrase can pause or end on.",
   jati: "How many swaras the raga uses going up and coming down, for example five and seven.",
   bandish: "A fixed composition, with words, set to a taal.",
   tarana: "A composition sung with syllables such as ta, na, dir, and tom instead of words.",
@@ -102,24 +103,20 @@ const state = {
   npb: 1,
   selected: -1,
   violations: [],
-  composeRequestId: 0,
-  arrangeRequestId: 0,
-  improvRequestId: 0,
-  savedLinesRequestId: 0,
-  recordingsRequestId: 0,
-  performanceRequestIds: new Map(),
   playback: null,
   improv: null,
   improvSeed: null,
   pendingRecording: null,
   recordingPreviewUrl: null,
-  ragaRequestId: 0,
-  validationVersion: 0,
   history: [],
   future: [],
   loop: null,
   chosenPattern: -1,
 };
+
+const latest = {};
+const beginRequest = (key) => (latest[key] = (latest[key] ?? 0) + 1);
+const isLatest = (key, id) => latest[key] === id;
 
 // Notation helpers -----------------------------------------------------------
 const TOKEN_RE = /ni|[SrRgGmMPpdDnN](?:'+|\.+)?|_|-/g;
@@ -649,11 +646,10 @@ function openRagaDialog() {
 }
 
 async function setRaga(name) {
-  const requestId = state.ragaRequestId + 1;
-  state.ragaRequestId = requestId;
+  const requestId = beginRequest("raga");
   try {
     const raga = await api(`/api/ragas/${encodeURIComponent(name)}`);
-    if (requestId !== state.ragaRequestId) return false;
+    if (!isLatest("raga", requestId)) return false;
     raga.semitones = [...new Set(tokenize([raga.aaroh, raga.avroh, ...raga.pakad, ...raga.patterns].join(" "))
       .filter((t) => t.pitch !== undefined).map((t) => ((t.pitch % 12) + 12) % 12))];
     state.raga = raga;
@@ -671,7 +667,7 @@ async function setRaga(name) {
     loadSavedLines(raga.name);
     return true;
   } catch (err) {
-    if (requestId !== state.ragaRequestId) return false;
+    if (!isLatest("raga", requestId)) return false;
     toast(err.message);
     showTab("overview");
     $("#raga-info").innerHTML = "";
@@ -754,6 +750,7 @@ function renderRagaHeading() {
   fact("samvadi", "Samvadi", r.samvadi && noteText(r.samvadi));
   fact("jati", "Jati", r.jati);
   fact("varjit", "Varjit", r.varjit.length ? r.varjit.join(", ") : "None");
+  if (r.nyas?.length) fact("nyas", "Nyas", r.nyas.map((n) => noteText(n)).join(", "));
   if (r.aliases?.length) fact(null, "Also", r.aliases.join(", "));
 }
 
@@ -765,6 +762,19 @@ function nextStep(tab, title, text) {
 function heardBoth(part) {
   state.heard.add(part);
   if (state.heard.has("aaroh") && state.heard.has("avroh")) markLearned("aarohAvroh");
+}
+
+// Allied ragas, phrases to avoid, and sources, when the raga data has them.
+function ragaContext(r) {
+  const list = (items, render = (text) => proseNotes(text)) => el("ul", { class: "raga-notes small" }, ...items.map((item) => el("li", {}, render(item))));
+  const out = [];
+  if (r.similar?.length) out.push(el("div", { class: "label" }, "How to tell it apart"), list(r.similar));
+  if (r.avoid?.length) out.push(el("div", { class: "label" }, "Avoid"), list(r.avoid));
+  const links = (r.sources || []).filter((url) => /^https:\/\//.test(url));
+  if (links.length) {
+    out.push(el("div", { class: "label" }, "Sources"), list(links, (url) => el("a", { href: url, target: "_blank", rel: "noopener noreferrer" }, new URL(url).hostname.replace(/^www\./, ""))));
+  }
+  return out;
 }
 
 function renderRagaInfo() {
@@ -790,7 +800,8 @@ function renderRagaInfo() {
       ...r.pakad.map((p, i) => phraseCard(p, { name: `pakad ${i + 1}`, onDone: () => markLearned("pakad") })),
       el("div", { class: "label" }, "Common patterns"),
       ...r.patterns.map((p, i) => phraseCard(p, { name: `pattern ${i + 1}` })),
-      r.patterns.length < 5 ? el("p", { class: "hint" }, "You can generate more patterns in Compose.") : ""),
+      r.patterns.length < 5 ? el("p", { class: "hint" }, "You can generate more patterns in Compose.") : "",
+      ...ragaContext(r)),
     el("div", { class: "next-steps" },
       el("h3", {}, "What you can do next"),
       nextStep("compositions", "Learn a composition",
@@ -812,8 +823,7 @@ function renderRagaInfo() {
 const PHRASE_LABELS = { short: "Short", long: "Long" };
 
 async function loadImprovisations(seed = state.improvSeed) {
-  const requestId = state.improvRequestId + 1;
-  state.improvRequestId = requestId;
+  const requestId = beginRequest("improv");
   const box = $("#improv");
   if (!state.raga) return;
   const taal = state.taal?.name || "Teentaal";
@@ -824,12 +834,12 @@ async function loadImprovisations(seed = state.improvSeed) {
   $("#improv-taal").textContent = `${taal}, ${state.taal?.beats ?? 16} beats`;
   try {
     const data = await api(`/api/ragas/${encodeURIComponent(raga)}/improvisations?${params}`);
-    if (state.improvRequestId !== requestId || state.raga?.name !== raga || (state.taal?.name || "Teentaal") !== taal) return;
+    if (!isLatest("improv", requestId) || state.raga?.name !== raga || (state.taal?.name || "Teentaal") !== taal) return;
     state.improv = data;
     state.improvSeed = data.seed;
     renderImprovisations();
   } catch (err) {
-    if (state.improvRequestId !== requestId || state.raga?.name !== raga || (state.taal?.name || "Teentaal") !== taal) return;
+    if (!isLatest("improv", requestId) || state.raga?.name !== raga || (state.taal?.name || "Teentaal") !== taal) return;
     box.innerHTML = "";
     box.append(el("p", { class: "error" }, err.message),
       el("button", { type: "button", onclick: () => loadImprovisations(Math.floor(Math.random() * 2 ** 31)) }, "Try another set"));
@@ -1151,12 +1161,6 @@ function performOptions() {
   };
 }
 
-function nextPerformanceRequestId(key) {
-  const requestId = (state.performanceRequestIds.get(key) || 0) + 1;
-  state.performanceRequestIds.set(key, requestId);
-  return requestId;
-}
-
 // Fetches the alaap and taan for a composition and lays out the performance.
 async function performancePlan(comp, index) {
   const taal = compositionTaal(comp);
@@ -1179,16 +1183,16 @@ function renderPlanSteps(index, plan) {
 
 async function previewPlan(comp, index) {
   const key = `preview:${index}`;
-  const requestId = nextPerformanceRequestId(key);
+  const requestId = beginRequest(key);
   const raga = state.raga?.name;
   const list = document.getElementById(`plan-steps-${index}`);
   list.replaceChildren(el("li", { class: "muted" }, "Preparing the plan."));
   try {
     const result = await performancePlan(comp, index);
-    if (state.performanceRequestIds.get(key) !== requestId || state.raga?.name !== raga) return;
+    if (!isLatest(key, requestId) || state.raga?.name !== raga) return;
     if (result) renderPlanSteps(index, result.plan);
   } catch (err) {
-    if (state.performanceRequestIds.get(key) !== requestId || state.raga?.name !== raga) return;
+    if (!isLatest(key, requestId) || state.raga?.name !== raga) return;
     list.replaceChildren(el("li", { class: "error" }, err.message));
   }
 }
@@ -1196,16 +1200,16 @@ async function previewPlan(comp, index) {
 async function performComposition(comp, index, button) {
   if (button.dataset.stop) return stopPlayback();
   const key = `perform:${index}`;
-  const requestId = nextPerformanceRequestId(key);
+  const requestId = beginRequest(key);
   const raga = state.raga?.name;
   let result;
   try {
     result = await performancePlan(comp, index);
   } catch (err) {
-    if (state.performanceRequestIds.get(key) !== requestId || state.raga?.name !== raga) return;
+    if (!isLatest(key, requestId) || state.raga?.name !== raga) return;
     return toast(err.message);
   }
-  if (state.performanceRequestIds.get(key) !== requestId || state.raga?.name !== raga) return;
+  if (!isLatest(key, requestId) || state.raga?.name !== raga) return;
   if (!result) return;
   const { taal, plan } = result;
   stopPlayback();
@@ -1418,8 +1422,7 @@ function writeIntent() {
 // Generation ------------------------------------------------------------------------
 async function generate({ intoEditor = false } = {}) {
   if (!state.raga) return toast("Choose a raga first.");
-  const requestId = state.composeRequestId + 1;
-  state.composeRequestId = requestId;
+  const requestId = beginRequest("compose");
   const req = {
     raga: state.raga.name,
     text: $("#intent").value,
@@ -1430,7 +1433,7 @@ async function generate({ intoEditor = false } = {}) {
     const res = await api("/api/generate", { json: req });
     const currentBase = { beats: +$("#beats").value, notes_per_beat: +$("#npb").value, count: +$("#count").value };
     if (
-      state.composeRequestId !== requestId
+      !isLatest("compose", requestId)
       || state.raga?.name !== req.raga
       || $("#intent").value !== req.text
       || JSON.stringify(currentBase) !== JSON.stringify(req.base)
@@ -1447,11 +1450,11 @@ async function generate({ intoEditor = false } = {}) {
     $("#generate").textContent = "Generate new options";
     if (intoEditor && res.patterns.length) loadLine(tokensFromStrings(res.patterns[0].tokens), res.patterns[0].notes_per_beat);
   } catch (err) {
-    if (state.composeRequestId !== requestId || state.raga?.name !== req.raga || $("#intent").value !== req.text) return;
+    if (!isLatest("compose", requestId) || state.raga?.name !== req.raga || $("#intent").value !== req.text) return;
     $("#patterns").innerHTML = "";
     $("#patterns").append(el("p", { class: "error" }, err.message));
   } finally {
-    if (state.composeRequestId === requestId) $("#generate").disabled = false;
+    if (isLatest("compose", requestId)) $("#generate").disabled = false;
   }
 }
 
@@ -1623,24 +1626,22 @@ function renderEditor() {
 
 let validateTimer;
 function lineChanged() {
-  const version = state.validationVersion + 1;
-  state.validationVersion = version;
+  const requestId = beginRequest("validation");
   renderEditor();
   clearTimeout(validateTimer);
-  validateTimer = setTimeout(() => validateLine(version), 200);
+  validateTimer = setTimeout(() => validateLine(requestId), 200);
 }
 
-async function validateLine(version = state.validationVersion + 1) {
-  state.validationVersion = version;
+async function validateLine(requestId = beginRequest("validation")) {
   if (!state.raga || !state.line.length) { state.violations = []; renderEditor(); return; }
   const raga = state.raga.name;
   const tokens = lineText(state.line);
   try {
     const res = await api("/api/validate", { json: { raga, tokens } });
-    if (state.validationVersion !== version || state.raga?.name !== raga || lineText(state.line) !== tokens) return;
+    if (!isLatest("validation", requestId) || state.raga?.name !== raga || lineText(state.line) !== tokens) return;
     state.violations = res.violations;
   } catch (err) {
-    if (state.validationVersion !== version || state.raga?.name !== raga || lineText(state.line) !== tokens) return;
+    if (!isLatest("validation", requestId) || state.raga?.name !== raga || lineText(state.line) !== tokens) return;
     state.violations = [{ index: -1, message: err.message }];
   }
   renderEditor();
@@ -1675,7 +1676,7 @@ function handleEditorInput(e) {
     lineChanged();
   } catch (err) {
     clearTimeout(validateTimer);
-    state.validationVersion += 1;
+    beginRequest("validation");
     state.selected = -1;
     state.violations = [{ index: -1, message: err.message }];
     renderEditor();
@@ -1693,8 +1694,7 @@ function clearLine() {
 
 async function arrange(mode) {
   if (!state.raga || !state.line.length) return toast("Load a line first.");
-  const requestId = state.arrangeRequestId + 1;
-  state.arrangeRequestId = requestId;
+  const requestId = beginRequest("arrange");
   const raga = state.raga.name;
   const tokens = lineText(state.line);
   const notesPerBeat = +$("#taan-npb").value;
@@ -1702,11 +1702,11 @@ async function arrange(mode) {
     const res = await api("/api/arrange", {
       json: { raga, tokens, mode, notes_per_beat: notesPerBeat },
     });
-    if (state.arrangeRequestId !== requestId || state.raga?.name !== raga || lineText(state.line) !== tokens) return;
+    if (!isLatest("arrange", requestId) || state.raga?.name !== raga || lineText(state.line) !== tokens) return;
     const npb = mode === "sustain" || mode === "compact" ? state.npb : res.notes_per_beat;
     loadLine(tokensFromStrings(res.tokens), npb);
   } catch (err) {
-    if (state.arrangeRequestId !== requestId || state.raga?.name !== raga || lineText(state.line) !== tokens) return;
+    if (!isLatest("arrange", requestId) || state.raga?.name !== raga || lineText(state.line) !== tokens) return;
     toast(err.message);
   }
 }
@@ -1779,12 +1779,11 @@ async function saveLine(tokens = state.line, npb = state.npb, title = "") {
 }
 
 async function loadSavedLines(ragaName = state.raga?.name) {
-  const requestId = state.savedLinesRequestId + 1;
-  state.savedLinesRequestId = requestId;
+  const requestId = beginRequest("saved-lines");
   const box = $("#saved-lines");
   if (!ragaName) { box.className = "muted"; box.textContent = "Choose a raga to see saved lines."; return; }
   const lines = await api(`/api/lines?raga=${encodeURIComponent(ragaName)}`);
-  if (state.savedLinesRequestId !== requestId || state.raga?.name !== ragaName) return;
+  if (!isLatest("saved-lines", requestId) || state.raga?.name !== ragaName) return;
   box.className = "";
   box.innerHTML = "";
   $("#saved-title").textContent = `Saved lines in ${ragaName}`;
@@ -1825,11 +1824,10 @@ async function loadSavedLines(ragaName = state.raga?.name) {
 
 // Recordings --------------------------------------------------------------------------
 async function loadRecordings() {
-  const requestId = state.recordingsRequestId + 1;
-  state.recordingsRequestId = requestId;
+  const requestId = beginRequest("recordings");
   const box = $("#recordings");
   const recs = await api("/api/recordings");
-  if (state.recordingsRequestId !== requestId) return;
+  if (!isLatest("recordings", requestId)) return;
   box.className = "";
   box.innerHTML = "";
   if (!recs.length) box.append(el("p", { class: "muted" }, "No recordings yet. Click Record in the sound bar to start."));

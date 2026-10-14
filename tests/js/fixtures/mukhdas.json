@@ -126,6 +126,13 @@
   },
   {
     "pitches": {
+      "sthayi": 10
+    },
+    "raga": "Bhimpalasi",
+    "title": "Biraja Mein Dhum Machayo Shyam"
+  },
+  {
+    "pitches": {
       "antara": 9,
       "sthayi": 4
     },
@@ -146,6 +153,20 @@
     },
     "raga": "Bhupali",
     "title": "Tarana in Raag Bhoop"
+  },
+  {
+    "pitches": {
+      "sthayi": 4
+    },
+    "raga": "Bhupali",
+    "title": "Jabase Tumisana Lagali"
+  },
+  {
+    "pitches": {
+      "sthayi": 0
+    },
+    "raga": "Bhupali",
+    "title": "Mangalamay Jaya Vaani"
   },
   {
     "pitches": {
@@ -247,6 +268,13 @@
     },
     "raga": "Durga",
     "title": "Raag Durga sargam geet"
+  },
+  {
+    "pitches": {
+      "sthayi": 7
+    },
+    "raga": "Durga",
+    "title": "Sakhi Mori Ruma Jhuma"
   },
   {
     "pitches": {
@@ -427,6 +455,14 @@
     },
     "raga": "Malkauns",
     "title": "Aaye Raghubira dhira"
+  },
+  {
+    "pitches": {
+      "antara": 3,
+      "sthayi": 5
+    },
+    "raga": "Malkauns",
+    "title": "Malkauns Sargam Geet"
   },
   {
     "pitches": {

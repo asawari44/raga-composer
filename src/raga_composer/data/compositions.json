@@ -5120,6 +5120,220 @@
   ]
  },
  {
+  "raga": "Bhimpalasi",
+  "title": "Biraja Mein Dhum Machayo Shyam",
+  "type": "Composition",
+  "taal": "Teentaal",
+  "laya": "",
+  "composer": "Traditional",
+  "source": "https://vishwamohini.com/compositions/biraja-mein-dhum-machayo-shyam-in-raag-bhimpalasi-589",
+  "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+  "first_matra": 1,
+  "sections": [
+   {
+    "name": "Sthayi",
+    "lines": [
+     {
+      "beats": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "n",
+       "D",
+       "P",
+       "g",
+       "m"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "बि",
+       "र",
+       "ज",
+       "में",
+       "ऽ"
+      ]
+     },
+     {
+      "beats": [
+       "P",
+       "_",
+       "P",
+       "P",
+       "g",
+       "S",
+       "g",
+       "m",
+       "g",
+       "R",
+       "S",
+       "_",
+       "n.",
+       "S",
+       "g",
+       "m"
+      ],
+      "words": [
+       "धू",
+       "ऽ",
+       "म",
+       "म",
+       "चा",
+       "ऽ",
+       "यो",
+       "ऽ",
+       "श्या",
+       "ऽ",
+       "म",
+       "ऽ ।",
+       "कै",
+       "से",
+       "मैं",
+       "ऽ"
+      ]
+     },
+     {
+      "beats": [
+       "m",
+       "P",
+       "g",
+       "m",
+       "P",
+       "n",
+       "P n",
+       "S' n",
+       "D",
+       "_",
+       "P",
+       "_",
+       "_",
+       "_",
+       "_",
+       "_"
+      ],
+      "words": [
+       "स",
+       "खि",
+       "जा",
+       "ऊँ",
+       "अ",
+       "प",
+       "ने,ऽ",
+       "ऽ,ऽ",
+       "धा",
+       "ऽ",
+       "म ।",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "P",
+       "P",
+       "P",
+       "P",
+       "m",
+       "P",
+       "g",
+       "m",
+       "P",
+       "_",
+       "n",
+       "n",
+       "S'",
+       "S'",
+       "S'",
+       "_"
+      ],
+      "words": [
+       "स",
+       "ब",
+       "स",
+       "खि",
+       "य",
+       "न",
+       "मि",
+       "ल",
+       "हो",
+       "ऽ",
+       "रि",
+       "खे",
+       "ल",
+       "त",
+       "है ।",
+       "ऽ"
+      ]
+     },
+     {
+      "beats": [
+       "P",
+       "n",
+       "S'",
+       "g'",
+       "R'",
+       "S'",
+       "n",
+       "S'",
+       "n",
+       "D",
+       "P",
+       "_",
+       "_",
+       "_",
+       "_",
+       "_"
+      ],
+      "words": [
+       "अं",
+       "खि",
+       "य",
+       "न",
+       "डा",
+       "र",
+       "त",
+       "गु",
+       "ला",
+       "ऽ",
+       "ल ।",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     }
+    ],
+    "lyrics": [
+     "बिरज में धूम मचायो श्याम",
+     "कैसे मैं सखि जाऊँ अपने धाम",
+     "सब सखियन मिल होरि खेलत है",
+     "अंखियन डारत गुलाल"
+    ]
+   }
+  ]
+ },
+ {
   "raga": "Bhinna Shadja",
   "title": "Notation not yet sourced",
   "type": "Chhota khayal",
@@ -5829,6 +6043,244 @@
      "नादिर दिर दिर तुंदिर दिर दिर दिर दिर दिर दिर दानि धिं तिरिकिट तकनग धेत्धा कडान् धा किडधां धा",
      "कत्ति न्ना कडान् धा त धा"
     ]
+   }
+  ]
+ },
+ {
+  "raga": "Bhupali",
+  "title": "Jabase Tumisana Lagali",
+  "type": "Composition",
+  "taal": "Keherwa",
+  "laya": "",
+  "composer": "Traditional",
+  "source": "https://vishwamohini.com/compositions/jabase-tumisana-lagali-in-raag-bhoop-568",
+  "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+  "first_matra": 1,
+  "sections": [
+   {
+    "name": "Sthayi",
+    "lines": [
+     {
+      "beats": [
+       "",
+       "",
+       "",
+       "",
+       "G R",
+       "G",
+       "R R",
+       "S D."
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "ज,ब",
+       "से",
+       "तु,मि",
+       "स,न"
+      ]
+     },
+     {
+      "beats": [
+       "S",
+       "_",
+       "S R",
+       "R",
+       "G",
+       "P",
+       "G P",
+       "G"
+      ],
+      "words": [
+       "ला",
+       "ऽ",
+       "ऽ,ऽ",
+       "ऽ,ग",
+       "ली",
+       "ऽ,पी",
+       "ऽ,त",
+       "ऽ,न"
+      ]
+     },
+     {
+      "beats": [
+       "P D",
+       "P P",
+       "G",
+       "R",
+       "S",
+       "G",
+       "P D",
+       "S'"
+      ],
+      "words": [
+       "वे,ऽ",
+       "ऽ,ऽ",
+       "ल",
+       "ऽ",
+       "री",
+       "ऽ,प्या",
+       "रे,ब",
+       "ऽ"
+      ]
+     },
+     {
+      "beats": [
+       "P D",
+       "S' S'",
+       "D",
+       "P",
+       "_",
+       "_",
+       "_",
+       "_"
+      ],
+      "words": [
+       "ल्मा,ऽ",
+       "ऽ,ऽ",
+       "मो",
+       "री।",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "",
+       "P",
+       "S'",
+       "D D",
+       "S'",
+       "S'",
+       "S'",
+       "S' D"
+      ],
+      "words": [
+       "",
+       ",जो",
+       "ऽ,नै",
+       "न,न",
+       "ना",
+       "दे",
+       "खो",
+       "तो,ऽ"
+      ]
+     },
+     {
+      "beats": [
+       "S'",
+       "S'",
+       "D S'",
+       "S'",
+       "S'",
+       "R'",
+       "S'",
+       "R' S'"
+      ],
+      "words": [
+       "हे।",
+       ",क",
+       "ल,ना",
+       "ऽ,प",
+       "र",
+       "ऽ",
+       "ऽ,त",
+       "ऽ,मो"
+      ]
+     },
+     {
+      "beats": [
+       "D",
+       "P D",
+       "S' D",
+       "P",
+       "G R",
+       "G",
+       "P D",
+       "S'"
+      ],
+      "words": [
+       "हे।",
+       ",च",
+       "ऽ,र्चा",
+       "क",
+       "रे,ऽ",
+       "स,ब",
+       "से,हे",
+       "ऽ"
+      ]
+     },
+     {
+      "beats": [
+       "S' R'",
+       "S' S'",
+       "D",
+       "P",
+       "_",
+       "_",
+       "_",
+       "_"
+      ],
+      "words": [
+       "ल,ऽ",
+       "ऽ,ऽ",
+       "रि",
+       "या।",
+       "",
+       "",
+       "",
+       ""
+      ]
+     }
+    ],
+    "lyrics": [
+     "जब से तुमिसन लागली प्रीत नवलरी प्यारे बलमा मोरी",
+     "जो नैनन ना देखो तो हे कलना परत मोहे",
+     "चर्चा करे सबसे हेलरिया"
+    ]
+   }
+  ]
+ },
+ {
+  "raga": "Bhupali",
+  "title": "Mangalamay Jaya Vaani",
+  "type": "Composition",
+  "taal": "Rupak",
+  "laya": "",
+  "composer": "Traditional",
+  "source": "https://vishwamohini.com/compositions/mangalamay-jaya-vaani-in-raag-bhoopali-943",
+  "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+  "first_matra": 1,
+  "sections": [
+   {
+    "name": "Sthayi",
+    "lines": [
+     {
+      "beats": [
+       "S",
+       "_",
+       "_",
+       "_",
+       "S",
+       "",
+       ""
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     }
+    ],
+    "lyrics": []
    }
   ]
  },
@@ -10329,6 +10781,211 @@
      }
     ],
     "lyrics": []
+   }
+  ]
+ },
+ {
+  "raga": "Durga",
+  "title": "Sakhi Mori Ruma Jhuma",
+  "type": "Composition",
+  "taal": "Jhaptaal",
+  "laya": "",
+  "composer": "Traditional",
+  "source": "https://vishwamohini.com/compositions/sakhi-mori-ruma-jhuma-in-raag-durga-580",
+  "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+  "first_matra": 1,
+  "sections": [
+   {
+    "name": "Sthayi",
+    "lines": [
+     {
+      "beats": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "P",
+       "P",
+       "R m P D",
+       "m P D",
+       "D"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "स",
+       "खि",
+       "मो,ऽ,ऽ,ऽ",
+       "ऽ,ऽ,ऽ",
+       "री"
+      ]
+     },
+     {
+      "beats": [
+       "m",
+       "m",
+       "R",
+       "R",
+       "S",
+       "D.",
+       "S",
+       "m R",
+       "P",
+       "P"
+      ],
+      "words": [
+       "रू",
+       "म",
+       "झू",
+       "ऽ",
+       "म।",
+       "बा",
+       "ऽ",
+       "द,ऽ",
+       "ऽ",
+       "र"
+      ]
+     },
+     {
+      "beats": [
+       "m P",
+       "D",
+       "P D",
+       "S' S' D P",
+       "m m R S",
+       "_",
+       "_",
+       "_",
+       "_",
+       "_"
+      ],
+      "words": [
+       "ग,र",
+       "जे",
+       "ब,र",
+       "से,ऽ,ऽ,ऽ",
+       "ऽ,ऽ,ऽ,ऽ।",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "m",
+       "_",
+       "D",
+       "_",
+       "P D"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "रै",
+       "ऽ",
+       "ना",
+       "ऽ",
+       "अं,ऽ"
+      ]
+     },
+     {
+      "beats": [
+       "S'",
+       "_",
+       "R' D",
+       "S'",
+       "_",
+       "S'",
+       "D",
+       "S'",
+       "R'",
+       "R'"
+      ],
+      "words": [
+       "धे",
+       "ऽ",
+       "री,ऽ",
+       "ऽ",
+       "ऽ ।",
+       "का",
+       "रि",
+       "बि",
+       "जु",
+       "री"
+      ]
+     },
+     {
+      "beats": [
+       "m'",
+       "R'",
+       "S' R' S' S'",
+       "D S' D P",
+       "m",
+       "P",
+       "P",
+       "R m P D",
+       "m P D",
+       "D"
+      ],
+      "words": [
+       "च",
+       "म",
+       "के,ऽ,ऽ,ऽ",
+       "ऽ,ऽ,ऽ,ऽ",
+       "ऽ ।",
+       "कै",
+       "से",
+       "जा,ऽ,ऽ,ऽ",
+       "ऊ,ऽ,ऽ",
+       "पि"
+      ]
+     },
+     {
+      "beats": [
+       "D",
+       "m",
+       "R",
+       "R",
+       "S",
+       "_",
+       "_",
+       "_",
+       "_",
+       "_"
+      ],
+      "words": [
+       "या",
+       "ऽ",
+       "पा",
+       "ऽ",
+       "स ।",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     }
+    ],
+    "lyrics": [
+     "सखि मोरी रूम झूम बादर गरजे बरसे",
+     "रैना अंधेरी कारि बिजुरी चमके",
+     "कैसे जाऊँ पिया पास"
+    ]
    }
   ]
  },
@@ -19037,6 +19694,551 @@
      "देव कुसुम बरसत घन",
      "जाके रहे नभ विमान"
     ]
+   }
+  ]
+ },
+ {
+  "raga": "Malkauns",
+  "title": "Malkauns Sargam Geet",
+  "type": "Sargam geet",
+  "taal": "Jhaptaal",
+  "laya": "",
+  "composer": "Traditional",
+  "source": "https://vishwamohini.com/compositions/raag-malkauns-sargam-geet-404",
+  "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+  "first_matra": 1,
+  "sections": [
+   {
+    "name": "Sthayi",
+    "lines": [
+     {
+      "beats": [
+       "m",
+       "g",
+       "S",
+       "n.",
+       "S",
+       "d.",
+       "n.",
+       "S",
+       "g",
+       "m"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "m",
+       "g",
+       "S",
+       "n.",
+       "S",
+       "d.",
+       "n.",
+       "S",
+       "g",
+       "m"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "d",
+       "n",
+       "d",
+       "_",
+       "n",
+       "d",
+       "m",
+       "m",
+       "g",
+       "_"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "d",
+       "n",
+       "d",
+       "_",
+       "n",
+       "d",
+       "m",
+       "m",
+       "g",
+       "_"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "m",
+       "d",
+       "n",
+       "S'",
+       "S'",
+       "g'",
+       "S'",
+       "d",
+       "n",
+       "S'"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "m",
+       "d",
+       "n",
+       "S'",
+       "S'",
+       "g'",
+       "S'",
+       "d",
+       "n",
+       "S'"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "S'",
+       "n",
+       "d",
+       "m",
+       "g",
+       "m d",
+       "n S'",
+       "n d",
+       "m g",
+       "S"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "S'",
+       "n",
+       "d",
+       "m",
+       "g",
+       "m d",
+       "n S'",
+       "n d",
+       "m g",
+       "S"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "m",
+       "g",
+       "S",
+       "n.",
+       "S",
+       "d.",
+       "n.",
+       "S",
+       "g",
+       "m"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     }
+    ],
+    "lyrics": []
+   },
+   {
+    "name": "Antara",
+    "lines": [
+     {
+      "beats": [
+       "g",
+       "g",
+       "m",
+       "d",
+       "n",
+       "S'",
+       "S'",
+       "d",
+       "n",
+       "S'"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "g",
+       "g",
+       "m",
+       "d",
+       "n",
+       "S'",
+       "S'",
+       "d",
+       "n",
+       "S'"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "d",
+       "n",
+       "S'",
+       "m'",
+       "m'",
+       "S'",
+       "m'",
+       "g'",
+       "g'",
+       "S'"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "d",
+       "n",
+       "S'",
+       "m'",
+       "m'",
+       "S'",
+       "m'",
+       "g'",
+       "g'",
+       "S'"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "g'",
+       "S'",
+       "n",
+       "S'",
+       "n",
+       "d",
+       "n",
+       "d",
+       "m",
+       "g"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "g'",
+       "S'",
+       "n",
+       "S'",
+       "n",
+       "d",
+       "n",
+       "d",
+       "m",
+       "g"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "d.",
+       "n.",
+       "S",
+       "g",
+       "m",
+       "d n",
+       "S' n",
+       "d m",
+       "g S",
+       "n. S"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "d.",
+       "n.",
+       "S",
+       "g",
+       "m",
+       "d n",
+       "S' n",
+       "d m",
+       "g S",
+       "n. S"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "m",
+       "g",
+       "S",
+       "n.",
+       "S",
+       "d.",
+       "n.",
+       "S",
+       "g",
+       "m"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "m",
+       "g",
+       "S",
+       "n.",
+       "S",
+       "m",
+       "g",
+       "S",
+       "n.",
+       "S"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     },
+     {
+      "beats": [
+       "m",
+       "g",
+       "S",
+       "n.",
+       "S",
+       "_",
+       "_",
+       "_",
+       "_",
+       "_"
+      ],
+      "words": [
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       "",
+       ""
+      ]
+     }
+    ],
+    "lyrics": []
    }
   ]
  },

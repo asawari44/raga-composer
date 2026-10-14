@@ -89,10 +89,10 @@ describe("fixture parity", () => {
 });
 
 describe("generation properties", () => {
-  it("generates valid seeded patterns for every raga and taal", () => {
+  it("generates valid seeded patterns for every raga and taal", async () => {
     const ragas = listRagas();
     const taals = listTaals();
-    assert.equal(ragas.length, 93);
+    assert.equal(ragas.length, (await readJson("src/raga_composer/data/ragas.json")).length);
     for (const raga of ragas) {
       for (const taal of taals) {
         const response = generate({

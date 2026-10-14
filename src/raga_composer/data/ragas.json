@@ -25,6 +25,13 @@
       "P M G R G R S",
       "N. D. N. R S",
       "G M D N S' N D P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -54,6 +61,13 @@
       "G R S D. S",
       "P G R G P D",
       "D. S R G R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -79,6 +93,13 @@
       "R m R D. S",
       "m P D m P m R",
       "D. S R m P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -106,6 +127,13 @@
       "N. R G R S",
       "R G P G R S",
       "P N R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -130,6 +158,13 @@
       "S' N d P m G r S",
       "N. S r G m",
       "P d m G r S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -156,6 +191,13 @@
       "S' N d P M g r S",
       "d. N. S r g",
       "g M d M g r S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -179,6 +221,13 @@
       "R P m g R S",
       "g R m P",
       "n. S R g R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -192,21 +241,30 @@
     "vadi": "m",
     "samvadi": "S",
     "time": "Late night",
-    "description": "Komal Ga and komal Ni. Re and Pa are omitted in ascent. Expresses longing.",
+    "description": "Komal Ga and komal Ni create a late-night mood of longing. Re and Pa are omitted in ascent, and Pa appears only as an alpa descent color in the common Bhatkhande-tradition phrase P D m g R S.",
     "aaroh": "S g m D n S'",
-    "avroh": "S' n D m g R S",
+    "avroh": "S' n D m P D m g R S",
     "pakad": [
       "S n. D. n. S",
       "m D n D",
-      "m g R S"
+      "m P D m g R S"
     ],
     "patterns": [
       "S g m D n S'",
       "m D n D m g",
-      "g m g R S",
+      "m P D m g R S",
       "n. D. S g m",
       "D n S' n D m",
-      "S' n D m g R S"
+      "S' n D m P D m g R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [
+      "Avoid using Pa as a stable ascent note; it is an alpa descent color in this reading."
+    ],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -234,6 +292,13 @@
       "P m g m g R S",
       "g m P n D P",
       "n. S g R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -261,6 +326,13 @@
       "d. n. S g S",
       "m d n S' g' S'",
       "m g m g S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -286,6 +358,13 @@
       "S' n D P m G",
       "N. S G m G",
       "G m P D N S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -311,6 +390,13 @@
       "P D m G R",
       "R m P D m G R",
       "N. S R m P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -336,6 +422,13 @@
       "g m P d P",
       "d. n. S r g r S",
       "P d m g r S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -363,6 +456,13 @@
       "G R P R S",
       "N. D. P. S R G",
       "S' N D P M G R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -390,6 +490,13 @@
       "M P D P",
       "G m P G m R S",
       "G m D N D S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -417,6 +524,13 @@
       "S' N D P",
       "m G m R S",
       "S R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -441,13 +555,18 @@
       "P M P G m G",
       "G R S",
       "P N S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
     "name": "Maru Bihag",
-    "aliases": [
-      "Marubihag"
-    ],
+    "aliases": [],
     "thaat": "Kalyan",
     "jati": "Audav-Sampoorna",
     "vadi": "G",
@@ -468,6 +587,13 @@
       "P M G R S",
       "M G M P",
       "P N S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -493,6 +619,13 @@
       "S R G S N.",
       "P N S' R' S'",
       "R P m G S R G S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -518,6 +651,13 @@
       "R G S n. D. P. D. S",
       "P D S' R' n D P",
       "m G R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -542,6 +682,13 @@
       "D. n. S G S",
       "P D n S' G' S'",
       "G P n D P G S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -568,6 +715,13 @@
       "n. D. S G m",
       "m D n S' R' S'",
       "G m G R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -593,6 +747,13 @@
       "P n P m G",
       "N. S G m G S",
       "N S' G' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -618,6 +779,13 @@
       "G m g S",
       "n. S G m",
       "P n S' G' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -646,6 +814,13 @@
       "m G R g R S",
       "D. n. R",
       "R G m G R g R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -670,6 +845,13 @@
       "D. n. r S",
       "P D n S' r' S'",
       "m P D n S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -694,6 +876,13 @@
       "G m d P G m G",
       "m G r S",
       "N. S r G m G r S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -718,6 +907,13 @@
       "P d S' N d P",
       "N. S r m",
       "S' r' S' N d P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -744,6 +940,13 @@
       "d. S r m",
       "P d S' r' S'",
       "r m P m r S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -770,6 +973,13 @@
       "P m r S",
       "n. S r m",
       "n S' r' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -797,6 +1007,13 @@
       "G r S",
       "d. S r G",
       "P d S' r' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -821,6 +1038,13 @@
       "G m P d P m G",
       "m G r S",
       "d n S' r' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -846,6 +1070,13 @@
       "m G r S",
       "G m M m d N S'",
       "r' N d M m G r S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -873,6 +1104,13 @@
       "M G m G",
       "r G r S",
       "P d N S' r' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -900,6 +1138,13 @@
       "G M d M G",
       "r G r S",
       "S' N d P M G"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -928,6 +1173,13 @@
       "S' N d P",
       "N. S r S",
       "M P d M G r S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -952,6 +1204,13 @@
       "G M G r",
       "D. N. r S",
       "r G M D M G r S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -977,6 +1236,13 @@
       "S' N D M G",
       "M G r S",
       "N. r G M D N"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1004,6 +1270,13 @@
       "M G r S",
       "G M D N S' r' S'",
       "S' N D M G"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1029,6 +1302,13 @@
       "D. N. S G",
       "M D S' N D",
       "G M D N S' G' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1056,6 +1336,13 @@
       "m R S",
       "N. S R S",
       "P N S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1083,6 +1370,13 @@
       "R n. S",
       "n. S R m P",
       "P n S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1111,6 +1405,13 @@
       "m P g m R S",
       "R n. S",
       "n. D. N. S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1136,6 +1437,13 @@
       "g m R S",
       "N S' R' S'",
       "n P m P g m"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1160,6 +1468,13 @@
       "m g S",
       "n. S g S",
       "P n S' g' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1187,6 +1502,13 @@
       "m P g m",
       "g R S",
       "P N S' R' S' N D P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1214,6 +1536,13 @@
       "m g R S",
       "D. S R g",
       "D S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1241,6 +1570,13 @@
       "g P D P g R S",
       "D. S R g",
       "R g R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1266,6 +1602,13 @@
       "d m g S",
       "N. S g m",
       "N S' g' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1292,6 +1635,13 @@
       "m P n d P",
       "d P m g R S",
       "R n. S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1318,6 +1668,13 @@
       "d P m g R S",
       "R m P",
       "P d S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1346,6 +1703,13 @@
       "m P g m R S",
       "g g m R S",
       "d. n. S R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1371,6 +1735,13 @@
       "M g M P",
       "M g r S",
       "P N S' r' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1396,6 +1767,13 @@
       "M g M P",
       "M g R S",
       "P N S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1423,6 +1801,13 @@
       "d. S r g",
       "P d S' r' S'",
       "g P d P g r S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1450,6 +1835,13 @@
       "D n D P",
       "G m R S",
       "G R G P D N S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1476,6 +1868,13 @@
       "D P G P D P",
       "G R S",
       "P D S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1503,6 +1902,13 @@
       "D. N. S G",
       "m D N S' G' S'",
       "m G S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1530,6 +1936,13 @@
       "g m P d P m g",
       "m g R S",
       "N. S R g R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1557,6 +1970,13 @@
       "G m P d P m G",
       "m G R S",
       "d n S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1584,6 +2004,13 @@
       "P N S' R' S'",
       "G P N D S' N P",
       "S G P G R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1609,6 +2036,13 @@
       "R M P D P M P",
       "M P G m R",
       "G m R N. S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1634,6 +2068,13 @@
       "M D N D P",
       "M G r S",
       "N. r G M G r S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1659,6 +2100,13 @@
       "D P S'",
       "S' N D P",
       "G m R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1686,6 +2134,13 @@
       "S' N D P",
       "M P D P",
       "G m R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1711,6 +2166,13 @@
       "S' N D P",
       "G m P G m R S",
       "R P M P D P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1735,6 +2197,13 @@
       "P M G m G R S",
       "G M D N D P",
       "N. R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1763,6 +2232,13 @@
       "M P D P",
       "G m R S",
       "G m D P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1788,6 +2264,13 @@
       "R m D m R S",
       "n. D. S R m",
       "D n S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1812,6 +2295,13 @@
       "m G R S",
       "G m P D P m",
       "D S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1836,6 +2326,13 @@
       "m g R S",
       "G m P D P m",
       "R g R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1863,6 +2360,13 @@
       "m g R S N.",
       "P. N. S g",
       "g m P D P m g"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1889,6 +2393,13 @@
       "R m P D P m",
       "m g R S",
       "D S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1913,6 +2424,13 @@
       "R g R m P",
       "m g R S",
       "P D n D P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1938,6 +2456,13 @@
       "S' n D P",
       "n D N S'",
       "m R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1963,6 +2488,13 @@
       "S' n D P",
       "G m R S",
       "R G m P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -1990,6 +2522,13 @@
       "m R S",
       "n. S R m R",
       "R m P n P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2017,6 +2556,13 @@
       "M P m R",
       "m R S",
       "N. S R M P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2044,6 +2590,13 @@
       "P g m R S",
       "R m P n P",
       "n. S R S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2070,6 +2623,13 @@
       "m d n S'",
       "n P m g m",
       "d. n. S g m"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2097,6 +2657,13 @@
       "P g m R S",
       "S' R' S' n S'",
       "d n S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2123,6 +2690,13 @@
       "m g R S",
       "g m P n D P",
       "P n S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2149,6 +2723,13 @@
       "m P d m P",
       "g r S",
       "d S' r' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2176,6 +2757,13 @@
       "m g R S",
       "R m P D P",
       "R n. S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2201,6 +2789,13 @@
       "M P d n d P",
       "G m r S",
       "G m P d P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2225,6 +2820,13 @@
       "G m P d P",
       "m G R S",
       "d N S' R' S'"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2252,6 +2854,13 @@
       "d P m g",
       "r g r S",
       "g P d n d P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2279,6 +2888,13 @@
       "d M g r",
       "r g r S",
       "g M d N d M"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2306,6 +2922,13 @@
       "G r S",
       "M d N S' r' S'",
       "P M G M d"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2331,6 +2954,13 @@
       "G r S",
       "N S' r' N S'",
       "M d N d P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2357,6 +2987,13 @@
       "G m G R S",
       "G R S D. P.",
       "D. P. D. S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2381,6 +3018,13 @@
       "m g R S",
       "G m D n D m",
       "n. D. S"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   },
   {
@@ -2407,6 +3051,426 @@
       "P g m R S",
       "D N S' R' S'",
       "m P n P"
+    ],
+    "nyas": [],
+    "similar": [],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
+    ]
+  },
+  {
+    "name": "Basant Bahar",
+    "aliases": [],
+    "thaat": "Poorvi",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "S",
+    "samvadi": "P",
+    "time": "Spring, late night",
+    "description": "A compound raga that joins Basant ang with Bahar ang. It is recognized by oscillation between Basant phrases with komal Re and tivra Ma and Bahar phrases such as m P g m R S.",
+    "aaroh": "S r G M d N S'",
+    "avroh": "S' N d P M G M G r S",
+    "pakad": [
+      "M d N S'",
+      "S' N d P",
+      "m P g m R S",
+      "G M d N d P"
+    ],
+    "patterns": [
+      "r G M d N d P",
+      "M G M G r S",
+      "m P g m R S",
+      "G M d N S' N d P",
+      "M d N d"
+    ],
+    "nyas": [
+      "S",
+      "P",
+      "M"
+    ],
+    "similar": [
+      "Basant: Basant Bahar includes Bahar ang such as m P g m R S, while Basant stays in Basant chalan."
+    ],
+    "avoid": [
+      "Avoid plain Bahar-only treatment without the Basant komal Re and tivra Ma phrases."
+    ],
+    "sources": [
+      "https://www.tanarang.com/english/basant_bahar_eng.htm",
+      "https://www.swarganga.org/raags"
+    ]
+  },
+  {
+    "name": "Jogkauns",
+    "aliases": [],
+    "thaat": "Kafi",
+    "jati": "Audav-Shadav",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Late night",
+    "description": "A modern but widely performed blend of Jog and Malkauns. Its identity comes from Malkauns-like komal Ga, Dha, and Ni with Jog-style touches of shuddha Ga in vakra phrases.",
+    "aaroh": "S g m d n S'",
+    "avroh": "S' n d m G m g S",
+    "pakad": [
+      "g m d n d m",
+      "G m g S",
+      "n. S g m",
+      "m d n S'"
+    ],
+    "patterns": [
+      "g m d n d m",
+      "S' n d m G m",
+      "n. S g m g S",
+      "m d n S' n d m",
+      "g m G m g S",
+      "g m d m"
+    ],
+    "nyas": [
+      "m",
+      "S",
+      "g"
+    ],
+    "similar": [
+      "Chandrakauns: Jogkauns uses Jog ang with shuddha Ga touches; Chandrakauns keeps a plainer kauns pentatonic movement."
+    ],
+    "avoid": [
+      "Avoid a full shuddha Ga ladder; shuddha Ga is a vakra Jog color."
+    ],
+    "sources": [
+      "https://www.tanarang.com/english/jogkauns_eng.htm",
+      "https://www.swarganga.org/raags"
+    ]
+  },
+  {
+    "name": "Bageshree Kanada",
+    "aliases": [
+      "Bageshri Kanada"
+    ],
+    "thaat": "Kafi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Late night",
+    "description": "A Kanada-family raga that combines Bageshree repose with Kanada descent. It is recognized by komal Ga and Ni, a serious curved descent, and the Kanada phrase g m R S.",
+    "aaroh": "S g m D n S'",
+    "avroh": "S' n D m P D m g m R S",
+    "pakad": [
+      "m D n D m",
+      "g m R S",
+      "m P D m g",
+      "n. S g m"
+    ],
+    "patterns": [
+      "m D n S' n D m",
+      "m P D m g m R S",
+      "g m R S n. S",
+      "n. S g m D n D",
+      "m D n D"
+    ],
+    "nyas": [
+      "m",
+      "S",
+      "D"
+    ],
+    "similar": [
+      "Bageshree: Bageshree Kanada has the Kanada phrase g m R S and a heavier curved descent."
+    ],
+    "avoid": [
+      "Avoid treating Pa as an arohi resting swara; use it sparingly in descent-oriented Kanada movement."
+    ],
+    "sources": [
+      "https://www.tanarang.com/english/bageshri_kanada_eng.htm",
+      "https://www.swarganga.org/raags"
+    ]
+  },
+  {
+    "name": "Lalit Pancham",
+    "aliases": [],
+    "thaat": "Marwa",
+    "jati": "Shadav-Sampoorna",
+    "vadi": "m",
+    "samvadi": "S",
+    "time": "Dawn",
+    "description": "A Lalit variant that admits Pa while keeping the paired Ma color. It is recognized by m M m G and the contrast of Pa with Lalit phrases.",
+    "aaroh": "N. r G m M P d N S'",
+    "avroh": "S' N d P M m G r S",
+    "pakad": [
+      "m M m G",
+      "N. r G m M",
+      "P d N d P",
+      "M m G r S"
+    ],
+    "patterns": [
+      "N. r G m M m G",
+      "m M P d N d P",
+      "S' N d P M m",
+      "G m M m G r",
+      "d N S' N d P",
+      "m M m M"
+    ],
+    "nyas": [
+      "m",
+      "S",
+      "P"
+    ],
+    "similar": [
+      "Lalit: Lalit Pancham uses Pa explicitly, while Lalit usually omits Pa."
+    ],
+    "avoid": [
+      "Avoid making Pa the central nyas; the Lalit paired Ma remains primary."
+    ],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
+    ]
+  },
+  {
+    "name": "Jait Kalyan",
+    "aliases": [],
+    "thaat": "Kalyan",
+    "jati": "Audav-Sampoorna",
+    "vadi": "G",
+    "samvadi": "N",
+    "time": "First quarter of night",
+    "description": "A Kalyan-ang raga with Jait-like sparseness. It is recognized by the Kalyan tivra Ma color and vakra descent rather than by a plain Yaman scale.",
+    "aaroh": "S R G M P N S'",
+    "avroh": "S' N D P M G R S",
+    "pakad": [
+      "N. R G M",
+      "P N S' N D P",
+      "M G R S"
+    ],
+    "patterns": [
+      "N. R G M G R",
+      "G M P N S' N",
+      "S' N D P M G",
+      "P M G R S N.",
+      "R G M P M G",
+      "N. R G R S",
+      "N. R G R"
+    ],
+    "nyas": [
+      "G",
+      "N",
+      "S"
+    ],
+    "similar": [
+      "Yaman: Jait Kalyan is more pentatonic and sparse in ascent, while Yaman commonly uses D and the full N. R G M D N ascent."
+    ],
+    "avoid": [
+      "Avoid plain scalar Yaman runs that overemphasize Dha in ascent."
+    ],
+    "sources": [
+      "https://www.tanarang.com/english/jait_kalyan_eng.htm",
+      "https://www.swarganga.org/raags"
+    ]
+  },
+  {
+    "name": "Devgiri Bilawal",
+    "aliases": [
+      "Devagiri Bilawal"
+    ],
+    "thaat": "Bilawal",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "D",
+    "samvadi": "G",
+    "time": "Morning",
+    "description": "A Bilawal-family raga with a bright morning character. It is recognized by Bilawal swaras with vakra phrases that differentiate it from Alhaiya Bilawal.",
+    "aaroh": "S R G m P D N S'",
+    "avroh": "S' N D P m G R S",
+    "pakad": [
+      "G m P D",
+      "N D P m G",
+      "G R G S"
+    ],
+    "patterns": [
+      "G m P D N D P",
+      "S' N D P m G",
+      "P D N S' N D",
+      "G R G S R G",
+      "m P D P m G",
+      "D N D P m G R",
+      "G m P m"
+    ],
+    "nyas": [
+      "D",
+      "G",
+      "S"
+    ],
+    "similar": [
+      "Alhaiya Bilawal: Devgiri Bilawal is more direct and avoids Alhaiya's characteristic komal Ni touch."
+    ],
+    "avoid": [
+      "Avoid komal Ni phrases associated with Alhaiya Bilawal unless a source explicitly gives them."
+    ],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
+    ]
+  },
+  {
+    "name": "Kukubh Bilawal",
+    "aliases": [
+      "Kukub Bilawal"
+    ],
+    "thaat": "Bilawal",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "G",
+    "samvadi": "D",
+    "time": "Morning",
+    "description": "A Bilawal variant with distinctive vakra turns. It is recognized by the use of G R G and a curved upper descent rather than plain Bilawal movement.",
+    "aaroh": "S R G m P D N S'",
+    "avroh": "S' N D P m G R S",
+    "pakad": [
+      "G R G m P",
+      "D N D P",
+      "m G R S"
+    ],
+    "patterns": [
+      "G R G m P D",
+      "D N S' N D P",
+      "P m G R G S",
+      "N D P m G R",
+      "R G m P m G",
+      "G m D P m G",
+      "G R G R"
+    ],
+    "nyas": [
+      "G",
+      "D",
+      "S"
+    ],
+    "similar": [
+      "Bilawal: Kukubh Bilawal uses more vakra G R G and D N D P phrases than the parent scale."
+    ],
+    "avoid": [],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
+    ]
+  },
+  {
+    "name": "Sughrai",
+    "aliases": [
+      "Sugrai"
+    ],
+    "thaat": "Kafi",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Late night",
+    "description": "A Kanada-ang raga with a grave, vakra descent. It is recognized by komal Ga and Ni, Pa-centered movement, and the Kanada phrase g m R S.",
+    "aaroh": "S R g m P D n S'",
+    "avroh": "S' n D P m g m R S",
+    "pakad": [
+      "P D n D P",
+      "g m R S",
+      "m P g m R"
+    ],
+    "patterns": [
+      "P D n S' n D P",
+      "m P D n D P",
+      "P m g m R S",
+      "g m R S n. S",
+      "n. S R g m P",
+      "P D n D"
+    ],
+    "nyas": [
+      "P",
+      "S",
+      "m"
+    ],
+    "similar": [
+      "Darbari Kanada: Sughrai is lighter and more Pa-centered; Darbari has deeper andolan on komal Ga and Dha."
+    ],
+    "avoid": [
+      "Avoid straight fast scalar taans that erase the Kanada curve."
+    ],
+    "sources": [
+      "https://www.tanarang.com/english/sugrai_eng.htm",
+      "https://www.swarganga.org/raags"
+    ]
+  },
+  {
+    "name": "Khat",
+    "aliases": [
+      "Khat Todi"
+    ],
+    "thaat": "Todi",
+    "jati": "Sampoorna-Sampoorna",
+    "vadi": "P",
+    "samvadi": "S",
+    "time": "Late morning",
+    "description": "A compound raga associated with Todi ang. It is recognized by komal Re, Ga, and Dha with tivra Ma and by vakra phrases that avoid a plain Todi scale.",
+    "aaroh": "S r g M P d N S'",
+    "avroh": "S' N d P M g r S",
+    "pakad": [
+      "g M P d",
+      "N d P M g",
+      "M g r S"
+    ],
+    "patterns": [
+      "r g M P d P",
+      "M P d N d P",
+      "S' N d P M g",
+      "g M g r S",
+      "N. S r g M g",
+      "g M P M"
+    ],
+    "nyas": [
+      "P",
+      "S",
+      "M"
+    ],
+    "similar": [
+      "Miyan ki Todi: Khat keeps a more compound vakra identity, while Miyan ki Todi emphasizes the canonical Todi andolan and chalan."
+    ],
+    "avoid": [
+      "Avoid plain scalar Todi runs without vakra phrases."
+    ],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
+    ]
+  },
+  {
+    "name": "Lachari Todi",
+    "aliases": [],
+    "thaat": "Todi",
+    "jati": "Audav-Sampoorna",
+    "vadi": "d",
+    "samvadi": "g",
+    "time": "Late morning",
+    "description": "A Todi-family raga with a plaintive character. It is recognized by Todi swaras and vakra descent, with Pa treated lightly or by tradition.",
+    "aaroh": "S r g M d N S'",
+    "avroh": "S' N d P M g r S",
+    "pakad": [
+      "g M d N d",
+      "M g r S",
+      "N d P M g"
+    ],
+    "patterns": [
+      "r g M d N d",
+      "S' N d P M g",
+      "g M d M g r",
+      "N. S r g M g",
+      "d N S' N d P",
+      "g M d M"
+    ],
+    "nyas": [
+      "d",
+      "g",
+      "S"
+    ],
+    "similar": [
+      "Gurjari Todi: Lachari Todi is more vakra and selective in ascent; Gurjari Todi often omits Pa and Dha in ascent."
+    ],
+    "avoid": [
+      "Avoid stabilizing Pa in ascent unless following a documented version."
+    ],
+    "sources": [
+      "https://www.swarganga.org/raags",
+      "https://www.tanarang.com/english/raag_index_eng.htm"
     ]
   }
 ]

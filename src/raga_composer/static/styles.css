@@ -268,6 +268,8 @@ details.toolbar summary { cursor: pointer; font-weight: 600; color: var(--color-
 /* Overview. */
 .overview { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: var(--space-4); align-items: start; }
 @media (max-width: 960px) { .overview { grid-template-columns: 1fr; } }
+.raga-notes { margin: 0; padding-left: 1.2rem; }
+.raga-notes li { margin: .15rem 0; }
 .overview h3 { margin: .2rem 0 .4rem; font-size: var(--text-lg); font-family: var(--font-serif); }
 .next-steps { display: grid; gap: var(--space-3); }
 .next-steps h3 { font-family: var(--font-sans); font-size: var(--text-md); }

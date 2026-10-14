@@ -54,6 +54,10 @@ class RagaDefinition(BaseModel):
     avroh: str
     pakad: list[str] = []
     patterns: list[str] = []
+    nyas: list[str] = []
+    similar: list[str] = []
+    avoid: list[str] = []
+    sources: list[str] = []
     custom: bool = False
 
     @field_validator("aaroh", "avroh")
