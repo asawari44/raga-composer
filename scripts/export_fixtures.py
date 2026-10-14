@@ -156,6 +156,14 @@ def main() -> None:
     dump("arrange.json", arrange_cases)
     dump("taals.json", model(list(TAALS.values())))
     dump("config.json", {"taals": model(list(TAALS.values())), "tonics": TONICS, "default_tonic": "G#"})
+    dump(
+        "mukhdas.json",
+        [
+            {"raga": c.raga, "title": c.title, "pitches": c.mukhda_pitches()}
+            for c in CompositionLibrary.builtin().all()
+            if c.sections
+        ],
+    )
 
 
 if __name__ == "__main__":

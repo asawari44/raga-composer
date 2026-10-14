@@ -1,0 +1,690 @@
+[
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 14
+    },
+    "raga": "Adana",
+    "title": "Gagari mori bharana nahi"
+  },
+  {
+    "pitches": {
+      "sthayi": 12
+    },
+    "raga": "Adana",
+    "title": "Trivat in Raag Adana"
+  },
+  {
+    "pitches": {
+      "antara": 4,
+      "sthayi": 0
+    },
+    "raga": "Ahir Bhairav",
+    "title": "Aaj to aanand aanand"
+  },
+  {
+    "pitches": {
+      "antara": 4,
+      "sthayi": 11
+    },
+    "raga": "Alhaiya Bilawal",
+    "title": "Vinati ya hai nath hamari"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 7
+    },
+    "raga": "Asavari",
+    "title": "Are man samajh samajh pag dhariye"
+  },
+  {
+    "pitches": {
+      "antara": 10,
+      "sthayi": 5
+    },
+    "raga": "Bageshree",
+    "title": "Kaun karat tori vinati piharwa"
+  },
+  {
+    "pitches": {
+      "sthayi": 12
+    },
+    "raga": "Bageshree",
+    "title": "Deenanath dayal natawar"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 10
+    },
+    "raga": "Bahar",
+    "title": "Phool rahi sarson sakal ban"
+  },
+  {
+    "pitches": {
+      "antara": 6,
+      "sthayi": 8
+    },
+    "raga": "Basant",
+    "title": "Chanchal chapala chatura nar"
+  },
+  {
+    "pitches": {
+      "antara": 6,
+      "sthayi": 0
+    },
+    "raga": "Basant",
+    "title": "Raag Basant sargam geet"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 4
+    },
+    "raga": "Bhairav",
+    "title": "Jago jago hua savera"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 0
+    },
+    "raga": "Bhairav",
+    "title": "Raag Bhairav sargam geet"
+  },
+  {
+    "pitches": {
+      "antara": 10,
+      "sthayi": 7
+    },
+    "raga": "Bhairavi",
+    "title": "Dagar chalat chhede Shyam sakhi ri"
+  },
+  {
+    "pitches": {
+      "sthayi": 8
+    },
+    "raga": "Bhairavi",
+    "title": "Raag Bhairavi tarana"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 3
+    },
+    "raga": "Bhimpalasi",
+    "title": "Koyal bole ambua ki daar"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": -2
+    },
+    "raga": "Bhimpalasi",
+    "title": "Raag Bhimpalasi sargam geet"
+  },
+  {
+    "pitches": {
+      "antara": 9,
+      "sthayi": 4
+    },
+    "raga": "Bhupali",
+    "title": "Gaiye Ganapati jagavandan"
+  },
+  {
+    "pitches": {
+      "sthayi": 12
+    },
+    "raga": "Bhupali",
+    "title": "Bhoop lakshana geet"
+  },
+  {
+    "pitches": {
+      "antara": 4,
+      "sthayi": 7
+    },
+    "raga": "Bhupali",
+    "title": "Tarana in Raag Bhoop"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 12
+    },
+    "raga": "Bihag",
+    "title": "Begi Aao Malniya"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": -1
+    },
+    "raga": "Bihag",
+    "title": "Aba Hun Lalan Mai"
+  },
+  {
+    "pitches": {
+      "antara": 3,
+      "sthayi": 3
+    },
+    "raga": "Bilaskhani Todi",
+    "title": "Kaahey karata mosey jhagraa"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 12
+    },
+    "raga": "Brindavani Sarang",
+    "title": "Bana bana dhundhana jaun"
+  },
+  {
+    "pitches": {
+      "sthayi": 4
+    },
+    "raga": "Charukeshi",
+    "title": "Premal Jyoti Taro Dakhavi"
+  },
+  {
+    "pitches": {
+      "sthayi": 2
+    },
+    "raga": "Chhayanat",
+    "title": "Sandesava piya se mora kahiyo ja"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 2
+    },
+    "raga": "Darbari Kanada",
+    "title": "Ghar jane de chhad mori baiyan"
+  },
+  {
+    "pitches": {
+      "antara": 12,
+      "sthayi": 5
+    },
+    "raga": "Desh",
+    "title": "Dekho sakhi barasan ko aaye badara"
+  },
+  {
+    "pitches": {
+      "sthayi": 2
+    },
+    "raga": "Desh",
+    "title": "Koi vando koi nindo"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 0
+    },
+    "raga": "Deshkar",
+    "title": "Chain na mohe ave ali"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 0
+    },
+    "raga": "Desi",
+    "title": "Gunda gunda lawo re"
+  },
+  {
+    "pitches": {
+      "antara": 9,
+      "sthayi": 7
+    },
+    "raga": "Durga",
+    "title": "Sakhi mori rum jhum"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 9
+    },
+    "raga": "Durga",
+    "title": "Raag Durga sargam geet"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 4
+    },
+    "raga": "Gaud Malhar",
+    "title": "Kari kari badariya"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 5
+    },
+    "raga": "Gaud Sarang",
+    "title": "Chedo na nind mori uchata jat"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 9
+    },
+    "raga": "Hameer",
+    "title": "Kaise ghar jaun langarwa"
+  },
+  {
+    "pitches": {
+      "sthayi": 0
+    },
+    "raga": "Hameer",
+    "title": "Shri Ramachandra kripalu"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 12
+    },
+    "raga": "Hamsadhwani",
+    "title": "Raag Hansadhwani sargam geet"
+  },
+  {
+    "pitches": {
+      "antara": 6,
+      "sthayi": 12
+    },
+    "raga": "Hindol",
+    "title": "Chanaka bunda para lo re balama"
+  },
+  {
+    "pitches": {
+      "antara": 12,
+      "sthayi": 12
+    },
+    "raga": "Hindol",
+    "title": "Raag Hindol Sargam geet"
+  },
+  {
+    "pitches": {
+      "antara": 14,
+      "sthayi": 4
+    },
+    "raga": "Jaijaivanti",
+    "title": "Damini Damake Dar Mohe Laage"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 7
+    },
+    "raga": "Jaunpuri",
+    "title": "Padiye paya na vake sajani"
+  },
+  {
+    "pitches": {
+      "antara": 0,
+      "sthayi": -3
+    },
+    "raga": "Jhinjhoti",
+    "title": "Ashray raag kahat gunijan sab"
+  },
+  {
+    "pitches": {
+      "antara": 4,
+      "sthayi": 4
+    },
+    "raga": "Jog",
+    "title": "Sajan more ghar aaye"
+  },
+  {
+    "pitches": {
+      "antara": 14,
+      "sthayi": 7
+    },
+    "raga": "Kafi",
+    "title": "Aaj khelo Shyam sang hori"
+  },
+  {
+    "pitches": {
+      "sthayi": 0
+    },
+    "raga": "Kafi",
+    "title": "Mukhadaani maya laagi"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 7
+    },
+    "raga": "Kalingada",
+    "title": "Jago Jago Jago Shyam"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 7
+    },
+    "raga": "Kalingada",
+    "title": "Are Mana Mana Kahe Kare"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 0
+    },
+    "raga": "Kamod",
+    "title": "Kare jane na dungi"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 7
+    },
+    "raga": "Kedar",
+    "title": "Kanha Re, Nand-Nandana"
+  },
+  {
+    "pitches": {
+      "sthayi": 5
+    },
+    "raga": "Kedar",
+    "title": "Ka karu sakhi tu hi bol"
+  },
+  {
+    "pitches": {
+      "antara": 11,
+      "sthayi": 4
+    },
+    "raga": "Khamaj",
+    "title": "Naman karun main satguru charana"
+  },
+  {
+    "pitches": {
+      "antara": 6,
+      "sthayi": -1
+    },
+    "raga": "Lalit",
+    "title": "Vighanahara Gauri ke nandan"
+  },
+  {
+    "pitches": {
+      "antara": 10,
+      "sthayi": 10
+    },
+    "raga": "Malgunji",
+    "title": "Langarawa mane na mori kahi"
+  },
+  {
+    "pitches": {
+      "antara": 3,
+      "sthayi": 12
+    },
+    "raga": "Malkauns",
+    "title": "Koyaliya bole ambua ki daar par"
+  },
+  {
+    "pitches": {
+      "sthayi": 0
+    },
+    "raga": "Malkauns",
+    "title": "Aaye Raghubira dhira"
+  },
+  {
+    "pitches": {
+      "antara": 6,
+      "sthayi": -1
+    },
+    "raga": "Marwa",
+    "title": "Jagata janani jagadamba"
+  },
+  {
+    "pitches": {
+      "antara": 6,
+      "sthayi": 9
+    },
+    "raga": "Marwa",
+    "title": "Raag Marwa Sargam Geet"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 5
+    },
+    "raga": "Megh",
+    "title": "Raag Megh Malhaar Sargam geet"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 0
+    },
+    "raga": "Miyan ki Malhar",
+    "title": "Bijuri chamake barase meharawa"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 3
+    },
+    "raga": "Multani",
+    "title": "Nainana Mein Ana Bana"
+  },
+  {
+    "pitches": {
+      "antara": 4,
+      "sthayi": 8
+    },
+    "raga": "Nat Bhairav",
+    "title": "Drut gat in Raga Nat Bhairav"
+  },
+  {
+    "pitches": {
+      "antara": 6,
+      "sthayi": 12
+    },
+    "raga": "Paraj",
+    "title": "Maga chalata Kanha kara hataki"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 9
+    },
+    "raga": "Patdeep",
+    "title": "Krishna Murari Bhava Bhaya Hari"
+  },
+  {
+    "pitches": {
+      "sthayi": 0
+    },
+    "raga": "Pilu",
+    "title": "Raag Pilu sargam geet"
+  },
+  {
+    "pitches": {
+      "sthayi": 2
+    },
+    "raga": "Pilu",
+    "title": "Dhun based on Raaga Pilu"
+  },
+  {
+    "pitches": {
+      "antara": -1,
+      "sthayi": -1
+    },
+    "raga": "Pilu",
+    "title": "Raghubira tumako meri laj"
+  },
+  {
+    "pitches": {
+      "antara": 12,
+      "sthayi": 7
+    },
+    "raga": "Poorvi",
+    "title": "Kajar kare ati sukh vare"
+  },
+  {
+    "pitches": {
+      "antara": 6,
+      "sthayi": 6
+    },
+    "raga": "Puriya",
+    "title": "Nange awana nange jana"
+  },
+  {
+    "pitches": {
+      "antara": 6,
+      "sthayi": 7
+    },
+    "raga": "Puriya Dhanashree",
+    "title": "Payaliya jhanakara mori"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 4
+    },
+    "raga": "Rageshree",
+    "title": "Binati Suno Mori Shyam"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 8
+    },
+    "raga": "Ramkali",
+    "title": "Aaj Radhe tore badan pe"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 12
+    },
+    "raga": "Shankara",
+    "title": "Gauwe charawe he Banawari"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": -3
+    },
+    "raga": "Shivranjani",
+    "title": "Raag Shivranjani Sargam geet"
+  },
+  {
+    "pitches": {
+      "antara": 6,
+      "sthayi": -1
+    },
+    "raga": "Shree",
+    "title": "Prabhu ke charana kamala"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 0
+    },
+    "raga": "Shuddha Kalyan",
+    "title": "Ek ghari pal jiya manat naahin mora"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 2
+    },
+    "raga": "Sindhura",
+    "title": "Baajat taal mridang"
+  },
+  {
+    "pitches": {
+      "antara": 6,
+      "sthayi": 12
+    },
+    "raga": "Sohni",
+    "title": "Kahe aba tuma aye ho"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 2
+    },
+    "raga": "Tilak Kamod",
+    "title": "Nir Bharana Kaise Jaun"
+  },
+  {
+    "pitches": {
+      "antara": 5,
+      "sthayi": 12
+    },
+    "raga": "Tilak Kamod",
+    "title": "Tiratha Ko Saba Kare"
+  },
+  {
+    "pitches": {
+      "antara": 10,
+      "sthayi": 4
+    },
+    "raga": "Tilang",
+    "title": "Aaj More Shyam Aay Mandirwa"
+  },
+  {
+    "pitches": {
+      "antara": 4,
+      "sthayi": 4
+    },
+    "raga": "Tilang",
+    "title": "Dekho Jiya Bechain"
+  },
+  {
+    "pitches": {
+      "antara": 7,
+      "sthayi": 8
+    },
+    "raga": "Todi",
+    "title": "Har Har Shiv Shankar Gangadhar Pinaki"
+  },
+  {
+    "pitches": {
+      "sthayi": 3
+    },
+    "raga": "Todi",
+    "title": "Man re paras Hari ke charan"
+  },
+  {
+    "pitches": {
+      "antara": 4,
+      "sthayi": 12
+    },
+    "raga": "Vibhas",
+    "title": "Bairana nanadiya lagi rat"
+  },
+  {
+    "pitches": {
+      "antara": 4,
+      "sthayi": 12
+    },
+    "raga": "Yaman",
+    "title": "Mohan murali adhar bajave"
+  },
+  {
+    "pitches": {
+      "sthayi": 7
+    },
+    "raga": "Yaman",
+    "title": "Tero hi dhyana dharata"
+  },
+  {
+    "pitches": {
+      "sthayi": -1
+    },
+    "raga": "Yaman",
+    "title": "Raag Yaman tarana"
+  },
+  {
+    "pitches": {
+      "antara": 4,
+      "sthayi": -1
+    },
+    "raga": "Yaman Kalyan",
+    "title": "Mora man baandh lino re"
+  }
+]

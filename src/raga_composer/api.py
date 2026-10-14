@@ -359,14 +359,21 @@ def create_app(data_dir: Path | None = None) -> FastAPI:
         user: OptionalUser,
         taal: str = "Teentaal",
         seed: int | None = Query(default=None, ge=0, le=2**32),
+        composition: str | None = None,
     ) -> Improvisations:
         raga = find_raga(name, user)
         beats = taal_beats(taal)
         if beats is None:
             raise HTTPException(400, f"Unknown taal: {taal}.")
         known = TAALS.get(taal.lower().replace(" ", ""))
+        land = None
+        if composition is not None:
+            comp = next((c for c in compositions.for_raga(raga.name) if c.title == composition), None)
+            if comp is None:
+                raise HTTPException(404, f"Unknown composition: {composition}.")
+            land = comp.mukhda_pitches()
         try:
-            return improvise(raga, known.name if known else taal, beats, seed)
+            return improvise(raga, known.name if known else taal, beats, seed, land)
         except ImprovisationError as exc:
             raise HTTPException(422, str(exc)) from exc
 

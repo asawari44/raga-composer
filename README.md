@@ -89,21 +89,31 @@ type, so the map follows the printed letters on QWERTZ and AZERTY keyboards.
   and other taals. See [Compositions](#compositions) for sources and limits.
 - **Perform with alaap and taan**: plays a composition on the tabla together
   with the raga's alaap and taan, in the composition's taal. The order is the
-  sthayi; each sthayi alaap followed by the sthayi's first line; the antara and
-  a return to the sthayi; each antara alaap followed by the antara's first
-  line; then the sthayi and antara taans in the same way; and a closing line
-  that lands on sam. You choose whether each return plays the first half or the
-  full first line, and whether to include alaap, taan, or both. Each phrase is
-  placed so that it ends where the line begins, so the line always starts on its
-  own matra. The current phrase shows next to the button, and the beats
-  highlight in both the composition and the **Alaap and taan** panel. If the
-  tabla is off, the performance starts it and stops it at the end.
+  sthayi; each sthayi alaap followed by the sthayi from its mukhda; the antara
+  and a return to the sthayi; each antara alaap followed by the antara from its
+  mukhda; then the sthayi taans and the antara taans; and the sthayi mukhda
+  landing on sam. The *mukhda* is the first sung beat of a section, which is
+  often a few matras before sam. Every alaap and taan ends exactly where the
+  mukhda begins, so the words always start on their own matra.
+  - **Alaaps**: after each alaap, you choose whether to sing half a line or a
+    full line from the mukhda.
+  - **Taans**: each taan is 8 or 16 beats and follows the composition. Before
+    each taan, you sing from the mukhda through sam. The taan starts at the
+    matra that lets it end on the mukhda, and it lands on the mukhda's first
+    note, so it leads straight back into the words.
+
+  You also choose whether to include alaap, taan, or both. The current phrase
+  shows next to the button, and the beats highlight in both the composition and
+  the **Alaap and taan** panel. If the tabla is off, the performance starts it
+  and stops it at the end.
 - **Alaap and taan**: for each raga, in the taal selected for the tabla, the
   app generates 5 short and 2 full-avartan alaaps for the sthayi and for the
-  antara, and 5 short and 2 double-avartan taans for each. Sthayi phrases stay
+  antara, and 5 short (8-beat) and 2 long (16-beat) taans for each. Sthayi phrases stay
   in the mandra and madhya saptaks and resolve to Sa; antara phrases rise into
   the taar saptak and resolve to taar Sa. Alaaps move at two slots per beat
-  with held notes; taans move at four notes per beat and end on a held Sa.
+  with held notes; taans move at four notes per beat and end on a held Sa. In
+  **Perform**, taans end on the first note of the composition's mukhda
+  instead, when the raga allows it.
   Every phrase is a walk on the raga's move graph, so it obeys the raga.
   The same raga and taal give the same phrases; **Regenerate** draws a new set.
 - **Browser library**: **My library** stores saved lines and recordings in the

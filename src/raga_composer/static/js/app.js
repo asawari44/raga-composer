@@ -465,7 +465,7 @@ function renderRagaInfo() {
 }
 
 // Alaap and taan -------------------------------------------------------------------
-const PHRASE_LABELS = { short: "Short", avartan: "Full avartan", double: "Double avartan" };
+const PHRASE_LABELS = { short: "Short", avartan: "Full avartan", long: "Long" };
 
 async function loadImprovisations(seed = state.improvSeed) {
   const box = $("#improv");
@@ -610,11 +610,29 @@ function openCompositionInEditor(comp, sectionIndex) {
 
 // Performance ------------------------------------------------------------------------
 // Builds a full rendition on the taal: the sthayi, each sthayi alaap followed by the
-// sthayi's first line, the antara, each antara alaap followed by the antara's first
-// line, then the taans in the same way, ending on sam. Every return to the
-// composition starts on its own matra, so the alaap or taan before it is placed to
-// end exactly where the line begins.
+// sthayi from its mukhda, the antara, each antara alaap followed by the antara from
+// its mukhda, then the taans, ending on sam.
+//
+// The mukhda is the first sung beat of a section, which is often not the first
+// beat of the line. Every return to the composition starts at the mukhda's own
+// matra, and every alaap and taan ends exactly where the mukhda begins.
+//
+// Taans follow the composition: before each taan you sing the composition from
+// the mukhda through sam, then the 8- or 16-beat taan starts at the matra that
+// lets it end on the mukhda, so the taan leads straight back into the words.
 const IMPROV_GROUPS = { sthayiAlaap: 0, antaraAlaap: 1, sthayiTaan: 2, antaraTaan: 3 };
+
+const isSung = (beat) => beat.tokens.some((t) => t.pitch !== undefined);
+
+// Beats of the composition to sing before a taan of `taanBeats`: it starts on the
+// mukhda (at `mukhdaAt` in the taal), passes sam, and stops where the taan must
+// start so that the taan ends on the next mukhda.
+function taanLeadBeats(T, mukhdaAt, taanBeats) {
+  const toSam = (T - mukhdaAt) % T || 1;
+  let lead = (((-taanBeats) % T) + T) % T;
+  while (lead < toSam) lead += T;
+  return lead;
+}
 
 function buildPerformance(comp, index, improv, taalBeats, { returnLength = "half", alaap = true, taan = true } = {}) {
   const T = taalBeats;
@@ -626,14 +644,21 @@ function buildPerformance(comp, index, improv, taalBeats, { returnLength = "half
       tokens: tokenize(beat), id: `cb-${index}-${offset + l * line.beats.length + b}`,
     })));
   };
-  const returnBeats = returnLength === "half" ? Math.ceil(T / 2) : T;
   const sthayiEnd = antaraIndex > 0 ? antaraIndex : 1;
   const sthayiFull = comp.sections.slice(0, sthayiEnd).flatMap((sec, si) => compBeats(si, sec.lines));
-  const sthayiReturn = compBeats(0, comp.sections[0].lines.slice(0, 1), returnBeats);
   const antaraFull = antaraIndex > 0 ? compBeats(antaraIndex, comp.sections[antaraIndex].lines) : null;
-  const antaraReturn = antaraIndex > 0
-    ? compBeats(antaraIndex, comp.sections[antaraIndex].lines.slice(0, 1), returnBeats)
-    : sthayiReturn;
+  // A section seen from its mukhda: `from(n)` gives n beats starting at the mukhda,
+  // wrapping to the start of the section if it runs out.
+  const mukhdaOf = (full, name) => {
+    const m = Math.max(0, full.findIndex(isSung));
+    return {
+      name,
+      at: (phase + m) % T,
+      from: (n) => Array.from({ length: n }, (_, k) => full[(m + k) % full.length]),
+    };
+  };
+  const sthayi = mukhdaOf(sthayiFull, "Sthayi");
+  const antara = antaraFull ? mukhdaOf(antaraFull, "Antara") : sthayi;
   const improvBeats = (g, i) => {
     const item = improv.groups[g].items[i];
     const npb = item.notes_per_beat;
@@ -644,43 +669,52 @@ function buildPerformance(comp, index, improv, taalBeats, { returnLength = "half
 
   const timeline = [];
   const labels = [];
-  const firstAt = (from, want) => from + ((want - (from % T)) % T + T) % T;
+  const lead = phase;
+  const pos = () => (timeline.length + lead) % T;
+  const restUntil = (at) => { for (let n = ((at - pos()) % T + T) % T; n > 0; n--) timeline.push({ tokens: [], id: null }); };
   const put = (beats, label) => {
     labels.push({ at: timeline.length, label });
     timeline.push(...beats);
   };
-  const rest = (n) => { for (let k = 0; k < n; k++) timeline.push({ tokens: [], id: null }); };
-  const lead = phase;
-  const placeLine = (beats, label) => {
-    rest(firstAt(timeline.length + lead, phase) - timeline.length - lead);
-    put(beats, label);
+  const returnBeats = returnLength === "half" ? Math.ceil(T / 2) : T;
+  const lineName = returnLength === "half" ? "half-line from the mukhda" : "line from the mukhda";
+  // Alaap: the phrase ends where the mukhda starts, so any gap comes before it.
+  const alaapRounds = (g, section) => improv.groups[g].items.forEach((item, i) => {
+    restUntil(section.at - item.beats);
+    put(improvBeats(g, i), `${improv.groups[g].title} ${i + 1} of ${improv.groups[g].items.length}`);
+    put(section.from(returnBeats), `${section.name} ${lineName}`);
+  });
+  // Taan: sing from the mukhda through sam, run the taan, and land on the mukhda.
+  const taanRounds = (g, section) => {
+    restUntil(section.at);
+    improv.groups[g].items.forEach((item, i) => {
+      put(section.from(taanLeadBeats(T, section.at, item.beats)), `${section.name} from the mukhda`);
+      put(improvBeats(g, i), `${improv.groups[g].title} ${i + 1} of ${improv.groups[g].items.length} (${item.beats} beats)`);
+    });
   };
-  // The phrase ends where the line starts, so any gap comes before the phrase.
-  const phraseThenLine = (phrase, phraseLabel, line, lineLabel) => {
-    const lineAt = firstAt(timeline.length + lead + phrase.length, phase);
-    rest(lineAt - phrase.length - timeline.length - lead);
-    put(phrase, phraseLabel);
-    put(line, lineLabel);
+  // Sing from the mukhda up to and including the next sam.
+  const toSam = (section, label) => {
+    restUntil(section.at);
+    put(section.from(((T - section.at) % T || T) + 1), label);
   };
-  const lineName = returnLength === "half" ? "first half-line" : "first line";
-  const rounds = (g, line, what) => improv.groups[g].items.forEach((_, i) =>
-    phraseThenLine(improvBeats(g, i), `${improv.groups[g].title} ${i + 1} of ${improv.groups[g].items.length}`, line, what));
 
-  placeLine(sthayiFull, "Sthayi");
-  if (alaap) rounds(IMPROV_GROUPS.sthayiAlaap, sthayiReturn, `Sthayi ${lineName}`);
+  restUntil(phase);
+  put(sthayiFull, "Sthayi");
+  if (alaap) alaapRounds(IMPROV_GROUPS.sthayiAlaap, sthayi);
   if (antaraFull) {
-    placeLine(antaraFull, "Antara");
-    placeLine(sthayiReturn, `Sthayi ${lineName}`);
+    restUntil(phase);
+    put(antaraFull, "Antara");
+    restUntil(sthayi.at);
+    put(sthayi.from(returnBeats), `Sthayi ${lineName}`);
   }
-  if (alaap) rounds(IMPROV_GROUPS.antaraAlaap, antaraReturn, antaraFull ? `Antara ${lineName}` : `Sthayi ${lineName}`);
+  if (alaap) alaapRounds(IMPROV_GROUPS.antaraAlaap, antara);
   if (taan) {
-    rounds(IMPROV_GROUPS.sthayiTaan, sthayiReturn, `Sthayi ${lineName}`);
-    rounds(IMPROV_GROUPS.antaraTaan, antaraReturn, antaraFull ? `Antara ${lineName}` : `Sthayi ${lineName}`);
+    taanRounds(IMPROV_GROUPS.sthayiTaan, sthayi);
+    if (antaraFull) toSam(sthayi, "Sthayi mukhda to sam");
+    taanRounds(IMPROV_GROUPS.antaraTaan, antara);
+    if (antaraFull) toSam(antara, "Antara mukhda to sam");
   }
-  placeLine(compBeats(0, comp.sections[0].lines.slice(0, 1)), "Sthayi, closing");
-  // Land on Sa at the next sam.
-  rest(firstAt(timeline.length + lead, 0) - timeline.length - lead);
-  put([{ tokens: [parseToken("S")], id: null }], "Sam");
+  toSam(sthayi, "Sthayi mukhda, closing on sam");
 
   const counts = timeline.map((b) => b.tokens.length).filter(Boolean);
   let npb = counts.reduce((a, c) => (a * c) / gcd(a, c), 1);
@@ -713,7 +747,7 @@ async function performComposition(comp, index, button) {
   const taal = compositionTaal(comp);
   if (!taal) return toast(`The ${comp.taal} taal has no tabla theka, so it can't be performed with alaap and taan.`);
   const raga = state.raga.name;
-  const params = new URLSearchParams({ taal: taal.name });
+  const params = new URLSearchParams({ taal: taal.name, composition: comp.title });
   if (state.improvSeed !== null && state.improvSeed !== undefined) params.set("seed", state.improvSeed);
   let improv;
   try {

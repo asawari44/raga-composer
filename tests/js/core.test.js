@@ -11,6 +11,7 @@ import {
   listRagas,
   listTaals,
   loadData,
+  mukhdaPitches,
   parseIntent,
   ragaDetail,
   validateSequence,
@@ -123,8 +124,8 @@ describe("improvisation properties", () => {
     const expected = {
       "sthayi-alaap": { short: 5, avartan: 2 },
       "antara-alaap": { short: 5, avartan: 2 },
-      "sthayi-taan": { short: 5, double: 2 },
-      "antara-taan": { short: 5, double: 2 },
+      "sthayi-taan": { short: 5, long: 2 },
+      "antara-taan": { short: 5, long: 2 },
     };
     for (const raga of listRagas()) {
       for (const taal of listTaals()) {
@@ -142,7 +143,7 @@ describe("improvisation properties", () => {
             const lastNote = item.tokens.filter((token) => token !== "_" && token !== "-").at(-1);
             assert.equal(lastNote, group.key.startsWith("sthayi") ? "S" : "S'");
             if (item.kind === "avartan") assert.equal(item.beats, taal.beats);
-            if (item.kind === "double") assert.equal(item.beats, taal.beats * 2);
+            if (group.key.endsWith("taan")) assert.equal(item.beats, item.kind === "short" ? 8 : 16);
           }
           assert.deepEqual(counts, expected[group.key]);
           assert.equal(new Set(group.items.map((item) => item.tokens.join(" "))).size, group.items.length);
@@ -153,5 +154,41 @@ describe("improvisation properties", () => {
         );
       }
     }
+  });
+});
+
+describe("composition taans", () => {
+  it("finds the same mukhda pitches as the Python engine", async () => {
+    const fixtures = await readJson("tests/js/fixtures/mukhdas.json");
+    const all = await readJson("src/raga_composer/data/compositions.json");
+    for (const fixture of fixtures) {
+      const comp = all.find((c) => c.raga === fixture.raga && c.title === fixture.title);
+      assert.deepEqual(mukhdaPitches(comp), fixture.pitches, `${fixture.raga}: ${fixture.title}`);
+    }
+  });
+
+  it("builds 8- and 16-beat taans that lead into each composition's mukhda", async () => {
+    const fixtures = await readJson("tests/js/fixtures/mukhdas.json");
+    let hits = 0;
+    let total = 0;
+    for (const fixture of fixtures) {
+      const response = improvisations(fixture.raga, { taal: "Teentaal", composition: fixture.title });
+      for (const group of response.groups.filter((g) => g.key.endsWith("taan"))) {
+        const section = group.key.split("-")[0];
+        const home = section === "sthayi" ? 0 : 12;
+        for (const item of group.items) {
+          assert.ok([8, 16].includes(item.beats));
+          assertNoViolations(fixture.raga, item.tokens);
+          const last = notes(item.tokens).at(-1).pitch;
+          assert.ok([fixture.pitches[section] ?? home, home].includes(last), `${fixture.title}: ${item.tokens.join(" ")}`);
+        }
+        if (section in fixture.pitches) {
+          total += 1;
+          hits += notes(group.items[0].tokens).at(-1).pitch === fixture.pitches[section];
+        }
+      }
+    }
+    assert.ok(hits / total > 0.9, `${hits} of ${total} taan groups land on the mukhda`);
+    assert.throws(() => improvisations("Yaman", { composition: "Nope" }), /Unknown composition/);
   });
 });

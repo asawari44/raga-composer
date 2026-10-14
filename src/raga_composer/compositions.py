@@ -13,7 +13,7 @@ from importlib import resources
 
 from pydantic import BaseModel, Field, model_validator
 
-from raga_composer.notation import tokenize
+from raga_composer.notation import Swara, tokenize
 from raga_composer.taal import get_taal
 
 # Taals that appear in compositions but have no tabla theka in the app.
@@ -112,6 +112,20 @@ class Composition(BaseModel):
                         f"{self.title}: {section.name} line {i} has {len(line.beats)} beats; {self.taal} has {beats}"
                     )
         return self
+
+    def mukhda_pitches(self) -> dict[str, int]:
+        """The first sung pitch of the sthayi and of the antara, keyed by section."""
+        antara = next((s for s in self.sections[1:] if "antara" in s.name.lower()), None)
+        found: dict[str, int] = {}
+        for key, section in (("sthayi", self.sections[0] if self.sections else None), ("antara", antara)):
+            if section is None:
+                continue
+            for line in section.lines:
+                pitch = next((t.pitch for beat in line.beats for t in tokenize(beat) if isinstance(t, Swara)), None)
+                if pitch is not None:
+                    found[key] = pitch
+                    break
+        return found
 
 
 class CompositionLibrary:

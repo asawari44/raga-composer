@@ -64,6 +64,7 @@ async function routeCore(pathname, searchParams, options) {
     return core.improvisations(decodeURIComponent(parts[2]), {
       taal: searchParams.get("taal") || "Teentaal",
       seed,
+      composition: searchParams.get("composition"),
     });
   }
   if (method === "POST" && pathname === "/api/intent") return core.parseIntent(parseBody(options));

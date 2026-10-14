@@ -71,13 +71,37 @@ export function ragaDetail(name) {
   return ragaDetailPayload(findRaga(name), compositions);
 }
 
-export function improvisations(name, { taal = "Teentaal", seed = null } = {}) {
+// The first sung pitch of the sthayi and of the antara, keyed by section.
+export function mukhdaPitches(composition) {
+  const sections = composition.sections || [];
+  const antara = sections.slice(1).find((section) => /antara/i.test(section.name));
+  const found = {};
+  for (const [key, section] of [["sthayi", sections[0]], ["antara", antara]]) {
+    if (!section) continue;
+    for (const line of section.lines) {
+      const swara = line.beats.flatMap((beat) => tokenize(beat)).find((token) => token instanceof Swara);
+      if (swara) {
+        found[key] = swara.pitch;
+        break;
+      }
+    }
+  }
+  return found;
+}
+
+export function improvisations(name, { taal = "Teentaal", seed = null, composition = null } = {}) {
   const raga = findRaga(name);
   const beats = taalBeats(taal);
   if (beats === null) throw new CoreError(400, `Unknown taal: ${taal}.`);
   const known = getTaal(taal);
+  let land = {};
+  if (composition !== null && composition !== undefined) {
+    const comp = compositions.find((c) => c.raga.toLowerCase() === raga.name.toLowerCase() && c.title === composition);
+    if (!comp) throw new CoreError(404, `Unknown composition: ${composition}.`);
+    land = mukhdaPitches(comp);
+  }
   try {
-    return improvise(raga, known ? known.name : taal, beats, seed);
+    return improvise(raga, known ? known.name : taal, beats, seed, land);
   } catch (error) {
     if (error instanceof ImprovisationError) throw new CoreError(422, error.message);
     throw error;

@@ -13,6 +13,8 @@ const ENDS = {
 };
 const ALAAP_NPB = 2;
 const TAAN_NPB = 4;
+const SHORT_TAAN_BEATS = 8;
+const LONG_TAAN_BEATS = 16;
 const ATTEMPTS = 40;
 
 export class ImprovisationError extends Error {}
@@ -43,11 +45,12 @@ function withHolds(path, slots, rng) {
 }
 
 class Builder {
-  constructor(raga, section, rng) {
+  constructor(raga, section, rng, end = null) {
     this.raga = raga;
     this.rng = rng;
-    this.range = RANGES[section];
-    this.end = ENDS[section];
+    this.end = end === null || end === undefined ? ENDS[section] : end;
+    const [lo, hi] = RANGES[section];
+    this.range = [Math.min(lo, this.end), Math.max(hi, this.end)];
     this.emphasize = [raga.vadi, raga.samvadi].filter((n) => n !== null);
     this.live = this.livePitches();
   }
@@ -117,7 +120,7 @@ class Builder {
     const first = runs > 1 ? this.rng.choice([CONTOURS.ASCENDING, CONTOURS.DESCENDING]) : CONTOURS.ARCH;
     const other = first === CONTOURS.ASCENDING ? CONTOURS.DESCENDING : CONTOURS.ASCENDING;
     const contours = Array.from({ length: runs }, (_, i) => (i % 2 === 0 ? first : other));
-    if (runs > 1 && contours.at(-1) !== CONTOURS.DESCENDING && this.end === 0) contours[contours.length - 1] = CONTOURS.ANY;
+    if (runs > 1 && contours.at(-1) !== CONTOURS.DESCENDING && this.end < ENDS.antara) contours[contours.length - 1] = CONTOURS.ANY;
     const path = this.chain(notes, contours);
     return path ? [...path, ...Array(TAAN_NPB - 1).fill(HOLD)] : null;
   }
@@ -141,11 +144,28 @@ function collect(make, raga, beatsOptions, count, kind, npb, rng) {
   return phrases;
 }
 
-export function improvise(raga, taalName, taalBeats, seed = null) {
+// Five 8-beat and two 16-beat taans, landing on `land` when the raga allows it.
+function taans(raga, section, rng, land) {
+  const ends = land === null || land === undefined ? [null] : [land, null];
+  for (const end of ends) {
+    const builder = new Builder(raga, section, rng, end);
+    try {
+      return [
+        ...collect((beats) => builder.taan(beats), raga, [SHORT_TAAN_BEATS], 5, "short", TAAN_NPB, rng),
+        ...collect((beats) => builder.taan(beats), raga, [LONG_TAAN_BEATS], 2, "long", TAAN_NPB, rng),
+      ];
+    } catch (error) {
+      if (!(error instanceof ImprovisationError) || end === null) throw error;
+    }
+  }
+  throw new Error("unreachable");
+}
+
+// `land` maps a section ("sthayi" or "antara") to the pitch its taans end on.
+export function improvise(raga, taalName, taalBeats, seed = null, land = {}) {
   const resolvedSeed = seed === null || seed === undefined ? defaultSeed(raga) : seed;
   const rng = new Random(resolvedSeed);
   const shortAlaap = [4, 6, 8].filter((beats) => beats < taalBeats);
-  const shortTaan = [2, 3, 4].filter((beats) => beats < taalBeats);
   const groups = [];
   for (const [section, label, where] of [
     ["sthayi", "Sthayi", "in the mandra and madhya saptaks, resolving to Sa"],
@@ -162,19 +182,20 @@ export function improvise(raga, taalName, taalBeats, seed = null) {
       ],
     });
   }
-  for (const [section, label, where] of [
-    ["sthayi", "Sthayi", "in the mandra and madhya saptaks, landing on Sa"],
-    ["antara", "Antara", "reaching into the taar saptak, landing on taar Sa"],
+  for (const [section, label, where, home] of [
+    ["sthayi", "Sthayi", "in the mandra and madhya saptaks", "Sa"],
+    ["antara", "Antara", "reaching into the taar saptak", "taar Sa"],
   ]) {
-    const builder = new Builder(raga, section, rng);
+    const items = taans(raga, section, rng, land?.[section]);
+    const final = items[0].tokens.filter((t) => t !== HOLD && t !== "-").at(-1);
+    const landing = land?.[section] !== undefined && Swara.parse(final).pitch === land[section]
+      ? `landing on ${final}, the first note of the ${section} mukhda`
+      : `landing on ${home}`;
     groups.push({
       key: `${section}-taan`,
       title: `${label} taan`,
-      description: `Fast runs at four notes per beat, ${where}.`,
-      items: [
-        ...collect((beats) => builder.taan(beats), raga, shortTaan.length ? shortTaan : [2], 5, "short", TAAN_NPB, rng),
-        ...collect((beats) => builder.taan(beats), raga, [taalBeats * 2], 2, "double", TAAN_NPB, rng),
-      ],
+      description: `Fast runs at four notes per beat, 8 or 16 beats long, ${where}, ${landing}.`,
+      items,
     });
   }
   return { raga: raga.name, taal: taalName, taal_beats: taalBeats, seed: resolvedSeed, groups };
