@@ -1423,21 +1423,17 @@ function writeIntent() {
 async function generate({ intoEditor = false } = {}) {
   if (!state.raga) return toast("Choose a raga first.");
   const requestId = beginRequest("compose");
-  const req = {
-    raga: state.raga.name,
-    text: $("#intent").value,
-    base: { beats: +$("#beats").value, notes_per_beat: +$("#npb").value, count: +$("#count").value },
-  };
+  const base = () => ({ beats: +$("#beats").value, notes_per_beat: +$("#npb").value, count: +$("#count").value });
+  const req = { raga: state.raga.name, text: $("#intent").value, base: base() };
+  // A response only applies if nothing it depends on changed while it was in flight.
+  const current = () => isLatest("compose", requestId)
+    && state.raga?.name === req.raga
+    && $("#intent").value === req.text
+    && JSON.stringify(base()) === JSON.stringify(req.base);
   $("#generate").disabled = true;
   try {
     const res = await api("/api/generate", { json: req });
-    const currentBase = { beats: +$("#beats").value, notes_per_beat: +$("#npb").value, count: +$("#count").value };
-    if (
-      !isLatest("compose", requestId)
-      || state.raga?.name !== req.raga
-      || $("#intent").value !== req.text
-      || JSON.stringify(currentBase) !== JSON.stringify(req.base)
-    ) return;
+    if (!current()) return;
     const i = res.intention;
     $("#beats").value = i.beats;
     $("#npb").value = i.notes_per_beat;
@@ -1450,7 +1446,7 @@ async function generate({ intoEditor = false } = {}) {
     $("#generate").textContent = "Generate new options";
     if (intoEditor && res.patterns.length) loadLine(tokensFromStrings(res.patterns[0].tokens), res.patterns[0].notes_per_beat);
   } catch (err) {
-    if (!isLatest("compose", requestId) || state.raga?.name !== req.raga || $("#intent").value !== req.text) return;
+    if (!current()) return;
     $("#patterns").innerHTML = "";
     $("#patterns").append(el("p", { class: "error" }, err.message));
   } finally {
