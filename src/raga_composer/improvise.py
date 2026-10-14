@@ -1,13 +1,14 @@
 """Alaap and taan phrases for a raga, shaped for the sthayi and the antara.
 
 Sthayi phrases stay in the mandra and madhya saptaks and resolve to madhya Sa.
-Antara phrases rise into the taar saptak and resolve to taar Sa. Alaaps move
-slowly (two slots per beat, with many held notes); taans move fast (four notes
-per beat) and are built from rising and falling runs chained together. Taans
-are 8 or 16 beats long. When a composition is given, its taans land on the
-first note of the sthayi or antara mukhda, so each taan leads back into the
-composition. Every phrase is a walk on the raga's move graph, so it always
-obeys the raga.
+Antara phrases rise into the taar saptak and resolve to taar Sa. Alaaps are
+free and unmetered: seven phrases per section that widen step by step (badhat),
+with brief notes, lingering resting notes, and a long final note. They aren't
+fitted to the taal. Taans move fast (four notes per beat) and are built from
+rising and falling runs chained together; they're 8 or 16 beats long. When a
+composition is given, its taans and its two long alaaps land on the first note
+of the sthayi or antara mukhda, so each leads back into the composition. Every phrase is a walk on the raga's
+move graph, so it always obeys the raga.
 """
 
 from __future__ import annotations
@@ -24,11 +25,18 @@ from raga_composer.intent import Contour, Intention, NoteTarget
 from raga_composer.notation import HOLD, Swara, Token
 from raga_composer.raga import Raga
 
-PhraseKind = Literal["short", "avartan", "long"]
+PhraseKind = Literal["short", "long"]
 
 _RANGES = {"sthayi": (-7, 9), "antara": (4, 19)}
 _ENDS = {"sthayi": 0, "antara": 12}
 _ALAAP_NPB = 2
+# Badhat: each alaap explores a little more of the saptak than the one before.
+# Every stage is (lowest pitch, highest pitch, notes). The last two are longer.
+_ALAAP_STAGES = {
+    "sthayi": [(-5, 4, 4), (-7, 5, 5), (-7, 7, 6), (-5, 9, 7), (-3, 11, 8), (-7, 11, 10), (-7, 12, 12)],
+    "antara": [(4, 12, 4), (5, 14, 5), (7, 14, 6), (7, 16, 7), (9, 17, 8), (7, 19, 10), (4, 19, 12)],
+}
+_SHORT_ALAAPS = 5
 _TAAN_NPB = 4
 _SHORT_TAAN_BEATS = 8
 _LONG_TAAN_BEATS = 16
@@ -71,11 +79,18 @@ def _target(pitch: int) -> NoteTarget:
 
 
 class _Builder:
-    def __init__(self, raga: Raga, section: str, rng: random.Random, end: int | None = None) -> None:
+    def __init__(
+        self,
+        raga: Raga,
+        section: str,
+        rng: random.Random,
+        end: int | None = None,
+        span: tuple[int, int] | None = None,
+    ) -> None:
         self.raga = raga
         self.rng = rng
         self.end = _ENDS[section] if end is None else end
-        lo, hi = _RANGES[section]
+        lo, hi = span or _RANGES[section]
         self.range = (min(lo, self.end), max(hi, self.end))
         self.emphasize = [n for n in (raga.vadi, raga.samvadi) if n is not None]
         self.live = self._live_pitches()
@@ -122,16 +137,23 @@ class _Builder:
             path.extend(segment[1:] if path else segment)
         return path
 
-    def alaap(self, beats: int) -> list[Token] | None:
-        slots = beats * _ALAAP_NPB
-        notes = max(3, round(slots * 0.55))
-        contour = self.rng.choice(
-            [Contour.ASCENDING, Contour.ARCH, Contour.ARCH]
-            if self.end == 12
-            else [Contour.ARCH, Contour.VALLEY, Contour.DESCENDING, Contour.ANY]
-        )
-        path = self.chain(notes, [contour])
-        return _with_holds(path, slots, self.rng) if path else None
+    def alaap(self, notes: int) -> list[Token] | None:
+        """A free alaap of about ``notes`` notes. It isn't fitted to the taal."""
+        sthayi = self.end < _ENDS["antara"]
+        if notes >= 10:
+            contours = [Contour.ASCENDING, Contour.DESCENDING] if sthayi else [Contour.ARCH, Contour.ASCENDING]
+        else:
+            contours = [
+                self.rng.choice(
+                    [Contour.VALLEY, Contour.ARCH, Contour.DESCENDING, Contour.ANY]
+                    if sthayi
+                    else [Contour.ASCENDING, Contour.ARCH, Contour.ARCH]
+                )
+            ]
+        path = self.chain(notes + self.rng.randrange(2), contours)
+        if path is None:
+            return None
+        return _free_holds(path, {0, 7, *self.emphasize}, self.rng)
 
     def taan(self, beats: int) -> list[Token] | None:
         slots = beats * _TAAN_NPB
@@ -149,21 +171,19 @@ class _Builder:
         return [*path, *([HOLD] * (_TAAN_NPB - 1))]
 
 
-def _with_holds(path: list[Swara], slots: int, rng: random.Random) -> list[Token]:
-    extra = slots - len(path)
-    counts = [0] * len(path)
-    last_hold = min(extra, 3)
-    counts[-1] = last_hold
-    extra -= last_hold
-    while extra > 0:
-        i = rng.randrange(len(path))
-        if counts[i] < 3 or i == len(path) - 1:
-            counts[i] += 1
-            extra -= 1
+def _free_holds(path: list[Swara], nyas: set[int], rng: random.Random) -> list[Token]:
+    """Brief notes, lingering resting notes (nyas), and a long final note, padded to whole beats."""
     tokens: list[Token] = []
-    for swara, holds in zip(path, counts, strict=True):
+    for i, swara in enumerate(path):
+        holds = rng.choice([0, 0, 1, 1, 2])
+        if i > 0 and swara.semitone in nyas:
+            holds += rng.choice([1, 2])
+        if i == len(path) - 1:
+            holds = 3 + rng.randrange(3)
         tokens.append(swara)
         tokens.extend([HOLD] * holds)
+    if len(tokens) % _ALAAP_NPB:
+        tokens.extend([HOLD] * (_ALAAP_NPB - len(tokens) % _ALAAP_NPB))
     return tokens
 
 
@@ -175,9 +195,10 @@ def _collect(
     kind: PhraseKind,
     npb: int,
     rng: random.Random,
+    seen: set[tuple[str, ...]] | None = None,
 ) -> list[Phrase]:
     phrases: list[Phrase] = []
-    seen: set[tuple[str, ...]] = set()
+    seen = set() if seen is None else seen
     for _ in range(count * _ATTEMPTS):
         if len(phrases) == count:
             break
@@ -189,10 +210,43 @@ def _collect(
         if key in seen or validate(raga, tokens):
             continue
         seen.add(key)
+        beats = -(-len(key) // npb)
         phrases.append(Phrase(kind=kind, beats=beats, notes_per_beat=npb, tokens=list(key)))
     if len(phrases) < count:
         raise ImprovisationError(f"Couldn't build enough {kind} phrases for {raga.name}.")
     return phrases
+
+
+def _alaaps(raga: Raga, section: str, rng: random.Random, land: int | None) -> list[Phrase]:
+    """Seven free alaaps that widen step by step.
+
+    The short ones rest on the section's Sa; the long ones end on ``land``, the
+    mukhda's first note, when the raga allows it.
+    """
+    seen: set[tuple[str, ...]] = set()
+    items: list[Phrase] = []
+    for i, (lo, hi, notes) in enumerate(_ALAAP_STAGES[section]):
+        kind: PhraseKind = "short" if i < _SHORT_ALAAPS else "long"
+        ends = [land, None] if kind == "long" and land is not None else [None]
+        item = None
+        for end in ends:
+            for span in ((lo, hi), None):
+                builder = _Builder(raga, section, rng, end, span)
+
+                def make(_beats: int, b: _Builder = builder, n: int = notes) -> list[Token] | None:
+                    return b.alaap(n)
+
+                try:
+                    item = _collect(make, raga, [0], 1, kind, _ALAAP_NPB, rng, seen)[0]
+                except ImprovisationError:
+                    continue
+                break
+            if item is not None:
+                break
+        if item is None:
+            raise ImprovisationError(f"Couldn't build enough alaap phrases for {raga.name}.")
+        items.append(item)
+    return items
 
 
 def _taans(raga: Raga, section: str, rng: random.Random, land: int | None) -> list[Phrase]:
@@ -221,22 +275,22 @@ def improvise(
     seed = default_seed(raga) if seed is None else seed
     rng = random.Random(seed)
     land = land or {}
-    short_alaap = [b for b in (4, 6, 8) if b < taal_beats] or [max(2, taal_beats // 2)]
     groups: list[PhraseGroup] = []
     for section, label, where in (
-        ("sthayi", "Sthayi", "in the mandra and madhya saptaks, resolving to Sa"),
-        ("antara", "Antara", "rising into the taar saptak, resolving to taar Sa"),
+        ("sthayi", "Sthayi", "in the mandra and madhya saptaks, resting on Sa"),
+        ("antara", "Antara", "rising into the taar saptak, resting on taar Sa"),
     ):
-        builder = _Builder(raga, section, rng)
+        alaap_items = _alaaps(raga, section, rng, land.get(section))
+        final = next(t for t in reversed(alaap_items[-1].tokens) if t not in ("_", "-"))
+        lead = ""
+        if section in land and Swara.parse(final).pitch == land[section]:
+            lead = f" The long ones end on {final}, the first note of the {section} mukhda."
         groups.append(
             PhraseGroup(
                 key=f"{section}-alaap",
                 title=f"{label} alaap",
-                description=f"Slow phrases with held notes, {where}.",
-                items=[
-                    *_collect(builder.alaap, raga, short_alaap, 5, "short", _ALAAP_NPB, rng),
-                    *_collect(builder.alaap, raga, [taal_beats], 2, "avartan", _ALAAP_NPB, rng),
-                ],
+                description=f"Free, unmetered phrases with held notes that widen step by step, {where}.{lead}",
+                items=alaap_items,
             )
         )
     for section, label, where, home in (

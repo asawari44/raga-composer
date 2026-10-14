@@ -70,7 +70,7 @@ const GLOSSARY = {
   sam: "Beat 1 of the taal cycle, marked X, where phrases resolve.",
   khali: "The unstressed, wave-of-the-hand division of the taal, marked 0.",
   tali: "A clapped division of the taal, marked with its number.",
-  alaap: "A slow, unmetered exploration of the raga's swaras. Here, each alaap is fitted to the taal so it returns to the mukhda.",
+  alaap: "A slow, unmetered exploration of the raga's swaras. Each alaap widens a little, and in Perform its last note is held until the mukhda comes round.",
   taan: "A fast run of swaras that follows the raga. Here, each taan is 8 or 16 beats and ends on the mukhda.",
   palta: "A practice pattern that repeats a figure on each step of the scale.",
   avartan: "One full cycle of the taal.",
@@ -781,7 +781,7 @@ function renderRagaInfo() {
           ? `${comps.length} composition${comps.length === 1 ? "" : "s"} with notation and words${taranas ? `, including ${taranas} tarana${taranas === 1 ? "" : "s"}` : ""}. Play a line at a time, or perform one with alaap and taan on the tabla.`
           : `No compositions with notation are recorded for ${r.name} yet.`),
       nextStep("improv", "Practice alaap and taan",
-        "Listen to short and full-cycle alaaps and 8- and 16-beat taans for the sthayi and antara, then sing them back."),
+        "Listen to free alaaps that widen step by step and 8- and 16-beat taans for the sthayi and antara, then sing them back."),
       nextStep("compose", "Compose your own line",
         "Pick a direction, a start note, and an end note. Swaramala generates options that follow the raga."),
       nextStep("library", "Open your library", "Your saved lines and recordings.")),
@@ -792,7 +792,7 @@ function renderRagaInfo() {
 }
 
 // Alaap and taan -------------------------------------------------------------------
-const PHRASE_LABELS = { short: "Short", avartan: "Full avartan", long: "Long" };
+const PHRASE_LABELS = { short: "Short", long: "Long" };
 
 async function loadImprovisations(seed = state.improvSeed) {
   const box = $("#improv");
@@ -828,20 +828,31 @@ function renderImprovisations() {
     const step = g === IMPROV_GROUPS.sthayiAlaap || g === IMPROV_GROUPS.antaraAlaap ? "alaap" : "taan";
     const col = el("div", { class: "improv-group" },
       el("h3", {}, group.title),
-      el("p", { class: "hint" }, group.description));
+      el("p", { class: "hint" }, proseNotes(group.description)));
     const cards = [];
     group.items.forEach((item, i) => {
       const id = `ip-${g}-${i}`;
       const tokens = tokensFromStrings(item.tokens);
       const npb = item.notes_per_beat;
       const beats = el("div", { class: "improv-beats mono" });
-      for (let b = 0; b < item.beats; b++) {
-        const text = item.tokens.slice(b * npb, (b + 1) * npb).join(" ");
-        beats.append(el("span", { id: `${id}-${b}`, class: b % (data.taal_beats) === 0 ? "sam" : "" }, ...notationNodes(text)));
+      let cellFor = (k) => Math.floor(k / npb);
+      if (step === "alaap") {
+        // Free alaap: one box per note and its holds, with no beat grid.
+        const owner = [];
+        item.tokens.forEach((t, k) => {
+          if (t !== "_" || !owner.length) beats.append(el("span", { id: `${id}-${beats.childElementCount}` }));
+          owner.push(beats.childElementCount - 1);
+          beats.lastChild.append(...notationNodes(`${t} `));
+        });
+        cellFor = (k) => owner[k];
+      } else {
+        for (let b = 0; b < item.beats; b++) {
+          const text = item.tokens.slice(b * npb, (b + 1) * npb).join(" ");
+          beats.append(el("span", { id: `${id}-${b}`, class: b % (data.taal_beats) === 0 ? "sam" : "" }, ...notationNodes(text)));
+        }
       }
-      const label = `${PHRASE_LABELS[item.kind]} · ${item.beats} beats`;
+      const label = step === "alaap" ? PHRASE_LABELS[item.kind] : `${PHRASE_LABELS[item.kind]} · ${item.beats} beats`;
       const name = `${group.title} ${i + 1}`;
-      const cellFor = (k) => Math.floor(k / npb);
       // Only alaap cards lead on to the next phrase.
       const next = step === "alaap" ? el("button", { type: "button", class: "small", hidden: "" }, "Next phrase →") : null;
       const card = el("div", { class: "improv-item" });
@@ -1063,10 +1074,10 @@ function buildPerformance(comp, index, improv, taalBeats, { returnLength = "half
   };
   const returnBeats = returnLength === "half" ? Math.ceil(T / 2) : T;
   const lineName = returnLength === "half" ? "half-line from the mukhda" : "line from the mukhda";
-  // Alaap: the phrase ends where the mukhda starts, so any gap comes before it.
+  // Alaap is free: it starts right away, and its last note is held until the mukhda.
   const alaapRounds = (g, section) => improv.groups[g].items.forEach((item, i) => {
-    restUntil(section.at - item.beats);
     put(improvBeats(g, i), `${improv.groups[g].title} ${i + 1} of ${improv.groups[g].items.length}`);
+    for (let n = ((section.at - pos()) % T + T) % T; n > 0; n--) timeline.push({ tokens: tokensFromStrings(["_"]), id: null });
     put(section.from(returnBeats), `${section.name} ${lineName}`);
   });
   // Taan: sing from the mukhda through sam, run the taan, and land on the mukhda.

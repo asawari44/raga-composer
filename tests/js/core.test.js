@@ -122,8 +122,8 @@ describe("generation properties", () => {
 describe("improvisation properties", () => {
   it("builds valid seeded improvisation groups for every raga and taal", () => {
     const expected = {
-      "sthayi-alaap": { short: 5, avartan: 2 },
-      "antara-alaap": { short: 5, avartan: 2 },
+      "sthayi-alaap": { short: 5, long: 2 },
+      "antara-alaap": { short: 5, long: 2 },
       "sthayi-taan": { short: 5, long: 2 },
       "antara-taan": { short: 5, long: 2 },
     };
@@ -142,7 +142,6 @@ describe("improvisation properties", () => {
             assertNoViolations(raga.name, item.tokens);
             const lastNote = item.tokens.filter((token) => token !== "_" && token !== "-").at(-1);
             assert.equal(lastNote, group.key.startsWith("sthayi") ? "S" : "S'");
-            if (item.kind === "avartan") assert.equal(item.beats, taal.beats);
             if (group.key.endsWith("taan")) assert.equal(item.beats, item.kind === "short" ? 8 : 16);
           }
           assert.deepEqual(counts, expected[group.key]);
@@ -189,6 +188,35 @@ describe("composition taans", () => {
       }
     }
     assert.ok(hits / total > 0.9, `${hits} of ${total} taan groups land on the mukhda`);
+  });
+
+  it("builds free alaaps whose long phrases lead into each composition's mukhda", async () => {
+    const fixtures = await readJson("tests/js/fixtures/mukhdas.json");
+    let hits = 0;
+    let total = 0;
+    for (const fixture of fixtures) {
+      const response = improvisations(fixture.raga, { taal: "Teentaal", composition: fixture.title });
+      const other = improvisations(fixture.raga, { taal: "Rupak", composition: fixture.title });
+      assert.deepEqual(response.groups.slice(0, 2), other.groups.slice(0, 2), "alaaps don't depend on the taal");
+      for (const group of response.groups.filter((g) => g.key.endsWith("alaap"))) {
+        const section = group.key.split("-")[0];
+        const home = section === "sthayi" ? 0 : 12;
+        for (const item of group.items) {
+          assertNoViolations(fixture.raga, item.tokens);
+          assert.equal(item.tokens.length % item.notes_per_beat, 0);
+          const last = notes(item.tokens).at(-1).pitch;
+          if (item.kind === "short") assert.equal(last, home);
+          else {
+            assert.ok([fixture.pitches[section] ?? home, home].includes(last));
+            if (section in fixture.pitches) {
+              total += 1;
+              hits += last === fixture.pitches[section];
+            }
+          }
+        }
+      }
+    }
+    assert.ok(hits / total > 0.9, `${hits} of ${total} long alaaps land on the mukhda`);
     assert.throws(() => improvisations("Yaman", { composition: "Nope" }), /Unknown composition/);
   });
 });

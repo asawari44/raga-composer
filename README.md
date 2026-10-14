@@ -126,14 +126,15 @@ type, so the map follows the printed letters on QWERTZ and AZERTY keyboards.
   shows next to the button, and the beats highlight in both the composition and
   the **Alaap and taan** panel. If the tabla is off, the performance starts it
   and stops it at the end.
-- **Alaap and taan**: for each raga, in the taal selected for the tabla, the
-  app generates 5 short and 2 full-avartan alaaps for the sthayi and for the
-  antara, and 5 short (8-beat) and 2 long (16-beat) taans for each. Sthayi phrases stay
-  in the mandra and madhya saptaks and resolve to Sa; antara phrases rise into
-  the taar saptak and resolve to taar Sa. Alaaps move at two slots per beat
-  with held notes; taans move at four notes per beat and end on a held Sa. In
-  **Perform**, taans end on the first note of the composition's mukhda
-  instead, when the raga allows it.
+- **Alaap and taan**: for each raga, the app generates 7 free alaaps for the
+  sthayi and 7 for the antara. Alaaps aren't fitted to the taal: each one
+  widens the range a little (badhat), lingers on resting notes, and ends on a
+  long note. It also generates 5 short (8-beat) and 2 long (16-beat) taans for
+  each section in the taal selected for the tabla. Sthayi phrases stay in the
+  mandra and madhya saptaks and resolve to Sa; antara phrases rise into the
+  taar saptak and resolve to taar Sa. In **Perform**, the two long alaaps and
+  the taans end on the first note of the composition's mukhda instead, when
+  the raga allows it, and each alaap's last note is held until the mukhda.
   Every phrase is a walk on the raga's move graph, so it obeys the raga.
   The same raga and taal give the same phrases; **Regenerate** draws a new set.
 - **Browser library**: **My library** stores saved lines and recordings in the

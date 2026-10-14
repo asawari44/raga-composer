@@ -7,15 +7,15 @@ from raga_composer.api import create_app
 from raga_composer.compositions import Composition, CompositionLibrary
 from raga_composer.generator import validate
 from raga_composer.improvise import improvise
-from raga_composer.notation import tokenize
+from raga_composer.notation import Swara, tokenize
 from raga_composer.raga import RagaRegistry
 from raga_composer.taal import TAALS
 
 REGISTRY = RagaRegistry.with_builtins()
 UNREACHABLE_MUKHDAS: set[str] = set()
 EXPECTED = {
-    "sthayi-alaap": {"short": 5, "avartan": 2},
-    "antara-alaap": {"short": 5, "avartan": 2},
+    "sthayi-alaap": {"short": 5, "long": 2},
+    "antara-alaap": {"short": 5, "long": 2},
     "sthayi-taan": {"short": 5, "long": 2},
     "antara-taan": {"short": 5, "long": 2},
 }
@@ -34,8 +34,6 @@ def test_every_raga_gets_valid_alaap_and_taan(raga) -> None:  # type: ignore[no-
             assert len(item.tokens) == item.beats * item.notes_per_beat
             last_note = [t for t in item.tokens if t not in ("_", "-")][-1]
             assert last_note == ("S" if group.key.startswith("sthayi") else "S'")
-            if item.kind == "avartan":
-                assert item.beats == 16
             if group.key.endswith("taan"):
                 assert item.beats == (8 if item.kind == "short" else 16)
         assert counts == EXPECTED[group.key]
@@ -48,8 +46,6 @@ def test_other_taals(name: str, taal) -> None:  # type: ignore[no-untyped-def]
     raga = REGISTRY.get(name)
     assert raga is not None
     result = improvise(raga, taal.name, taal.beats)
-    full = [i for g in result.groups for i in g.items if i.kind == "avartan"]
-    assert all(i.beats == taal.beats for i in full)
     taans = [i for g in result.groups if g.key.endswith("taan") for i in g.items]
     assert {i.beats for i in taans} == {8, 16}
 
@@ -94,6 +90,47 @@ def test_most_taans_land_on_the_mukhda() -> None:
             total += 1
             last = [t for t in group.items[0].tokens if t not in ("_", "-")][-1]
             hits += tokenize(last)[0].pitch == land[section]
+    assert hits / total > 0.9
+
+
+def test_alaaps_are_free_and_widen_step_by_step() -> None:
+    raga = REGISTRY.get("Yaman")
+    assert raga is not None
+    in_teentaal = improvise(raga, "Teentaal", 16).groups[:2]
+    in_rupak = improvise(raga, "Rupak", 7).groups[:2]
+    # Alaaps don't depend on the taal.
+    assert [g.items for g in in_teentaal] == [g.items for g in in_rupak]
+    for group in in_teentaal:
+        spans = [
+            max(n.pitch for n in tokenize(" ".join(i.tokens)) if isinstance(n, Swara))
+            - min(n.pitch for n in tokenize(" ".join(i.tokens)) if isinstance(n, Swara))
+            for i in group.items
+        ]
+        assert spans[-1] > spans[0]
+        assert len(group.items[-1].tokens) > len(group.items[0].tokens)
+        assert all(len(i.tokens) % i.notes_per_beat == 0 for i in group.items)
+
+
+def test_long_alaaps_lead_into_the_mukhda() -> None:
+    hits = total = 0
+    for comp in COMPOSITIONS:
+        raga = REGISTRY.get(comp.raga)
+        assert raga is not None
+        land = comp.mukhda_pitches()
+        result = improvise(raga, comp.taal, 16, land=land)
+        for group in result.groups[:2]:
+            section = group.key.split("-")[0]
+            home = 0 if section == "sthayi" else 12
+            for item in group.items:
+                assert not validate(raga, tokenize(" ".join(item.tokens)))
+                last = tokenize([t for t in item.tokens if t not in ("_", "-")][-1])[0].pitch
+                if item.kind == "short":
+                    assert last == home
+                else:
+                    assert last in (land.get(section, home), home)
+                    if section in land:
+                        total += 1
+                        hits += last == land[section]
     assert hits / total > 0.9
 
 
