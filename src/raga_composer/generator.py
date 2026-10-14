@@ -13,6 +13,7 @@ from __future__ import annotations
 import math
 import random
 from collections.abc import Sequence
+from dataclasses import dataclass
 
 from pydantic import BaseModel
 
@@ -39,6 +40,13 @@ class GeneratedPattern(BaseModel):
     notes_per_beat: int
     score: float
     explanation: list[str]
+
+
+@dataclass(frozen=True)
+class Arrangement:
+    tokens: list[Token]
+    violations: list[Violation]
+    notes_per_beat: int
 
 
 class GenerationError(ValueError):
@@ -337,3 +345,26 @@ def arrange_palta(raga: Raga, motif: list[Swara], top: int = 12) -> list[Swara]:
     if result[-1] != motif[0] and raga.move(result[-1], motif[0]):
         result.append(motif[0])
     return result
+
+
+def arrange_sequence(
+    raga: Raga,
+    tokens: Sequence[Token],
+    mode: str,
+    notes_per_beat: int,
+    motif_length: int,
+) -> Arrangement:
+    swaras = [token for token in tokens if isinstance(token, Swara)]
+    npb = notes_per_beat
+    if mode == "taan":
+        result: list[Token] = list(swaras)
+    elif mode == "palta":
+        result = list(arrange_palta(raga, swaras[:motif_length]))
+    elif mode == "sustain":
+        result = [item for swara in swaras for item in (swara, HOLD)]
+        npb = max(1, npb)
+    else:  # compact: drop holds and rests, keep layout
+        result = [token for token in tokens if token not in (HOLD, REST)]
+    if mode in ("taan", "palta") and len(result) % npb:
+        result += [HOLD] * (npb - len(result) % npb)
+    return Arrangement(tokens=result, violations=validate(raga, result), notes_per_beat=npb)

@@ -6,7 +6,7 @@ from typing import Any
 
 from raga_composer.api import TONICS
 from raga_composer.compositions import CompositionLibrary
-from raga_composer.generator import arrange_palta, validate
+from raga_composer.generator import arrange_sequence, validate
 from raga_composer.intent import parse_intention
 from raga_composer.notation import NotationError, Swara, tokenize
 from raga_composer.raga import RagaRegistry
@@ -82,19 +82,8 @@ def main() -> None:
         raga = registry.get("Yaman")
         assert raga is not None
         raw = "N. R _ G M"
-        parsed = tokenize(raw)
-        swaras = [token for token in parsed if isinstance(token, Swara)]
         notes_per_beat = 4
-        if mode == "taan":
-            result = list(swaras)
-        elif mode == "palta":
-            result = list(arrange_palta(raga, swaras[:3]))
-        elif mode == "sustain":
-            result = [item for swara in swaras for item in (swara, "_")]
-        else:
-            result = [token for token in parsed if token not in ("_", "-")]
-        if mode in ("taan", "palta") and len(result) % notes_per_beat:
-            result += ["_"] * (notes_per_beat - len(result) % notes_per_beat)
+        result = arrange_sequence(raga, tokenize(raw), mode, notes_per_beat, 3)
         arrange_cases.append(
             {
                 "request": {
@@ -105,9 +94,9 @@ def main() -> None:
                     "motif_length": 3,
                 },
                 "response": {
-                    "tokens": [str(token) for token in result],
-                    "violations": model(validate(raga, result)),
-                    "notes_per_beat": notes_per_beat,
+                    "tokens": [str(token) for token in result.tokens],
+                    "violations": model(result.violations),
+                    "notes_per_beat": result.notes_per_beat,
                 },
             }
         )

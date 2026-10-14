@@ -19,7 +19,7 @@ from fastapi import (
     Response,
     UploadFile,
 )
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from starlette.middleware.base import BaseHTTPMiddleware, RequestResponseEndpoint
@@ -31,12 +31,12 @@ from raga_composer.generator import (
     GenerationError,
     Generator,
     Violation,
-    arrange_palta,
+    arrange_sequence,
     validate,
 )
 from raga_composer.improvise import ImprovisationError, Improvisations, improvise
 from raga_composer.intent import Intention, parse_intention
-from raga_composer.notation import HOLD, REST, NotationError, Swara, Token, tokenize
+from raga_composer.notation import NotationError, Swara, Token, tokenize
 from raga_composer.raga import Raga, RagaDefinition, RagaRegistry
 from raga_composer.storage import LocalBlobStore, Repository
 from raga_composer.taal import TAALS, Taal
@@ -409,26 +409,11 @@ def create_app(data_dir: Path | None = None) -> FastAPI:
     @app.post("/api/arrange")
     def arrange(req: ArrangeRequest, user: OptionalUser) -> ArrangeResponse:
         raga = find_raga(req.raga, user)
-        tokens = _tokens(req.tokens)
-        swaras = [t for t in tokens if isinstance(t, Swara)]
-        result: list[Token]
-        npb = req.notes_per_beat
-        if req.mode == "taan":
-            result = list(swaras)
-        elif req.mode == "palta":
-            result = list(arrange_palta(raga, swaras[: req.motif_length]))
-        elif req.mode == "sustain":
-            # Each note held for one extra slot: S _ R _ G _
-            result = [x for s in swaras for x in (s, HOLD)]
-            npb = max(1, npb)
-        else:  # compact: drop holds and rests, keep layout
-            result = [t for t in tokens if t not in (HOLD, REST)]
-        if req.mode in ("taan", "palta") and len(result) % npb:
-            result += [HOLD] * (npb - len(result) % npb)
+        result = arrange_sequence(raga, _tokens(req.tokens), req.mode, req.notes_per_beat, req.motif_length)
         return ArrangeResponse(
-            tokens=[str(t) for t in result],
-            violations=validate(raga, result),
-            notes_per_beat=npb,
+            tokens=[str(t) for t in result.tokens],
+            violations=result.violations,
+            notes_per_beat=result.notes_per_beat,
         )
 
     # Saved lines ------------------------------------------------------------
@@ -524,11 +509,7 @@ def create_app(data_dir: Path | None = None) -> FastAPI:
     def healthz() -> dict[str, str]:
         return {"status": "ok"}
 
-    @app.get("/", include_in_schema=False)
-    def index(request: Request) -> FileResponse:
-        return FileResponse(STATIC_DIR / "index.html")
-
-    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+    app.mount("/", StaticFiles(directory=STATIC_DIR, html=True), name="static")
     return app
 
 

@@ -109,6 +109,7 @@ const state = {
   pendingRecording: null,
   recordingPreviewUrl: null,
   ragaRequestId: 0,
+  validationVersion: 0,
   history: [],
   future: [],
   loop: null,
@@ -816,11 +817,12 @@ async function loadImprovisations(seed = state.improvSeed) {
   $("#improv-taal").textContent = `${taal}, ${state.taal?.beats ?? 16} beats`;
   try {
     const data = await api(`/api/ragas/${encodeURIComponent(raga)}/improvisations?${params}`);
-    if (state.raga?.name !== raga) return;
+    if (state.raga?.name !== raga || (state.taal?.name || "Teentaal") !== taal) return;
     state.improv = data;
     state.improvSeed = data.seed;
     renderImprovisations();
   } catch (err) {
+    if (state.raga?.name !== raga || (state.taal?.name || "Teentaal") !== taal) return;
     box.innerHTML = "";
     box.append(el("p", { class: "error" }, err.message),
       el("button", { type: "button", onclick: () => loadImprovisations(Math.floor(Math.random() * 2 ** 31)) }, "Try another set"));
@@ -1589,17 +1591,24 @@ function renderEditor() {
 
 let validateTimer;
 function lineChanged() {
+  const version = state.validationVersion + 1;
+  state.validationVersion = version;
   renderEditor();
   clearTimeout(validateTimer);
-  validateTimer = setTimeout(validateLine, 200);
+  validateTimer = setTimeout(() => validateLine(version), 200);
 }
 
-async function validateLine() {
+async function validateLine(version = state.validationVersion + 1) {
+  state.validationVersion = version;
   if (!state.raga || !state.line.length) { state.violations = []; renderEditor(); return; }
+  const raga = state.raga.name;
+  const tokens = lineText(state.line);
   try {
-    const res = await api("/api/validate", { json: { raga: state.raga.name, tokens: lineText(state.line) } });
+    const res = await api("/api/validate", { json: { raga, tokens } });
+    if (state.validationVersion !== version || state.raga?.name !== raga || lineText(state.line) !== tokens) return;
     state.violations = res.violations;
   } catch (err) {
+    if (state.validationVersion !== version || state.raga?.name !== raga || lineText(state.line) !== tokens) return;
     state.violations = [{ index: -1, message: err.message }];
   }
   renderEditor();
@@ -1634,6 +1643,7 @@ function handleEditorInput(e) {
     lineChanged();
   } catch (err) {
     clearTimeout(validateTimer);
+    state.validationVersion += 1;
     state.selected = -1;
     state.violations = [{ index: -1, message: err.message }];
     renderEditor();

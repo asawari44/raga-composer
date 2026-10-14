@@ -140,4 +140,4 @@ def test_migrates_version_zero_sessions(tmp_path: Path) -> None:
 
 def test_page_and_scripts_are_revalidated(client: TestClient) -> None:
     assert client.get("/").headers["cache-control"] == "no-cache"
-    assert client.get("/static/js/app.js").headers["cache-control"] == "no-cache"
+    assert client.get("/js/app.js").headers["cache-control"] == "no-cache"
