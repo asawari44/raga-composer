@@ -172,10 +172,6 @@ class Raga:
     def successors(self, a: Swara) -> dict[Swara, MoveKind]:
         return self.edges.get(a, {})
 
-    def nearest_swara(self, semitone: int, octave: int) -> Swara | None:
-        candidate = Swara(octave * 12 + semitone)
-        return candidate if candidate in self.edges else None
-
 
 _PRIORITY = {
     MoveKind.REPEAT: 0,

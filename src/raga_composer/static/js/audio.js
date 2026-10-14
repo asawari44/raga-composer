@@ -243,6 +243,8 @@ class Tabla {
     this.theka = [];
     this.beat = 0;
     this.onBeat = null;
+    this.beatTimers = new Set();
+    this.runToken = 0;
   }
 
   // Dayan (right drum) is tuned to Sa one octave above the tonic.
@@ -338,6 +340,8 @@ class Tabla {
   start() {
     if (this.running || !this.theka.length) return;
     this.running = true;
+    this.runToken += 1;
+    const runToken = this.runToken;
     const ctx = this.engine.ensure();
     this.nextBeatTime = ctx.currentTime + 0.1;
     this.startTime = this.nextBeatTime;
@@ -354,7 +358,11 @@ class Tabla {
         if (this.onBeat) {
           const beatIndex = this.beat % this.theka.length;
           const ms = (this.nextBeatTime - ctx.currentTime) * 1000;
-          setTimeout(() => this.onBeat(beatIndex), Math.max(0, ms));
+          const timer = setTimeout(() => {
+            this.beatTimers.delete(timer);
+            if (this.running && this.runToken === runToken) this.onBeat(beatIndex);
+          }, Math.max(0, ms));
+          this.beatTimers.add(timer);
         }
         this.beat++;
         this.nextBeatTime += beatDur;
@@ -366,7 +374,10 @@ class Tabla {
 
   stop() {
     this.running = false;
+    this.runToken += 1;
     clearInterval(this.timer);
+    this.beatTimers.forEach((timer) => clearTimeout(timer));
+    this.beatTimers.clear();
     if (this.onBeat) this.onBeat(-1);
   }
 }

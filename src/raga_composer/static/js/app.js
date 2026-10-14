@@ -1,4 +1,5 @@
 import { AudioEngine, SessionRecorder, TONICS } from "./audio.js";
+import { tokenize as coreTokenize } from "./core/notation.js";
 import { DEFAULT_INSTRUMENT, INSTRUMENTS } from "./instruments.js";
 import { api, exportLibrary, importLibraryFile } from "./local-api.js";
 
@@ -106,6 +107,8 @@ const state = {
   improv: null,
   improvSeed: null,
   pendingRecording: null,
+  recordingPreviewUrl: null,
+  ragaRequestId: 0,
   history: [],
   future: [],
   loop: null,
@@ -116,14 +119,12 @@ const state = {
 const TOKEN_RE = /ni|[SrRgGmMPpdDnN](?:'+|\.+)?|_|-/g;
 
 function parseToken(raw) {
-  if (raw === "_") return { text: "_", hold: true };
-  if (raw === "-") return { text: "-", rest: true };
-  const m = raw.match(/^(ni|[SrRgGmMPpdDnN])('+|\.+)?$/);
-  if (!m) return null;
-  const base = { p: "P", ni: "n" }[m[1]] ?? m[1];
-  const marks = m[2] || "";
-  const octave = marks.startsWith("'") ? marks.length : -marks.length;
-  return { text: swaraText(octave * 12 + SWARAS.indexOf(base)), pitch: octave * 12 + SWARAS.indexOf(base) };
+  try {
+    const tokens = coreTokenize(raw);
+    return tokens.length === 1 ? appToken(tokens[0]) : null;
+  } catch {
+    return null;
+  }
 }
 
 function swaraText(pitch) {
@@ -133,7 +134,13 @@ function swaraText(pitch) {
 }
 
 function tokenize(text) {
-  return (text.match(TOKEN_RE) || []).map(parseToken).filter(Boolean);
+  return coreTokenize(text).map(appToken);
+}
+
+function appToken(token) {
+  if (token === "_") return { text: "_", hold: true };
+  if (token === "-") return { text: "-", rest: true };
+  return { text: token.toString(), pitch: token.pitch };
 }
 
 // Display script for swaras. Typing always uses the Latin letters; only the
@@ -636,8 +643,11 @@ function openRagaDialog() {
 }
 
 async function setRaga(name) {
+  const requestId = state.ragaRequestId + 1;
+  state.ragaRequestId = requestId;
   try {
     const raga = await api(`/api/ragas/${encodeURIComponent(name)}`);
+    if (requestId !== state.ragaRequestId) return false;
     raga.semitones = [...new Set(tokenize([raga.aaroh, raga.avroh, ...raga.pakad, ...raga.patterns].join(" "))
       .filter((t) => t.pitch !== undefined).map((t) => ((t.pitch % 12) + 12) % 12))];
     state.raga = raga;
@@ -652,9 +662,10 @@ async function setRaga(name) {
     renderPiano();
     renderKeyMap();
     validateLine();
-    loadSavedLines();
+    loadSavedLines(raga.name);
     return true;
   } catch (err) {
+    if (requestId !== state.ragaRequestId) return false;
     toast(err.message);
     showTab("overview");
     $("#raga-info").innerHTML = "";
@@ -915,13 +926,6 @@ function expandBeats(lines) {
 
 function compositionLines(comp, sectionIndex = null) {
   return comp.sections.flatMap((s, i) => (sectionIndex === null || i === sectionIndex ? s.lines : []));
-}
-
-function togglePlay(button, tokens, npb, idPrefix, cellFor) {
-  if (button.dataset.stop) return stopPlayback();
-  playTokens(tokens, npb, idPrefix, { cellFor, onEnd: stopPlayback });
-  button.dataset.stop = button.textContent;
-  button.textContent = "■";
 }
 
 // Matches the composition's taal to one with a tabla theka, falling back to a taal
@@ -1573,7 +1577,7 @@ function renderEditor() {
   $("#save-line").textContent = state.violations.length ? "Save with warnings" : "Save line";
   const vbox = $("#violations");
   vbox.innerHTML = "";
-  if (!state.line.length) return;
+  if (!state.line.length && !state.violations.length) return;
   if (!state.violations.length) {
     vbox.className = "violations ok";
     vbox.textContent = state.raga ? `This line follows ${state.raga.name}.` : "";
@@ -1621,6 +1625,19 @@ function editOp(op) {
     state.selected = i + 1;
   }
   lineChanged();
+}
+
+function handleEditorInput(e) {
+  try {
+    state.line = tokenize(e.target.value);
+    state.selected = -1;
+    lineChanged();
+  } catch (err) {
+    clearTimeout(validateTimer);
+    state.selected = -1;
+    state.violations = [{ index: -1, message: err.message }];
+    renderEditor();
+  }
 }
 
 function clearLine() {
@@ -1712,18 +1729,19 @@ async function saveLine(tokens = state.line, npb = state.npb, title = "") {
   }
 }
 
-async function loadSavedLines() {
+async function loadSavedLines(ragaName = state.raga?.name) {
   const box = $("#saved-lines");
-  if (!state.raga) { box.className = "muted"; box.textContent = "Choose a raga to see saved lines."; return; }
-  const lines = await api(`/api/lines?raga=${encodeURIComponent(state.raga.name)}`);
+  if (!ragaName) { box.className = "muted"; box.textContent = "Choose a raga to see saved lines."; return; }
+  const lines = await api(`/api/lines?raga=${encodeURIComponent(ragaName)}`);
+  if (state.raga?.name !== ragaName) return;
   box.className = "";
   box.innerHTML = "";
-  $("#saved-title").textContent = `Saved lines in ${state.raga.name}`;
+  $("#saved-title").textContent = `Saved lines in ${ragaName}`;
   if (!lines.length) {
     box.append(el("div", { class: "empty-state" },
-      el("strong", {}, `No saved lines in ${state.raga.name} yet.`),
+      el("strong", {}, `No saved lines in ${ragaName} yet.`),
       el("span", {}, "Compose a phrase, then click Save line. Lines are stored in this browser."),
-      el("button", { type: "button", onclick: () => showTab("compose") }, `Compose in ${state.raga.name}`)));
+      el("button", { type: "button", onclick: () => showTab("compose") }, `Compose in ${ragaName}`)));
   }
   lines.forEach((line, n) => {
     const tokens = tokensFromStrings(line.tokens);
@@ -1772,6 +1790,12 @@ async function loadRecordings() {
 }
 
 let recordTimer;
+function revokeRecordingPreview() {
+  if (state.recordingPreviewUrl) URL.revokeObjectURL(state.recordingPreviewUrl);
+  state.recordingPreviewUrl = null;
+  $("#recording-preview").removeAttribute("src");
+}
+
 async function toggleRecord() {
   const btn = $("#record");
   if (recorder.recording) {
@@ -1802,7 +1826,9 @@ async function toggleRecord() {
 function openSaveRecording(result) {
   state.pendingRecording = result;
   const dlg = $("#save-recording-dialog");
-  $("#recording-preview").src = URL.createObjectURL(result.blob);
+  revokeRecordingPreview();
+  state.recordingPreviewUrl = URL.createObjectURL(result.blob);
+  $("#recording-preview").src = state.recordingPreviewUrl;
   const form = $("#save-recording-form");
   form.title.value = `${state.raga?.name || "Practice"} – ${new Date().toLocaleString()}`;
   $("#save-recording-note").textContent = "Saves in this browser. Export your library to back up recordings.";
@@ -1813,9 +1839,13 @@ async function handleSaveRecording(action) {
   const result = state.pendingRecording;
   const form = $("#save-recording-form");
   if (!result) return;
+  revokeRecordingPreview();
   if (action === "download") {
-    const a = el("a", { href: URL.createObjectURL(result.blob), download: `${form.title.value || "recording"}.${result.type.split("/")[1].split(";")[0]}` });
+    const url = URL.createObjectURL(result.blob);
+    const a = el("a", { href: url, download: `${form.title.value || "recording"}.${result.type.split("/")[1].split(";")[0]}` });
     a.click();
+    setTimeout(() => URL.revokeObjectURL(url), 60_000);
+    state.pendingRecording = null;
     return;
   }
   if (action !== "save") { state.pendingRecording = null; return; }
@@ -2147,7 +2177,7 @@ async function init() {
   document.querySelectorAll("[data-op]").forEach((b) => b.addEventListener("click", () => editOp(b.dataset.op)));
   document.querySelectorAll("[data-arrange]").forEach((b) => b.addEventListener("click", () => arrange(b.dataset.arrange)));
   $("#editor-text").addEventListener("focus", remember);
-  $("#editor-text").addEventListener("input", (e) => { state.line = tokenize(e.target.value); state.selected = -1; lineChanged(); });
+  $("#editor-text").addEventListener("input", handleEditorInput);
   $("#editor-npb").addEventListener("change", (e) => { remember(); state.npb = +e.target.value; renderEditor(); });
   $("#editor-play").addEventListener("click", () => playTokens(state.line, state.npb, "ed"));
   $("#editor-undo").addEventListener("click", undo);

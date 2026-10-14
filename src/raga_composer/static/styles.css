@@ -69,8 +69,6 @@ button, .button {
 button:hover, .button:hover { border-color: var(--color-saffron); background: var(--color-surface-warm); }
 button.primary, .button.primary { background: var(--color-brand); color: #fff; border-color: var(--color-brand); font-weight: 600; }
 button.primary:hover { background: var(--color-brand-strong); }
-button.ghost { background: transparent; border-color: transparent; }
-button.ghost:hover { border-color: var(--color-line-strong); }
 button.small { min-height: 1.75rem; padding: .15rem .55rem; font-size: var(--text-sm); }
 button:disabled, button:disabled:hover { opacity: .5; cursor: default; background: var(--color-surface-raised); border-color: var(--color-line-strong); }
 button.primary:disabled { background: var(--color-brand); }

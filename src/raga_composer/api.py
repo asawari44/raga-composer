@@ -52,7 +52,7 @@ SECURITY_HEADERS = {
     "Referrer-Policy": "same-origin",
     "Permissions-Policy": "camera=(), geolocation=(), microphone=(self)",
     "Content-Security-Policy": (
-        "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;"
+        "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:;"
         " media-src 'self' blob:; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
     ),
 }

@@ -72,8 +72,11 @@ function desiredDirection(contour, position) {
   return 0;
 }
 
-function roundHalfUp(value) {
-  return Math.floor(value + 0.5);
+function roundTiesToEven(value) {
+  const floor = Math.floor(value);
+  const fraction = value - floor;
+  if (fraction !== 0.5) return Math.round(value);
+  return floor % 2 === 0 ? floor : floor + 1;
 }
 
 export class Generator {
@@ -92,7 +95,7 @@ export class Generator {
 
   noteCount() {
     const slots = this.totalSlots;
-    const holds = roundHalfUp(slots * this.intent.hold_ratio);
+    const holds = roundTiesToEven(slots * this.intent.hold_ratio);
     return slots >= 2 ? Math.max(2, slots - holds) : 1;
   }
 
