@@ -402,7 +402,7 @@
           "composer": "Traditional",
           "first_matra": 1,
           "laya": "Madhya",
-          "notes": "Transcribed from Vishwamohini script. Brace-marked kan swaras are omitted; Vishwamohini holds are converted to Swaramala holds. Source names the raga as Bhoop.",
+          "notes": "Transcribed from Vishwamohini script. Brace-marked kan swaras are omitted; Vishwamohini holds are converted to this app's holds. Source names the raga as Bhoop.",
           "raga": "Bhupali",
           "sections": [
             {
@@ -702,7 +702,7 @@
           "composer": "Traditional",
           "first_matra": 1,
           "laya": "",
-          "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+          "notes": "Transcribed from Vishwamohini script; source holds converted to this app's holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
           "raga": "Bhupali",
           "sections": [
             {
@@ -901,7 +901,7 @@
           "composer": "Traditional",
           "first_matra": 1,
           "laya": "",
-          "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+          "notes": "Transcribed from Vishwamohini script; source holds converted to this app's holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
           "raga": "Bhupali",
           "sections": [
             {
@@ -1873,7 +1873,7 @@
           "composer": "Traditional",
           "first_matra": 1,
           "laya": "",
-          "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+          "notes": "Transcribed from Vishwamohini script; source holds converted to this app's holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
           "raga": "Malkauns",
           "sections": [
             {

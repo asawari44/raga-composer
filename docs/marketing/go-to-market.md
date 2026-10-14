@@ -1,12 +1,12 @@
-# Go-to-market plan for Swaramala
+# Go-to-market plan for Riyaaz your way
 
-Swaramala is a free, open source web app for composing and practicing Hindustani classical music. You can use it in the browser at `https://asawari44.github.io/raga-composer/`. The URL can change later if the repository is renamed. The site has no accounts and no server. Learners can practice with raga reference data, swara notation, generated phrases, tanpura, tabla, piano, harmonium voices, local saved lines, and browser-based recording.
+Riyaaz your way is a free, open source web app for composing and practicing Hindustani classical music. You can use it in the browser at `https://asawari44.github.io/raga-composer/`. The URL can change later if the repository is renamed. The site has no accounts and no server. Learners can practice with raga reference data, swara notation, generated phrases, tanpura, tabla, piano, harmonium voices, local saved lines, and browser-based recording.
 
 ## Positioning
 
 ### Positioning statement
 
-For Hindustani classical learners, teachers, and musicians who want a practical way to explore raga notation and practice ideas, Swaramala is a free browser-based composition and practice app that combines raga rules, swara notation, tanpura, tabla, and instrument playback without accounts or paid access.
+For Hindustani classical learners, teachers, and musicians who want a practical way to explore raga notation and practice ideas, Riyaaz your way is a free browser-based composition and practice app that combines raga rules, swara notation, tanpura, tabla, and instrument playback without accounts or paid access.
 
 ### Tagline
 
@@ -30,7 +30,7 @@ Teachers need a no-cost tool they can share with students for reference, demonst
 
 ### Music schools
 
-Music schools need tools that support group learning and practice outside class. They may share Swaramala in class groups, course notes, newsletters, and student portals.
+Music schools need tools that support group learning and practice outside class. They may share Riyaaz your way in class groups, course notes, newsletters, and student portals.
 
 ### Hobbyists
 
@@ -50,7 +50,7 @@ Instrumentalists need fast raga reference, scale playback, and phrase ideas that
 |---|---|---|
 | Students | Practice raga phrases with notation, tanpura, and tabla in one browser tab. | Use raga facts, swara notation, generated alaap and taan phrases, and playback to reinforce lessons. |
 | Teachers and gurus | Share a free practice companion with students without creating accounts. | Use it for demonstrations, homework prompts, and notation review. Encourage students to confirm repertoire and stylistic details with you. |
-| Music schools | Give students a browser-based raga practice tool that works outside class. | Add Swaramala to resource pages, class groups, and newsletters. It is free and open source. |
+| Music schools | Give students a browser-based raga practice tool that works outside class. | Add Riyaaz your way to resource pages, class groups, and newsletters. It is free and open source. |
 | Hobbyists | Explore Hindustani swaras and ragas with guided notation and sound. | Start with familiar ragas, play notes from the on-screen keyboard, and learn how notation maps to sound. |
 | Diaspora learners | Keep raga practice accessible between remote lessons. | Use it from a static web page, without a server account, and share saved work by export when needed. |
 | Instrumentalists | Turn raga rules into playable practice phrases. | Choose Sa, use piano or harmonium voices, and compare phrases against aaroh, avroh, pakad, and varjit swaras. |
@@ -65,7 +65,7 @@ Rank channels by expected reach and effort for a no-budget launch. Start with ch
 | 2 | WhatsApp and Facebook music groups | High | Medium | Teachers, students, and school communities already share practice tools in groups. | Ask teachers to share the app with one class group and invite corrections. |
 | 3 | Music teachers, gurus, and newsletters | Medium to high | Medium | Trusted teachers can drive sustained use and feedback. | Send a concise teacher message with the free, no-account value proposition. |
 | 4 | Reddit communities such as `r/hindustaniclassical` and `r/IndianClassical` | Medium | Low | Niche communities can provide accurate feedback and early contributors. | Post only where self-promotion rules allow it, and frame the post as a free tool seeking feedback. |
-| 5 | Music schools and Gandharva Mahavidyalaya networks | Medium | Medium | Schools can place Swaramala into repeat use. | Contact coordinators with a short demo and teacher handout. |
+| 5 | Music schools and Gandharva Mahavidyalaya networks | Medium | Medium | Schools can place Riyaaz your way into repeat use. | Contact coordinators with a short demo and teacher handout. |
 | 6 | Search engine optimization | Medium | Medium | Learners search for raga names, notation, tanpura, tabla, and theka queries. | Improve metadata now, then add per-raga pages later. |
 | 7 | Product Hunt | Medium | Low | Product Hunt can reach makers, musicians, and teachers who like free tools. | Launch after the site has metadata, social images, and a short demo video. |
 | 8 | Hacker News Show HN | Medium | Low | Show HN can reach developers, open source contributors, and music technologists. | Post with technical clarity and invite feedback on the static app. |
@@ -142,7 +142,7 @@ Rank channels by expected reach and effort for a no-budget launch. Start with ch
 
 ### Immediate work
 
-- Use the primary title `Swaramala: compose and practice Hindustani classical music`.
+- Use the primary title `Riyaaz your way: compose and practice Hindustani classical music`.
 - Use a concise description that includes raga phrases, notation, tanpura, tabla, and free browser app.
 - Add `sitemap.xml`. A project site can't serve `robots.txt`, because crawlers only read it from the domain root; submit the sitemap in Google Search Console instead.
 - Add JSON-LD for a free `WebApplication` in the `Music` category.

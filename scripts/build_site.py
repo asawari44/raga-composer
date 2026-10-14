@@ -1,4 +1,4 @@
-"""Build the static Swaramala site for GitHub Pages."""
+"""Build the static Riyaaz your way site for GitHub Pages."""
 
 from __future__ import annotations
 

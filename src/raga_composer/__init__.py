@@ -1,1 +1,1 @@
-"""Swaramala: generate and arrange phrases that obey a Hindustani raga."""
+"""Riyaaz your way: generate and arrange phrases that obey a Hindustani raga."""

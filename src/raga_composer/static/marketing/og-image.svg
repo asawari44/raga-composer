@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">Swaramala social preview</title>
-  <desc id="desc">Swaramala name in Latin and Devanagari, the tagline Compose and practice raga phrases in your browser, and swara notation on a warm brown and gold background.</desc>
+  <title id="title">Riyaaz your way social preview</title>
+  <desc id="desc">Riyaaz your way name in Latin and Devanagari, the tagline Compose and practice raga phrases in your browser, and swara notation on a warm brown and gold background.</desc>
   <defs>
     <radialGradient id="gold" cx="35%" cy="35%" r="75%">
       <stop offset="0" stop-color="#ffe2a3"/>
@@ -45,8 +45,8 @@
   </g>
 
   <g transform="translate(420 148)">
-    <text x="0" y="0" fill="#fff7ea" font-family="Georgia, 'Times New Roman', serif" font-size="92" font-weight="700" letter-spacing="1">Swaramala</text>
-    <text x="4" y="74" fill="#e9a23b" font-family="'Kohinoor Devanagari', 'Noto Sans Devanagari', 'Devanagari Sangam MN', sans-serif" font-size="54" font-weight="650">स्वरमाला</text>
+    <text x="0" y="0" fill="#fff7ea" font-family="Georgia, 'Times New Roman', serif" font-size="76" font-weight="700" letter-spacing="1">Riyaaz your way</text>
+    <text x="4" y="74" fill="#e9a23b" font-family="'Kohinoor Devanagari', 'Noto Sans Devanagari', 'Devanagari Sangam MN', sans-serif" font-size="54" font-weight="650">रियाज़</text>
     <text x="4" y="144" fill="#f6e7cf" font-family="system-ui, -apple-system, 'Segoe UI', sans-serif" font-size="31">Compose and practice raga phrases in your browser</text>
   </g>
 

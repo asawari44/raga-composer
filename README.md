@@ -1,8 +1,8 @@
-# Swaramala
+# Riyaaz your way
 
-![Swaramala logo](src/raga_composer/static/img/favicon.svg)
+![Riyaaz your way logo](src/raga_composer/static/img/favicon.svg)
 
-Swaramala (स्वरमाला, "a garland of swaras") helps you compose Hindustani classical phrases. You choose a raga,
+Riyaaz your way (रियाज़, "practice") helps you compose and practice Hindustani classical phrases. You choose a raga,
 describe the phrase you want in plain words, and the app generates patterns that
 obey the raga's aaroh, avroh, and varjit swaras. You can then arrange a pattern as
 a taan, add held notes, play it on a piano with tanpura and tabla, save it, and
@@ -11,7 +11,7 @@ record your practice in your browser.
 ## Using the app
 
 On your first visit, a welcome screen offers two starting points: **Learn a
-raga** and **Compose in a raga**. After that, Swaramala opens the last raga you
+raga** and **Compose in a raga**. After that, Riyaaz your way opens the last raga you
 used.
 
 The page has these parts:

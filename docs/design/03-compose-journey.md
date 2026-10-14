@@ -2,7 +2,7 @@
 
 ## Scope
 
-This spec covers the **Compose** and **My library** journeys for Swaramala. It makes composing approachable for a beginner-to-intermediate Hindustani music student while preserving power-user notation entry.
+This spec covers the **Compose** and **My library** journeys for Riyaaz your way. It makes composing approachable for a beginner-to-intermediate Hindustani music student while preserving power-user notation entry.
 
 Designer 1 owns the global shell, navigation, and visual tokens. Designer 2 owns the **Learn** journey. This spec references those areas only where the compose journey connects to them.
 
@@ -65,7 +65,7 @@ Power user
 #### Controls and copy
 
 - Heading: **Describe your phrase**.
-- Helper text: `Choose a few musical details. Swaramala writes the prompt for you.`
+- Helper text: `Choose a few musical details. Riyaaz your way writes the prompt for you.`
 - **Direction** options:
   - **Any shape** -> no contour phrase.
   - **Ascending** -> `ascending`.
@@ -217,7 +217,7 @@ Move **Notes per beat** next to the grid title, not under the text input. Changi
 
 - Keep `#editor-text` visible under the grid.
 - Label it **Type notation** instead of relying on placeholder text.
-- On invalid syntax, show an inline error below the field: `Swaramala doesn't recognize "Q". Use S R G m P D N, _ for hold, or - for rest.`
+- On invalid syntax, show an inline error below the field: `Riyaaz your way doesn't recognize "Q". Use S R G m P D N, _ for hold, or - for rest.`
 - Add **Apply typed line** for users who paste a line and expect an explicit commit.
 - Keep live parsing for current behavior, but don't replace the grid while the user is midway through an invalid token.
 

@@ -144,7 +144,7 @@ export async function exportLibrary() {
   const url = URL.createObjectURL(blob);
   const a = document.createElement("a");
   a.href = url;
-  a.download = `swaramala-library-${new Date().toISOString().slice(0, 10)}.json`;
+  a.download = `riyaaz-library-${new Date().toISOString().slice(0, 10)}.json`;
   a.click();
   // Revoking right away can cancel the download in Safari and Firefox.
   setTimeout(() => URL.revokeObjectURL(url), 60_000);

@@ -2,7 +2,7 @@
 
 ## Scope
 
-This spec covers the **Overview**, **Compositions**, and **Alaap and taan** tabs for Swaramala. It makes learning a raga guided, audible, and practice-oriented. It keeps the static site, vanilla JavaScript, current audio engine, relative URLs, CSP requirements, and the existing keyboard mapping.
+This spec covers the **Overview**, **Compositions**, and **Alaap and taan** tabs for Riyaaz your way. It makes learning a raga guided, audible, and practice-oriented. It keeps the static site, vanilla JavaScript, current audio engine, relative URLs, CSP requirements, and the existing keyboard mapping.
 
 Designer 1 owns the global shell, navigation, and visual tokens. This spec refers to those areas only where the learn journey needs shared controls. Designer 3 owns the Compose journey. This spec keeps **Open in Compose** as a boundary action.
 
@@ -206,7 +206,7 @@ Exact panel copy:
 
 ```text
 Performance plan
-Swaramala sings the bandish, adds alaap and taan, and returns to the mukhda at the right sam.
+Riyaaz your way sings the bandish, adds alaap and taan, and returns to the mukhda at the right sam.
 ```
 
 Plan item examples:

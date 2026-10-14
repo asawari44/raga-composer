@@ -4,13 +4,13 @@ Use these drafts after you verify that the static site is live at `https://asawa
 
 ## Hacker News Show HN
 
-**Title:** Show HN: Swaramala, a free browser app for Hindustani raga practice
+**Title:** Show HN: Riyaaz your way, a free browser app for Hindustani raga practice
 
 **Post:**
 
 Hi HN,
 
-I built Swaramala, a free and open source web app for composing and practicing Hindustani classical music:
+I built Riyaaz your way, a free and open source web app for composing and practicing Hindustani classical music:
 
 https://asawari44.github.io/raga-composer/
 
@@ -30,17 +30,17 @@ Source code: https://github.com/asawari44/raga-composer
 
 ## Product Hunt
 
-**Name:** Swaramala
+**Name:** Riyaaz your way
 
 **Tagline:** Compose and practice raga phrases in your browser
 
 **Description:**
 
-Swaramala is a free, open source browser app for Hindustani classical music practice. Choose a raga, view notation and raga facts, generate raga-true phrases, arrange taans and paltas, and practice with tanpura, tabla, piano, and harmonium sounds. It runs as a static site with no accounts and no server.
+Riyaaz your way is a free, open source browser app for Hindustani classical music practice. Choose a raga, view notation and raga facts, generate raga-true phrases, arrange taans and paltas, and practice with tanpura, tabla, piano, and harmonium sounds. It runs as a static site with no accounts and no server.
 
 **Maker comment:**
 
-Swaramala started as a practice tool for Hindustani classical learners who need notation, sound, and raga reference in one place.
+Riyaaz your way started as a practice tool for Hindustani classical learners who need notation, sound, and raga reference in one place.
 
 You can use it to browse raga facts, play compositions where notation data are available, generate alaap and taan phrases, and practice with tanpura and tabla in the browser. The app is free and open source. It stores work locally instead of using accounts.
 
@@ -52,7 +52,7 @@ I would appreciate feedback from students, teachers, musicians, and people who b
 
 **Post:**
 
-I made Swaramala, a free and open source browser app for Hindustani classical music practice:
+I made Riyaaz your way, a free and open source browser app for Hindustani classical music practice:
 
 https://asawari44.github.io/raga-composer/
 
@@ -76,13 +76,13 @@ This is a practice aid, not a replacement for a guru. I would especially value f
 
 **Post:**
 
-I built Swaramala, a free browser app for Hindustani classical learners and teachers:
+I built Riyaaz your way, a free browser app for Hindustani classical learners and teachers:
 
 https://asawari44.github.io/raga-composer/
 
 I am posting for feedback and will respect the community's self-promotion rules.
 
-Swaramala includes raga reference, swara notation, phrase generation, tanpura, tabla theka, and piano and harmonium playback. It runs fully in the browser as a static site, so there are no accounts and no server.
+Riyaaz your way includes raga reference, swara notation, phrase generation, tanpura, tabla theka, and piano and harmonium playback. It runs fully in the browser as a static site, so there are no accounts and no server.
 
 If you teach, learn, or perform Hindustani music, I would appreciate feedback on:
 
@@ -103,9 +103,9 @@ Source code: https://github.com/asawari44/raga-composer
 
 0 to 3 seconds:
 
-Caption: `Swaramala: free raga practice in your browser`
+Caption: `Riyaaz your way: free raga practice in your browser`
 
-Voiceover: "This is Swaramala, a free browser app for Hindustani classical practice."
+Voiceover: "This is Riyaaz your way, a free browser app for Hindustani classical practice."
 
 3 to 8 seconds:
 
@@ -141,7 +141,7 @@ Voiceover: "Use it free at asawari44.github.io/raga-composer."
 
 Namaste,
 
-I am sharing Swaramala, a free and open source browser app for Hindustani classical music practice:
+I am sharing Riyaaz your way, a free and open source browser app for Hindustani classical music practice:
 
 https://asawari44.github.io/raga-composer/
 

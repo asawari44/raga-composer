@@ -19,7 +19,7 @@
   "laya": "Madhya",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/gagari-mori-bharana-nahi-in-raag-adana-570",
-  "notes": "Vishwamohini notation; kan swaras in braces omitted. Vishwamohini holds converted to Swaramala holds where they follow a note.",
+  "notes": "Vishwamohini notation; kan swaras in braces omitted. Vishwamohini holds converted to this app's holds where they follow a note.",
   "first_matra": 1,
   "sections": [
    {
@@ -1355,7 +1355,7 @@
   "laya": "Madhya",
   "composer": "Ameer Khusro",
   "source": "https://vishwamohini.com/compositions/raag-bahar-bandish-1224",
-  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to Swaramala octave marks. Empty pickup beats are encoded as empty strings.",
+  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to this app's octave marks. Empty pickup beats are encoded as empty strings.",
   "first_matra": 1,
   "sections": [
    {
@@ -5127,7 +5127,7 @@
   "laya": "",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/biraja-mein-dhum-machayo-shyam-in-raag-bhimpalasi-589",
-  "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+  "notes": "Transcribed from Vishwamohini script; source holds converted to this app's holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
   "first_matra": 1,
   "sections": [
    {
@@ -5754,7 +5754,7 @@
   "laya": "Madhya",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/tarana-in-raag-bhoop-534",
-  "notes": "Transcribed from Vishwamohini script. Brace-marked kan swaras are omitted; Vishwamohini holds are converted to Swaramala holds. Source names the raga as Bhoop.",
+  "notes": "Transcribed from Vishwamohini script. Brace-marked kan swaras are omitted; Vishwamohini holds are converted to this app's holds. Source names the raga as Bhoop.",
   "first_matra": 1,
   "sections": [
    {
@@ -6054,7 +6054,7 @@
   "laya": "",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/jabase-tumisana-lagali-in-raag-bhoop-568",
-  "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+  "notes": "Transcribed from Vishwamohini script; source holds converted to this app's holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
   "first_matra": 1,
   "sections": [
    {
@@ -6253,7 +6253,7 @@
   "laya": "",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/mangalamay-jaya-vaani-in-raag-bhoopali-943",
-  "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+  "notes": "Transcribed from Vishwamohini script; source holds converted to this app's holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
   "first_matra": 1,
   "sections": [
    {
@@ -6621,7 +6621,7 @@
   "laya": "Madhya",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/aba-hun-lalan-mai-in-raag-bihag-564",
-  "notes": "Transcribed from Vishwamohini Script. Grace notes in braces were omitted; Vishwamohini hold markers were mapped to Swaramala holds or empty pre-start beats.",
+  "notes": "Transcribed from Vishwamohini Script. Grace notes in braces were omitted; Vishwamohini hold markers were mapped to this app's holds or empty pre-start beats.",
   "first_matra": 1,
   "sections": [
    {
@@ -8280,7 +8280,7 @@
   "laya": "Madhya",
   "composer": "Manrang",
   "source": "https://vishwamohini.com/compositions/bana-bana-dhundhana-jaun-in-raag-vrundavani-sarang-578",
-  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to Swaramala octave marks. Empty pickup beats are encoded as empty strings.",
+  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to this app's octave marks. Empty pickup beats are encoded as empty strings.",
   "first_matra": 1,
   "sections": [
    {
@@ -10792,7 +10792,7 @@
   "laya": "",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/sakhi-mori-ruma-jhuma-in-raag-durga-580",
-  "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+  "notes": "Transcribed from Vishwamohini script; source holds converted to this app's holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
   "first_matra": 1,
   "sections": [
    {
@@ -13717,7 +13717,7 @@
   "laya": "Madhya",
   "composer": "Sadarang",
   "source": "https://vishwamohini.com/compositions/chanaka-bunda-para-lo-re-balama-in-raag-hindol-541",
-  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to Swaramala octave marks. Empty pickup beats are encoded as empty strings. The source gives the sthayi text before notation but omits beat-aligned sthayi lyric rows; those word cells are empty.",
+  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to this app's octave marks. Empty pickup beats are encoded as empty strings. The source gives the sthayi text before notation but omits beat-aligned sthayi lyric rows; those word cells are empty.",
   "first_matra": 1,
   "sections": [
    {
@@ -14126,7 +14126,7 @@
   "laya": "Not specified",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/raag-hindol-sargam-geet-416",
-  "notes": "Fetched from Vishwamohini. The page gives a 10-beat Jhaptaal sargam geet. Grace notes in braces were omitted; octave numbers were converted to Swaramala marks; hyphen holds are rendered as underscores.",
+  "notes": "Fetched from Vishwamohini. The page gives a 10-beat Jhaptaal sargam geet. Grace notes in braces were omitted; octave numbers were converted to this app's marks; hyphen holds are rendered as underscores.",
   "first_matra": 1,
   "sections": [
    {
@@ -15285,7 +15285,7 @@
   "laya": "Drut",
   "composer": "Faiyaz Khan",
   "source": "https://raag-hindustani.com/22_files/JogSajan.jpg",
-  "notes": "Transcribed from the Raag Hindustani notation image linked from https://raag-hindustani.com/Jog.html. Source writes apostrophes before upper-octave notes; they are converted to Swaramala postfix marks. Source tildes are holds. Words are omitted in JSON because the image line syllable alignment includes pickup and repeat marks that are ambiguous in the capture.",
+  "notes": "Transcribed from the Raag Hindustani notation image linked from https://raag-hindustani.com/Jog.html. Source writes apostrophes before upper-octave notes; they are converted to this app's postfix marks. Source tildes are holds. Words are omitted in JSON because the image line syllable alignment includes pickup and repeat marks that are ambiguous in the capture.",
   "first_matra": 1,
   "sections": [
    {
@@ -16142,7 +16142,7 @@
   "laya": "Madhya",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/are-mana-mana-kahe-kare-in-raag-kalingada-591",
-  "notes": "Transcribed from Vishwamohini Script. Grace notes in braces were omitted; Vishwamohini hold markers were mapped to Swaramala holds or empty pre-start beats.",
+  "notes": "Transcribed from Vishwamohini Script. Grace notes in braces were omitted; Vishwamohini hold markers were mapped to this app's holds or empty pre-start beats.",
   "first_matra": 1,
   "sections": [
    {
@@ -18284,7 +18284,7 @@
   "laya": "Madhya",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/vighanahara-gauri-ke-nandan-in-raag-lalit-562",
-  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to Swaramala octave marks. Empty pickup beats are encoded as empty strings.",
+  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to this app's octave marks. Empty pickup beats are encoded as empty strings.",
   "first_matra": 1,
   "sections": [
    {
@@ -19705,7 +19705,7 @@
   "laya": "",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/raag-malkauns-sargam-geet-404",
-  "notes": "Transcribed from Vishwamohini script; source holds converted to Swaramala holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
+  "notes": "Transcribed from Vishwamohini script; source holds converted to this app's holds. Validation: passed schema, taal beat-count, and raga move-graph checks.",
   "first_matra": 1,
   "sections": [
    {
@@ -20262,7 +20262,7 @@
   "laya": "Madhya",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/jagata-janani-jagadamba-in-raag-marwa-595",
-  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to Swaramala octave marks. Empty pickup beats are encoded as empty strings.",
+  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to this app's octave marks. Empty pickup beats are encoded as empty strings.",
   "first_matra": 1,
   "sections": [
    {
@@ -20599,7 +20599,7 @@
   "laya": "Not specified",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/raag-marwa-sargam-geet-395",
-  "notes": "Fetched from Vishwamohini. The page gives a 12-beat Ektaal sargam geet. Grace notes in braces were omitted; octave numbers were converted to Swaramala marks; hyphen holds are rendered as underscores.",
+  "notes": "Fetched from Vishwamohini. The page gives a 12-beat Ektaal sargam geet. Grace notes in braces were omitted; octave numbers were converted to this app's marks; hyphen holds are rendered as underscores.",
   "first_matra": 1,
   "sections": [
    {
@@ -21014,7 +21014,7 @@
   "laya": "Not specified",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/raag-megh-malhaar-sargam-geet-438",
-  "notes": "Fetched from Vishwamohini. The source labels the piece Megh Malhaar; the entry uses the requested raga name Megh because this was the only open fetched notation found for the missing Megh-family item. Grace notes in braces were omitted; octave numbers were converted to Swaramala marks; hyphen holds are rendered as underscores.",
+  "notes": "Fetched from Vishwamohini. The source labels the piece Megh Malhaar; the entry uses the requested raga name Megh because this was the only open fetched notation found for the missing Megh-family item. Grace notes in braces were omitted; octave numbers were converted to this app's marks; hyphen holds are rendered as underscores.",
   "first_matra": 1,
   "sections": [
    {
@@ -21533,7 +21533,7 @@
   "laya": "Madhya",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/bijuri-chamake-barase-meharawa-in-raag-miya-malhar-587",
-  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to Swaramala octave marks. Empty pickup beats are encoded as empty strings.",
+  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to this app's octave marks. Empty pickup beats are encoded as empty strings.",
   "first_matra": 1,
   "sections": [
    {
@@ -25783,7 +25783,7 @@
   "laya": "Madhya",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/nange-awana-nange-jana-in-raag-puriya-559",
-  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to Swaramala octave marks. Empty pickup beats are encoded as empty strings.",
+  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to this app's octave marks. Empty pickup beats are encoded as empty strings.",
   "first_matra": 1,
   "sections": [
    {
@@ -25967,7 +25967,7 @@
   "laya": "Madhya",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/payaliya-jhanakara-mori-in-puriya-dhanashree-592",
-  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to Swaramala octave marks. Empty pickup beats are encoded as empty strings.",
+  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to this app's octave marks. Empty pickup beats are encoded as empty strings.",
   "first_matra": 1,
   "sections": [
    {
@@ -27869,7 +27869,7 @@
   "laya": "Madhya",
   "composer": "Hararang",
   "source": "https://vishwamohini.com/compositions/prabhu-ke-charana-kamala-in-raag-shree-581",
-  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to Swaramala octave marks. Empty pickup beats are encoded as empty strings.",
+  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to this app's octave marks. Empty pickup beats are encoded as empty strings.",
   "first_matra": 1,
   "sections": [
    {
@@ -28566,7 +28566,7 @@
   "laya": "Madhya",
   "composer": "Manrang",
   "source": "https://vishwamohini.com/compositions/kahe-aba-tuma-aye-ho-in-raag-sohni-590",
-  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to Swaramala octave marks. Empty pickup beats are encoded as empty strings.",
+  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to this app's octave marks. Empty pickup beats are encoded as empty strings.",
   "first_matra": 1,
   "sections": [
    {
@@ -28972,7 +28972,7 @@
   "laya": "Madhya",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/tiratha-ko-saba-kare-in-raag-tilak-kamod-609",
-  "notes": "Transcribed from Vishwamohini Script. Grace notes in braces were omitted; Vishwamohini hold markers were mapped to Swaramala holds or empty pre-start beats.",
+  "notes": "Transcribed from Vishwamohini Script. Grace notes in braces were omitted; Vishwamohini hold markers were mapped to this app's holds or empty pre-start beats.",
   "first_matra": 1,
   "sections": [
    {
@@ -29397,7 +29397,7 @@
   "laya": "Madhya",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/dekho-jiya-bechain-thumri-in-raag-tilang-593",
-  "notes": "Transcribed from Vishwamohini Script. Grace notes in braces were omitted; Vishwamohini hold markers were mapped to Swaramala holds or empty pre-start beats.",
+  "notes": "Transcribed from Vishwamohini Script. Grace notes in braces were omitted; Vishwamohini hold markers were mapped to this app's holds or empty pre-start beats.",
   "first_matra": 1,
   "sections": [
    {
@@ -30011,7 +30011,7 @@
   "laya": "Madhya",
   "composer": "Traditional",
   "source": "https://vishwamohini.com/compositions/bairana-nanadiya-lagi-rat-in-raag-vibhas-557",
-  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to Swaramala octave marks. Empty pickup beats are encoded as empty strings.",
+  "notes": "Fetched from Vishwamohini. Grace notes in braces were omitted; Vishwamohini octave numbers were converted to this app's octave marks. Empty pickup beats are encoded as empty strings.",
   "first_matra": 1,
   "sections": [
    {

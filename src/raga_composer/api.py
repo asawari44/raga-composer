@@ -42,7 +42,7 @@ from raga_composer.storage import LocalBlobStore, Repository
 from raga_composer.taal import TAALS, Taal
 
 STATIC_DIR = Path(__file__).parent / "static"
-APP_NAME = "Swaramala"
+APP_NAME = "Riyaaz your way"
 SESSION_COOKIE = "swaramala_session"
 SESSION_COOKIE_MAX_AGE = 60 * 60 * 24 * 90
 UNSAFE_METHODS = {"POST", "PUT", "PATCH", "DELETE"}

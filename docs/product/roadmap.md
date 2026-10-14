@@ -1,6 +1,6 @@
 # Product roadmap
 
-Swaramala helps you compose and practice Hindustani classical music in your browser. The static release runs on GitHub Pages at `https://asawari44.github.io/raga-composer/`, does not require accounts, and keeps your data in the browser unless you export it. The URL can change if the repository is renamed, so the application should use relative URLs everywhere and keep unavoidable absolute URLs in one build-time setting.
+Riyaaz your way helps you compose and practice Hindustani classical music in your browser. The static release runs on GitHub Pages at `https://asawari44.github.io/raga-composer/`, does not require accounts, and keeps your data in the browser unless you export it. The URL can change if the repository is renamed, so the application should use relative URLs everywhere and keep unavoidable absolute URLs in one build-time setting.
 
 ## Target users and top jobs
 
@@ -14,13 +14,13 @@ Swaramala helps you compose and practice Hindustani classical music in your brow
 
 ## Competitive scan
 
-| Product | What it does well | Gap that Swaramala can fill |
+| Product | What it does well | Gap that Riyaaz your way can fill |
 |---|---|---|
 | [iTablaPro](https://www.upasani.org/home/iTablaPro.html) | Provides high-quality tabla, tanpura, swarmandal, and practice accompaniment across many taals. | It focuses on accompaniment, not raga-aware composition, notation editing, or homework packs. |
 | [iTanpura](http://upasani.org/home/itanpura.html) and shruti box apps | Provide a reliable drone for daily riyaz. | They do not teach phrase construction or validate raga movement. |
 | [Riyaz](https://riyazapp.com/) | Tracks vocal range, accuracy, breath control, and progress. | It focuses on vocal coaching and guided lessons, not browser-based raga composition or teacher-owned notation packs. |
-| [SwarShala](https://www.swarclassical.com/SwarShala/) | Offers Indian music notation, virtual instruments, tutorials, and recording in a full software suite. | It is broader and heavier than a static web application; Swaramala can stay free, shareable, and focused. |
-| Sur Sadhana and [Sadhana AI](https://sadhana-ai.com/) | Emphasize practice support, pitch or timing analysis, and guided riyaz. | They validate singing, while Swaramala can validate generated notation and composition structure. |
+| [SwarShala](https://www.swarclassical.com/SwarShala/) | Offers Indian music notation, virtual instruments, tutorials, and recording in a full software suite. | It is broader and heavier than a static web application; Riyaaz your way can stay free, shareable, and focused. |
+| Sur Sadhana and [Sadhana AI](https://sadhana-ai.com/) | Emphasize practice support, pitch or timing analysis, and guided riyaz. | They validate singing, while Riyaaz your way can validate generated notation and composition structure. |
 | Vishwamohini and other raga reference tools | Help you look up raga information and examples. | They usually do not combine reference, generation, notation editing, playback, and recording in one browser workflow. |
 | [Raag Hindustani](https://raag-hindustani.com/) | Explains Hindustani concepts from first principles with notation examples. | It is a learning reference, not an interactive practice workspace. |
 | [Flat](https://flat.io/) | Provides collaborative Western notation, sharing, classroom flows, and community. | It does not model Hindustani swara notation, raga movement, taals, or tanpura and tabla practice. |
@@ -167,4 +167,4 @@ Swaramala helps you compose and practice Hindustani classical music in your brow
 - **Marketplace or paid lessons:** Monetization adds trust, tax, support, and content liability before the core practice loop proves value.
 - **Full AI grading:** Pitch and timing feedback can help, but teacher-like grading needs accuracy, explainability, and careful framing.
 - **Mobile native applications:** The static web application should prove the workflows before you maintain platform-specific releases.
-- **Full DAW features:** Multi-track production overlaps with SwarShala, MuseScore, and other tools. Swaramala should stay focused on raga-aware practice.
+- **Full DAW features:** Multi-track production overlaps with SwarShala, MuseScore, and other tools. Riyaaz your way should stay focused on raga-aware practice.

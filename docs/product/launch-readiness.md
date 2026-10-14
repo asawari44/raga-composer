@@ -75,4 +75,4 @@ Use this checklist to decide whether the static GitHub Pages release is producti
 - [ ] **Users can report issues.** Pass condition: The application links to the public GitHub Issues page or another maintained support channel with a short template for browser, device, raga, and steps to reproduce.
 - [ ] **Users can report content corrections.** Pass condition: Composition and raga pages link to a correction flow that asks for source evidence and tradition notes.
 - [ ] **Users can get recovery help.** Pass condition: Help text explains how to export data, import data, clear local data, recover from storage errors, and download recordings.
-- [ ] **Known limits are visible.** Pass condition: Help text states that Swaramala is a practice aid, not a replacement for a teacher, and that raga and composition traditions can vary.
+- [ ] **Known limits are visible.** Pass condition: Help text states that Riyaaz your way is a practice aid, not a replacement for a teacher, and that raga and composition traditions can vary.

@@ -54,7 +54,7 @@ resolve overlaps between the specs.
 
 ## Color palette
 
-On October 14, 2026, Swaramala moved from the walnut-and-saffron palette to
+On October 14, 2026, Riyaaz your way moved from the walnut-and-saffron palette to
 **indigo and marigold**. Five palettes were compared on the welcome, Learn,
 Compositions, and Compose screens. Indigo and marigold had the highest contrast
 (white on primary buttons is 9.9:1, and body text is 15:1), kept the saffron

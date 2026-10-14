@@ -266,7 +266,7 @@ export async function exportLibrary() {
 function validateImport(payload, sizeBytes) {
   if (sizeBytes > MAX_IMPORT_BYTES) throw new Error("The import file is larger than 75 MB.");
   if (!payload || payload.swaramala_library_version !== EXPORT_VERSION) {
-    throw new Error("Choose a Swaramala library export file.");
+    throw new Error("Choose a Riyaaz your way library export file.");
   }
   if (!Array.isArray(payload.lines) || !Array.isArray(payload.recordings)) {
     throw new Error("The library export is missing lines or recordings.");

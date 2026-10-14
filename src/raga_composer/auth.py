@@ -49,6 +49,7 @@ COMMON_PASSWORDS = frozenset(
         "internet",
         "changeme",
         "swaramala",
+        "riyaaz",
         "sargam123",
         "harmonium",
     )

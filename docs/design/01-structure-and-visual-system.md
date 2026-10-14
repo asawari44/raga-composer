@@ -1,6 +1,6 @@
 # Structure and visual system spec
 ## Scope
-This spec defines the shared shell for Swaramala:
+This spec defines the shared shell for Riyaaz your way:
 - First-visit orientation, top-level navigation, and raga selection.
 - Global chrome, sound controls, and keyboard dock behavior.
 - Shared visual tokens, components, focus states, and notation grid styling.
@@ -44,7 +44,7 @@ Compose local anchors, if needed: **Generate**, **Arrange**, **Play**, **Record*
 Show this state before a raga is selected or when the URL has no raga state.
 Desktop wireframe:
 ```text
-[logo] Swaramala     Learn  Compose  Library       [Search ragas...] [Browse]
+[logo] Riyaaz your way     Learn  Compose  Library       [Search ragas...] [Browse]
 Learn the shape of a raga. Compose phrases that stay inside it.
 Choose a starting point.
 [Learn a raga]                         [Compose in a raga]
@@ -55,7 +55,7 @@ Browse by: [Popular] [Thaat] [Time] [Compositions available]
 ```
 Mobile wireframe:
 ```text
-Swaramala                              [Menu]
+Riyaaz your way                              [Menu]
 [Search ragas]
 Learn ragas. Compose in them.
 [Learn] [Compose]
@@ -85,16 +85,16 @@ States:
 - Empty: **No raga selected. Search for a raga or start with Yaman.**
 - Loading: **Loading raga data.**
 - No results: **No ragas match this search. Try a name, thaat, or time of day.**
-- Error: **Swaramala could not load raga data. Refresh the page or try again later.**
+- Error: **Riyaaz your way could not load raga data. Refresh the page or try again later.**
 ## P0 global chrome
 ### Header
 Desktop:
 ```text
-[logo] Swaramala        Learn  Compose  Library        [Search ragas...] [Browse]
+[logo] Riyaaz your way        Learn  Compose  Library        [Search ragas...] [Browse]
 ```
 Mobile:
 ```text
-[logo] Swaramala                         [Menu]
+[logo] Riyaaz your way                         [Menu]
 [Search ragas...]
 ```
 Rules:

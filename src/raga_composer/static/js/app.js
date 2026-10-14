@@ -739,7 +739,7 @@ function phraseCard(text, { name, onDone = null } = {}) {
 function renderRagaHeading() {
   const r = state.raga;
   $("#raga-name").textContent = r ? `Raga ${r.name}` : "Choose a raga";
-  document.title = r ? `${r.name} · Swaramala` : "Swaramala · compose Hindustani classical phrases";
+  document.title = r ? `${r.name} · Riyaaz your way` : "Riyaaz your way · compose Hindustani classical phrases";
   const facts = $("#raga-facts");
   facts.innerHTML = "";
   if (!r) return;
@@ -811,7 +811,7 @@ function renderRagaInfo() {
       nextStep("improv", "Practice alaap and taan",
         "Listen to free alaaps that widen step by step and 8- and 16-beat taans for the sthayi and antara, then sing them back."),
       nextStep("compose", "Compose your own line",
-        "Pick a direction, a start note, and an end note. Swaramala generates options that follow the raga."),
+        "Pick a direction, a start note, and an end note. Riyaaz your way generates options that follow the raga."),
       nextStep("library", "Open your library", "Your saved lines and recordings.")),
   );
   renderCompositions();
@@ -1440,7 +1440,7 @@ async function generate({ intoEditor = false } = {}) {
     if (i.taal) setTaal(i.taal);
     const summary = $("#intent-summary");
     summary.innerHTML = "";
-    summary.append("Swaramala understood: ", ...i.summary.map((s) => el("span", { class: "tag" }, proseNotes(s))));
+    summary.append("Understood: ", ...i.summary.map((s) => el("span", { class: "tag" }, proseNotes(s))));
     state.chosenPattern = -1;
     renderPatterns(res.patterns);
     $("#generate").textContent = "Generate new options";
@@ -2196,7 +2196,7 @@ function bindLibraryActions() {
 
 // Wire up -------------------------------------------------------------------------------
 async function init() {
-  setLoadingStatus("Loading Swaramala data.");
+  setLoadingStatus("Loading Riyaaz your way data.");
   const config = await api("/api/config");
   state.taals = config.taals;
   config.taals.forEach((t) => $("#taal").append(el("option", { value: t.name }, `${t.name} (${t.beats})`)));
@@ -2277,5 +2277,5 @@ async function init() {
 
 init().catch((err) => {
   console.error(err);
-  setLoadingStatus(`Swaramala couldn't load its data. Refresh the page, or try again after the site finishes deploying. ${err.message}`, true);
+  setLoadingStatus(`Riyaaz your way couldn't load its data. Refresh the page, or try again after the site finishes deploying. ${err.message}`, true);
 });
