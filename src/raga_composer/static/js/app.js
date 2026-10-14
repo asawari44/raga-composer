@@ -102,7 +102,8 @@ const state = {
   npb: 1,
   selected: -1,
   violations: [],
-  lastRequest: null,
+  composeRequestId: 0,
+  arrangeRequestId: 0,
   playback: null,
   improv: null,
   improvSeed: null,
@@ -1395,15 +1396,23 @@ function writeIntent() {
 // Generation ------------------------------------------------------------------------
 async function generate({ intoEditor = false } = {}) {
   if (!state.raga) return toast("Choose a raga first.");
+  const requestId = state.composeRequestId + 1;
+  state.composeRequestId = requestId;
   const req = {
     raga: state.raga.name,
     text: $("#intent").value,
     base: { beats: +$("#beats").value, notes_per_beat: +$("#npb").value, count: +$("#count").value },
   };
-  state.lastRequest = req;
   $("#generate").disabled = true;
   try {
     const res = await api("/api/generate", { json: req });
+    const currentBase = { beats: +$("#beats").value, notes_per_beat: +$("#npb").value, count: +$("#count").value };
+    if (
+      state.composeRequestId !== requestId
+      || state.raga?.name !== req.raga
+      || $("#intent").value !== req.text
+      || JSON.stringify(currentBase) !== JSON.stringify(req.base)
+    ) return;
     const i = res.intention;
     $("#beats").value = i.beats;
     $("#npb").value = i.notes_per_beat;
@@ -1416,10 +1425,11 @@ async function generate({ intoEditor = false } = {}) {
     $("#generate").textContent = "Generate new options";
     if (intoEditor && res.patterns.length) loadLine(tokensFromStrings(res.patterns[0].tokens), res.patterns[0].notes_per_beat);
   } catch (err) {
+    if (state.composeRequestId !== requestId || state.raga?.name !== req.raga || $("#intent").value !== req.text) return;
     $("#patterns").innerHTML = "";
     $("#patterns").append(el("p", { class: "error" }, err.message));
   } finally {
-    $("#generate").disabled = false;
+    if (state.composeRequestId === requestId) $("#generate").disabled = false;
   }
 }
 
@@ -1661,13 +1671,20 @@ function clearLine() {
 
 async function arrange(mode) {
   if (!state.raga || !state.line.length) return toast("Load a line first.");
+  const requestId = state.arrangeRequestId + 1;
+  state.arrangeRequestId = requestId;
+  const raga = state.raga.name;
+  const tokens = lineText(state.line);
+  const notesPerBeat = +$("#taan-npb").value;
   try {
     const res = await api("/api/arrange", {
-      json: { raga: state.raga.name, tokens: lineText(state.line), mode, notes_per_beat: +$("#taan-npb").value },
+      json: { raga, tokens, mode, notes_per_beat: notesPerBeat },
     });
+    if (state.arrangeRequestId !== requestId || state.raga?.name !== raga || lineText(state.line) !== tokens) return;
     const npb = mode === "sustain" || mode === "compact" ? state.npb : res.notes_per_beat;
     loadLine(tokensFromStrings(res.tokens), npb);
   } catch (err) {
+    if (state.arrangeRequestId !== requestId || state.raga?.name !== raga || lineText(state.line) !== tokens) return;
     toast(err.message);
   }
 }
