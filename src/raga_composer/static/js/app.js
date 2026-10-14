@@ -104,6 +104,10 @@ const state = {
   violations: [],
   composeRequestId: 0,
   arrangeRequestId: 0,
+  improvRequestId: 0,
+  savedLinesRequestId: 0,
+  recordingsRequestId: 0,
+  performanceRequestIds: new Map(),
   playback: null,
   improv: null,
   improvSeed: null,
@@ -808,6 +812,8 @@ function renderRagaInfo() {
 const PHRASE_LABELS = { short: "Short", long: "Long" };
 
 async function loadImprovisations(seed = state.improvSeed) {
+  const requestId = state.improvRequestId + 1;
+  state.improvRequestId = requestId;
   const box = $("#improv");
   if (!state.raga) return;
   const taal = state.taal?.name || "Teentaal";
@@ -818,12 +824,12 @@ async function loadImprovisations(seed = state.improvSeed) {
   $("#improv-taal").textContent = `${taal}, ${state.taal?.beats ?? 16} beats`;
   try {
     const data = await api(`/api/ragas/${encodeURIComponent(raga)}/improvisations?${params}`);
-    if (state.raga?.name !== raga || (state.taal?.name || "Teentaal") !== taal) return;
+    if (state.improvRequestId !== requestId || state.raga?.name !== raga || (state.taal?.name || "Teentaal") !== taal) return;
     state.improv = data;
     state.improvSeed = data.seed;
     renderImprovisations();
   } catch (err) {
-    if (state.raga?.name !== raga || (state.taal?.name || "Teentaal") !== taal) return;
+    if (state.improvRequestId !== requestId || state.raga?.name !== raga || (state.taal?.name || "Teentaal") !== taal) return;
     box.innerHTML = "";
     box.append(el("p", { class: "error" }, err.message),
       el("button", { type: "button", onclick: () => loadImprovisations(Math.floor(Math.random() * 2 ** 31)) }, "Try another set"));
@@ -1145,6 +1151,12 @@ function performOptions() {
   };
 }
 
+function nextPerformanceRequestId(key) {
+  const requestId = (state.performanceRequestIds.get(key) || 0) + 1;
+  state.performanceRequestIds.set(key, requestId);
+  return requestId;
+}
+
 // Fetches the alaap and taan for a composition and lays out the performance.
 async function performancePlan(comp, index) {
   const taal = compositionTaal(comp);
@@ -1166,24 +1178,34 @@ function renderPlanSteps(index, plan) {
 }
 
 async function previewPlan(comp, index) {
+  const key = `preview:${index}`;
+  const requestId = nextPerformanceRequestId(key);
+  const raga = state.raga?.name;
   const list = document.getElementById(`plan-steps-${index}`);
   list.replaceChildren(el("li", { class: "muted" }, "Preparing the plan."));
   try {
     const result = await performancePlan(comp, index);
+    if (state.performanceRequestIds.get(key) !== requestId || state.raga?.name !== raga) return;
     if (result) renderPlanSteps(index, result.plan);
   } catch (err) {
+    if (state.performanceRequestIds.get(key) !== requestId || state.raga?.name !== raga) return;
     list.replaceChildren(el("li", { class: "error" }, err.message));
   }
 }
 
 async function performComposition(comp, index, button) {
   if (button.dataset.stop) return stopPlayback();
+  const key = `perform:${index}`;
+  const requestId = nextPerformanceRequestId(key);
+  const raga = state.raga?.name;
   let result;
   try {
     result = await performancePlan(comp, index);
   } catch (err) {
+    if (state.performanceRequestIds.get(key) !== requestId || state.raga?.name !== raga) return;
     return toast(err.message);
   }
+  if (state.performanceRequestIds.get(key) !== requestId || state.raga?.name !== raga) return;
   if (!result) return;
   const { taal, plan } = result;
   stopPlayback();
@@ -1757,10 +1779,12 @@ async function saveLine(tokens = state.line, npb = state.npb, title = "") {
 }
 
 async function loadSavedLines(ragaName = state.raga?.name) {
+  const requestId = state.savedLinesRequestId + 1;
+  state.savedLinesRequestId = requestId;
   const box = $("#saved-lines");
   if (!ragaName) { box.className = "muted"; box.textContent = "Choose a raga to see saved lines."; return; }
   const lines = await api(`/api/lines?raga=${encodeURIComponent(ragaName)}`);
-  if (state.raga?.name !== ragaName) return;
+  if (state.savedLinesRequestId !== requestId || state.raga?.name !== ragaName) return;
   box.className = "";
   box.innerHTML = "";
   $("#saved-title").textContent = `Saved lines in ${ragaName}`;
@@ -1801,8 +1825,11 @@ async function loadSavedLines(ragaName = state.raga?.name) {
 
 // Recordings --------------------------------------------------------------------------
 async function loadRecordings() {
+  const requestId = state.recordingsRequestId + 1;
+  state.recordingsRequestId = requestId;
   const box = $("#recordings");
   const recs = await api("/api/recordings");
+  if (state.recordingsRequestId !== requestId) return;
   box.className = "";
   box.innerHTML = "";
   if (!recs.length) box.append(el("p", { class: "muted" }, "No recordings yet. Click Record in the sound bar to start."));
